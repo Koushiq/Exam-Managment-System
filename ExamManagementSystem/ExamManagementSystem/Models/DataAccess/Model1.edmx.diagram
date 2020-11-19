@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6e22fc4bbd6b47048ee1de65f8634725" Name="Diagram1">
+        <EntityTypeShape EntityType="ExamManagementSystemDBModel.Admins" Width="1.5" PointX="0.75" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamManagementSystemDBModel.Courses" Width="1.5" PointX="3" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamManagementSystemDBModel.Enrolls" Width="1.5" PointX="7.5" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamManagementSystemDBModel.Exams" Width="1.5" PointX="7.5" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamManagementSystemDBModel.GradeSheets" Width="1.5" PointX="9.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamManagementSystemDBModel.Options" Width="1.5" PointX="12" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamManagementSystemDBModel.Questions" Width="1.5" PointX="9.75" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamManagementSystemDBModel.Sections" Width="1.5" PointX="5.25" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamManagementSystemDBModel.Students" Width="1.5" PointX="5.25" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamManagementSystemDBModel.SubmittedAnswers" Width="1.5" PointX="15" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamManagementSystemDBModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamManagementSystemDBModel.Teachers" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamManagementSystemDBModel.Users" Width="1.5" PointX="0.75" PointY="9.875" IsExpanded="true" />
+        <AssociationConnector Association="ExamManagementSystemDBModel.FK_Courses_Admins_CreatedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamManagementSystemDBModel.FK_Courses_Admins_DeletedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamManagementSystemDBModel.FK_Sections_Admins_CreatedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamManagementSystemDBModel.FK_Sections_Admins_DeletedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamManagementSystemDBModel.FK_sections_courses" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamManagementSystemDBModel.FK_enrolls_sections" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamManagementSystemDBModel.FK_Enrolls_Students" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamManagementSystemDBModel.FK_exams_sections" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamManagementSystemDBModel.FK_GradeSheets_Exams" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamManagementSystemDBModel.FK_questions_exams" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamManagementSystemDBModel.FK_GradeSheets_Students" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamManagementSystemDBModel.FK_options_questions" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamManagementSystemDBModel.FK_submitted_answers_questions" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamManagementSystemDBModel.FK_Sections_Teachers" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamManagementSystemDBModel.FK_Students_Users1" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamManagementSystemDBModel.FK_SubmittedAnswers_Students" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamManagementSystemDBModel.FK_Teachers_Users1" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
