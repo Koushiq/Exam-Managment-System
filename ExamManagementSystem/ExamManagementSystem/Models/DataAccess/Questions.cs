@@ -23,6 +23,7 @@ namespace ExamManagementSystem.Models.DataAccess
     
         public int Id { get; set; }
         public int ExamId { get; set; }
+        public string Statement { get; set; }
         public string Type { get; set; }
         public double Marks { get; set; }
         public string AnswerText { get; set; }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ExamManagementSystemDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="ExamManagementSystemDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Admins">
           <Key>
             <PropertyRef Name="UserId" />
@@ -429,7 +429,8 @@
             <End Role="Teachers" EntitySet="Teachers" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ExamManagementSystemDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -511,6 +512,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ExamId" Type="Int32" Nullable="false" />
+          <Property Name="Statement" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Marks" Type="Double" Nullable="false" />
           <Property Name="AnswerText" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
@@ -518,7 +520,6 @@
           <NavigationProperty Name="Exams" Relationship="Self.FK_questions_exams" FromRole="Questions" ToRole="Exams" />
           <NavigationProperty Name="Options" Relationship="Self.FK_options_questions" FromRole="Questions" ToRole="Options" />
           <NavigationProperty Name="SubmittedAnswers" Relationship="Self.FK_submitted_answers_questions" FromRole="Questions" ToRole="SubmittedAnswers" />
-          <Property Name="Statement" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Sections">
           <Key>
@@ -808,7 +809,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ExamManagementSystemDBEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="ExamManagementSystemDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Admins" EntityType="Self.Admins" />
           <EntitySet Name="Courses" EntityType="Self.Courses" />
           <EntitySet Name="Enrolls" EntityType="Self.Enrolls" />
@@ -896,7 +897,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ExamManagementSystemDBModelStoreContainer" CdmEntityContainer="ExamManagementSystemDBEntities1">
+        <EntityContainerMapping StorageEntityContainer="ExamManagementSystemDBModelStoreContainer" CdmEntityContainer="ExamManagementSystemDBEntities">
           <EntitySetMapping Name="Admins">
             <EntityTypeMapping TypeName="ExamManagementSystemDBModel.Admins">
               <MappingFragment StoreEntitySet="Admins">
@@ -963,9 +964,9 @@
           <EntitySetMapping Name="Questions">
             <EntityTypeMapping TypeName="ExamManagementSystemDBModel.Questions">
               <MappingFragment StoreEntitySet="Questions">
-                <ScalarProperty Name="Statement" ColumnName="Statement" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="ExamId" ColumnName="ExamId" />
+                <ScalarProperty Name="Statement" ColumnName="Statement" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Marks" ColumnName="Marks" />
                 <ScalarProperty Name="AnswerText" ColumnName="AnswerText" />

@@ -13,10 +13,10 @@ namespace ExamManagementSystem.Models.DataAccess
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ExamManagementSystemDBEntities1 : DbContext
+    public partial class ExamManagementSystemDBEntities : DbContext
     {
-        public ExamManagementSystemDBEntities1()
-            : base("name=ExamManagementSystemDBEntities1")
+        public ExamManagementSystemDBEntities()
+            : base("name=ExamManagementSystemDBEntities")
         {
         }
     

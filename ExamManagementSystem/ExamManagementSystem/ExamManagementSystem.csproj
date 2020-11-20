@@ -97,15 +97,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Models\DataAccess\Model1.Context.tt">
+    <Content Include="Models\DataAccess\ExamManagementSystemDataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+      <DependentUpon>ExamManagementSystemDataModel.edmx</DependentUpon>
+      <LastGenOutput>ExamManagementSystemDataModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\DataAccess\Model1.tt">
+    <Content Include="Models\DataAccess\ExamManagementSystemDataModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.cs</LastGenOutput>
+      <DependentUpon>ExamManagementSystemDataModel.edmx</DependentUpon>
+      <LastGenOutput>ExamManagementSystemDataModel.cs</LastGenOutput>
     </Content>
     <Content Include="Web.config" />
   </ItemGroup>
@@ -115,69 +115,69 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DataAccess\Admins.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>ExamManagementSystemDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DataAccess\Courses.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>ExamManagementSystemDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DataAccess\Enrolls.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>ExamManagementSystemDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataAccess\ExamManagementSystemDataModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExamManagementSystemDataModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataAccess\ExamManagementSystemDataModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExamManagementSystemDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataAccess\ExamManagementSystemDataModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExamManagementSystemDataModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\DataAccess\Exams.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>ExamManagementSystemDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DataAccess\GradeSheets.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DataAccess\Model1.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DataAccess\Model1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DataAccess\Model1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.edmx</DependentUpon>
+      <DependentUpon>ExamManagementSystemDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DataAccess\Options.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>ExamManagementSystemDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DataAccess\Questions.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>ExamManagementSystemDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DataAccess\Sections.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>ExamManagementSystemDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DataAccess\Students.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>ExamManagementSystemDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DataAccess\SubmittedAnswers.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>ExamManagementSystemDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DataAccess\sysdiagrams.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>ExamManagementSystemDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DataAccess\Teachers.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>ExamManagementSystemDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DataAccess\Users.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>ExamManagementSystemDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
-    <EntityDeploy Include="Models\DataAccess\Model1.edmx">
+    <EntityDeploy Include="Models\DataAccess\ExamManagementSystemDataModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+      <LastGenOutput>ExamManagementSystemDataModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\DataAccess\Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
+    <Content Include="Models\DataAccess\ExamManagementSystemDataModel.edmx.diagram">
+      <DependentUpon>ExamManagementSystemDataModel.edmx</DependentUpon>
     </Content>
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
