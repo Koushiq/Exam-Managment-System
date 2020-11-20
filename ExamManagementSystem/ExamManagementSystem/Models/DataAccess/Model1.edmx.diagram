@@ -10,8 +10,8 @@
         <EntityTypeShape EntityType="ExamManagementSystemDBModel.Enrolls" Width="1.5" PointX="7.5" PointY="5.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ExamManagementSystemDBModel.Exams" Width="1.5" PointX="7.5" PointY="8.625" IsExpanded="true" />
         <EntityTypeShape EntityType="ExamManagementSystemDBModel.GradeSheets" Width="1.5" PointX="9.75" PointY="8" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExamManagementSystemDBModel.Options" Width="1.5" PointX="12" PointY="12" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExamManagementSystemDBModel.Questions" Width="1.5" PointX="9.75" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamManagementSystemDBModel.Options" Width="1.5" PointX="11.875" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamManagementSystemDBModel.Questions" Width="1.5" PointX="8.75" PointY="12.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ExamManagementSystemDBModel.Sections" Width="1.5" PointX="5.25" PointY="5.25" IsExpanded="true" />
         <EntityTypeShape EntityType="ExamManagementSystemDBModel.Students" Width="1.5" PointX="5.25" PointY="2.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ExamManagementSystemDBModel.SubmittedAnswers" Width="1.5" PointX="15" PointY="11.5" IsExpanded="true" />
