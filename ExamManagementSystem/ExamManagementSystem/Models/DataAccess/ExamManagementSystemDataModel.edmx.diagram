@@ -15,7 +15,6 @@
         <EntityTypeShape EntityType="ExamManagementSystemDBModel.Section" Width="1.5" PointX="5.25" PointY="5.25" IsExpanded="true" />
         <EntityTypeShape EntityType="ExamManagementSystemDBModel.Student" Width="1.5" PointX="5.25" PointY="2.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ExamManagementSystemDBModel.SubmittedAnswer" Width="1.5" PointX="15" PointY="11.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExamManagementSystemDBModel.sysdiagram" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ExamManagementSystemDBModel.Teacher" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="ExamManagementSystemDBModel.User" Width="1.5" PointX="0.75" PointY="9.875" IsExpanded="true" />
         <AssociationConnector Association="ExamManagementSystemDBModel.FK_Courses_Admins_CreatedBy" ManuallyRouted="false" />
