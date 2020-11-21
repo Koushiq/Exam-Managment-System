@@ -8,7 +8,9 @@ namespace ExamManagementSystem.Repository
 {
     public class UserRepository: Repository<User>
     {
-        
-
+        public User GetByUsername(string username)
+        {
+            return this.context.Users.Where(u => u.Username == username).FirstOrDefault();
+        }
     }
 }
