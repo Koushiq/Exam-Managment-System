@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ExamManagementSystem.Repository
 {
-    interface IRepository<T> where T : class
+    public interface IRepository<T> where T : class
     {
         List<T> GetAll();
         T Get(int id);
