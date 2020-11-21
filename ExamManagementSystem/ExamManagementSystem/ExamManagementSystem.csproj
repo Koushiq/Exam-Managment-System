@@ -170,8 +170,17 @@
       <DependentUpon>ExamManagementSystemDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\AdminRepository.cs" />
+    <Compile Include="Repository\CourseRepository.cs" />
+    <Compile Include="Repository\EnrollRepository.cs" />
+    <Compile Include="Repository\ExamRepository.cs" />
+    <Compile Include="Repository\GradeSheetRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\OptionRepository.cs" />
+    <Compile Include="Repository\QuestionRepository.cs" />
     <Compile Include="Repository\Repository.cs" />
+    <Compile Include="Repository\SectionRepository.cs" />
+    <Compile Include="Repository\StudentRepository.cs" />
     <Compile Include="Repository\TeacherRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
   </ItemGroup>
