@@ -12,19 +12,24 @@ namespace ExamManagementSystem.Models.DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Teachers
+    public partial class Cours
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Teachers()
+        public Cours()
         {
-            this.Sections = new HashSet<Sections>();
+            this.Sections = new HashSet<Section>();
         }
     
-        public int UserId { get; set; }
-        public string Faculty { get; set; }
+        public int Id { get; set; }
+        public string CourseName { get; set; }
+        public System.DateTime CreatedAt { get; set; }
+        public int CreatedBy { get; set; }
+        public Nullable<System.DateTime> DeletedAt { get; set; }
+        public Nullable<int> DeletedBy { get; set; }
     
+        public virtual Admin Admin { get; set; }
+        public virtual Admin Admin1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Sections> Sections { get; set; }
-        public virtual Users Users { get; set; }
+        public virtual ICollection<Section> Sections { get; set; }
     }
 }

@@ -434,7 +434,7 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ExamManagementSystemDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Admins">
+        <EntityType Name="Admin">
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
@@ -445,7 +445,7 @@
           <NavigationProperty Name="Sections" Relationship="Self.FK_Sections_Admins_CreatedBy" FromRole="Admins" ToRole="Sections" />
           <NavigationProperty Name="Sections1" Relationship="Self.FK_Sections_Admins_DeletedBy" FromRole="Admins" ToRole="Sections" />
         </EntityType>
-        <EntityType Name="Courses">
+        <EntityType Name="Cours">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -455,11 +455,11 @@
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
           <Property Name="DeletedAt" Type="DateTime" Precision="3" />
           <Property Name="DeletedBy" Type="Int32" />
-          <NavigationProperty Name="Admins" Relationship="Self.FK_Courses_Admins_CreatedBy" FromRole="Courses" ToRole="Admins" />
-          <NavigationProperty Name="Admins1" Relationship="Self.FK_Courses_Admins_DeletedBy" FromRole="Courses" ToRole="Admins" />
+          <NavigationProperty Name="Admin" Relationship="Self.FK_Courses_Admins_CreatedBy" FromRole="Courses" ToRole="Admins" />
+          <NavigationProperty Name="Admin1" Relationship="Self.FK_Courses_Admins_DeletedBy" FromRole="Courses" ToRole="Admins" />
           <NavigationProperty Name="Sections" Relationship="Self.FK_sections_courses" FromRole="Courses" ToRole="Sections" />
         </EntityType>
-        <EntityType Name="Enrolls">
+        <EntityType Name="Enroll">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -467,10 +467,10 @@
           <Property Name="SectionId" Type="Int32" Nullable="false" />
           <Property Name="StudentId" Type="Int32" Nullable="false" />
           <Property Name="EnrolledAt" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Sections" Relationship="Self.FK_enrolls_sections" FromRole="Enrolls" ToRole="Sections" />
-          <NavigationProperty Name="Students" Relationship="Self.FK_Enrolls_Students" FromRole="Enrolls" ToRole="Students" />
+          <NavigationProperty Name="Section" Relationship="Self.FK_enrolls_sections" FromRole="Enrolls" ToRole="Sections" />
+          <NavigationProperty Name="Student" Relationship="Self.FK_Enrolls_Students" FromRole="Enrolls" ToRole="Students" />
         </EntityType>
-        <EntityType Name="Exams">
+        <EntityType Name="Exam">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -481,11 +481,11 @@
           <Property Name="Duration" Type="Int32" Nullable="false" />
           <Property Name="TotalMarks" Type="Double" Nullable="false" />
           <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Sections" Relationship="Self.FK_exams_sections" FromRole="Exams" ToRole="Sections" />
+          <NavigationProperty Name="Section" Relationship="Self.FK_exams_sections" FromRole="Exams" ToRole="Sections" />
           <NavigationProperty Name="GradeSheets" Relationship="Self.FK_GradeSheets_Exams" FromRole="Exams" ToRole="GradeSheets" />
           <NavigationProperty Name="Questions" Relationship="Self.FK_questions_exams" FromRole="Exams" ToRole="Questions" />
         </EntityType>
-        <EntityType Name="GradeSheets">
+        <EntityType Name="GradeSheet">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -493,10 +493,10 @@
           <Property Name="StudentId" Type="Int32" Nullable="false" />
           <Property Name="ExamId" Type="Int32" Nullable="false" />
           <Property Name="TotalObtainedMarks" Type="Double" Nullable="false" />
-          <NavigationProperty Name="Exams" Relationship="Self.FK_GradeSheets_Exams" FromRole="GradeSheets" ToRole="Exams" />
-          <NavigationProperty Name="Students" Relationship="Self.FK_GradeSheets_Students" FromRole="GradeSheets" ToRole="Students" />
+          <NavigationProperty Name="Exam" Relationship="Self.FK_GradeSheets_Exams" FromRole="GradeSheets" ToRole="Exams" />
+          <NavigationProperty Name="Student" Relationship="Self.FK_GradeSheets_Students" FromRole="GradeSheets" ToRole="Students" />
         </EntityType>
-        <EntityType Name="Options">
+        <EntityType Name="Option">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -504,9 +504,9 @@
           <Property Name="QuestionId" Type="Int32" Nullable="false" />
           <Property Name="OptionText" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="OptionId" Type="Int16" Nullable="false" />
-          <NavigationProperty Name="Questions" Relationship="Self.FK_options_questions" FromRole="Options" ToRole="Questions" />
+          <NavigationProperty Name="Question" Relationship="Self.FK_options_questions" FromRole="Options" ToRole="Questions" />
         </EntityType>
-        <EntityType Name="Questions">
+        <EntityType Name="Question">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -517,11 +517,11 @@
           <Property Name="Marks" Type="Double" Nullable="false" />
           <Property Name="AnswerText" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="CorrectAnswerBin" Type="Int32" />
-          <NavigationProperty Name="Exams" Relationship="Self.FK_questions_exams" FromRole="Questions" ToRole="Exams" />
+          <NavigationProperty Name="Exam" Relationship="Self.FK_questions_exams" FromRole="Questions" ToRole="Exams" />
           <NavigationProperty Name="Options" Relationship="Self.FK_options_questions" FromRole="Questions" ToRole="Options" />
           <NavigationProperty Name="SubmittedAnswers" Relationship="Self.FK_submitted_answers_questions" FromRole="Questions" ToRole="SubmittedAnswers" />
         </EntityType>
-        <EntityType Name="Sections">
+        <EntityType Name="Section">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -533,14 +533,14 @@
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
           <Property Name="DeletedAt" Type="DateTime" Precision="3" />
           <Property Name="DeletedBy" Type="Int32" />
-          <NavigationProperty Name="Admins" Relationship="Self.FK_Sections_Admins_CreatedBy" FromRole="Sections" ToRole="Admins" />
-          <NavigationProperty Name="Admins1" Relationship="Self.FK_Sections_Admins_DeletedBy" FromRole="Sections" ToRole="Admins" />
-          <NavigationProperty Name="Courses" Relationship="Self.FK_sections_courses" FromRole="Sections" ToRole="Courses" />
+          <NavigationProperty Name="Admin" Relationship="Self.FK_Sections_Admins_CreatedBy" FromRole="Sections" ToRole="Admins" />
+          <NavigationProperty Name="Admin1" Relationship="Self.FK_Sections_Admins_DeletedBy" FromRole="Sections" ToRole="Admins" />
+          <NavigationProperty Name="Cours" Relationship="Self.FK_sections_courses" FromRole="Sections" ToRole="Courses" />
           <NavigationProperty Name="Enrolls" Relationship="Self.FK_enrolls_sections" FromRole="Sections" ToRole="Enrolls" />
           <NavigationProperty Name="Exams" Relationship="Self.FK_exams_sections" FromRole="Sections" ToRole="Exams" />
-          <NavigationProperty Name="Teachers" Relationship="Self.FK_Sections_Teachers" FromRole="Sections" ToRole="Teachers" />
+          <NavigationProperty Name="Teacher" Relationship="Self.FK_Sections_Teachers" FromRole="Sections" ToRole="Teachers" />
         </EntityType>
-        <EntityType Name="Students">
+        <EntityType Name="Student">
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
@@ -548,10 +548,10 @@
           <Property Name="AverageMarks" Type="Double" Nullable="false" />
           <NavigationProperty Name="Enrolls" Relationship="Self.FK_Enrolls_Students" FromRole="Students" ToRole="Enrolls" />
           <NavigationProperty Name="GradeSheets" Relationship="Self.FK_GradeSheets_Students" FromRole="Students" ToRole="GradeSheets" />
-          <NavigationProperty Name="Users" Relationship="Self.FK_Students_Users1" FromRole="Students" ToRole="Users" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Students_Users1" FromRole="Students" ToRole="Users" />
           <NavigationProperty Name="SubmittedAnswers" Relationship="Self.FK_SubmittedAnswers_Students" FromRole="Students" ToRole="SubmittedAnswers" />
         </EntityType>
-        <EntityType Name="SubmittedAnswers">
+        <EntityType Name="SubmittedAnswer">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -563,10 +563,10 @@
           <Property Name="AttemptTime" Type="Int32" Nullable="false" />
           <Property Name="ObtaintedMarks" Type="Double" Nullable="false" />
           <Property Name="Filepath" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Questions" Relationship="Self.FK_submitted_answers_questions" FromRole="SubmittedAnswers" ToRole="Questions" />
-          <NavigationProperty Name="Students" Relationship="Self.FK_SubmittedAnswers_Students" FromRole="SubmittedAnswers" ToRole="Students" />
+          <NavigationProperty Name="Question" Relationship="Self.FK_submitted_answers_questions" FromRole="SubmittedAnswers" ToRole="Questions" />
+          <NavigationProperty Name="Student" Relationship="Self.FK_SubmittedAnswers_Students" FromRole="SubmittedAnswers" ToRole="Students" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
+        <EntityType Name="sysdiagram">
           <Key>
             <PropertyRef Name="diagram_id" />
           </Key>
@@ -576,16 +576,16 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <EntityType Name="Teachers">
+        <EntityType Name="Teacher">
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="Faculty" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Sections" Relationship="Self.FK_Sections_Teachers" FromRole="Teachers" ToRole="Sections" />
-          <NavigationProperty Name="Users" Relationship="Self.FK_Teachers_Users1" FromRole="Teachers" ToRole="Users" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Teachers_Users1" FromRole="Teachers" ToRole="Users" />
         </EntityType>
-        <EntityType Name="Users">
+        <EntityType Name="User">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -602,12 +602,12 @@
           <Property Name="ActionAt" Type="DateTime" Precision="3" />
           <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Students" Relationship="Self.FK_Students_Users1" FromRole="Users" ToRole="Students" />
-          <NavigationProperty Name="Teachers" Relationship="Self.FK_Teachers_Users1" FromRole="Users" ToRole="Teachers" />
+          <NavigationProperty Name="Student" Relationship="Self.FK_Students_Users1" FromRole="Users" ToRole="Students" />
+          <NavigationProperty Name="Teacher" Relationship="Self.FK_Teachers_Users1" FromRole="Users" ToRole="Teachers" />
         </EntityType>
         <Association Name="FK_Courses_Admins_CreatedBy">
-          <End Role="Admins" Type="Self.Admins" Multiplicity="1" />
-          <End Role="Courses" Type="Self.Courses" Multiplicity="*" />
+          <End Role="Admins" Type="Self.Admin" Multiplicity="1" />
+          <End Role="Courses" Type="Self.Cours" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Admins">
               <PropertyRef Name="UserId" />
@@ -618,8 +618,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Courses_Admins_DeletedBy">
-          <End Role="Admins" Type="Self.Admins" Multiplicity="0..1" />
-          <End Role="Courses" Type="Self.Courses" Multiplicity="*" />
+          <End Role="Admins" Type="Self.Admin" Multiplicity="0..1" />
+          <End Role="Courses" Type="Self.Cours" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Admins">
               <PropertyRef Name="UserId" />
@@ -630,8 +630,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Sections_Admins_CreatedBy">
-          <End Role="Admins" Type="Self.Admins" Multiplicity="1" />
-          <End Role="Sections" Type="Self.Sections" Multiplicity="*" />
+          <End Role="Admins" Type="Self.Admin" Multiplicity="1" />
+          <End Role="Sections" Type="Self.Section" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Admins">
               <PropertyRef Name="UserId" />
@@ -642,8 +642,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Sections_Admins_DeletedBy">
-          <End Role="Admins" Type="Self.Admins" Multiplicity="0..1" />
-          <End Role="Sections" Type="Self.Sections" Multiplicity="*" />
+          <End Role="Admins" Type="Self.Admin" Multiplicity="0..1" />
+          <End Role="Sections" Type="Self.Section" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Admins">
               <PropertyRef Name="UserId" />
@@ -654,8 +654,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_sections_courses">
-          <End Role="Courses" Type="Self.Courses" Multiplicity="1" />
-          <End Role="Sections" Type="Self.Sections" Multiplicity="*" />
+          <End Role="Courses" Type="Self.Cours" Multiplicity="1" />
+          <End Role="Sections" Type="Self.Section" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Courses">
               <PropertyRef Name="Id" />
@@ -666,8 +666,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_enrolls_sections">
-          <End Role="Sections" Type="Self.Sections" Multiplicity="1" />
-          <End Role="Enrolls" Type="Self.Enrolls" Multiplicity="*" />
+          <End Role="Sections" Type="Self.Section" Multiplicity="1" />
+          <End Role="Enrolls" Type="Self.Enroll" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Sections">
               <PropertyRef Name="Id" />
@@ -678,8 +678,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Enrolls_Students">
-          <End Role="Students" Type="Self.Students" Multiplicity="1" />
-          <End Role="Enrolls" Type="Self.Enrolls" Multiplicity="*" />
+          <End Role="Students" Type="Self.Student" Multiplicity="1" />
+          <End Role="Enrolls" Type="Self.Enroll" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Students">
               <PropertyRef Name="UserId" />
@@ -690,8 +690,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_exams_sections">
-          <End Role="Sections" Type="Self.Sections" Multiplicity="1" />
-          <End Role="Exams" Type="Self.Exams" Multiplicity="*" />
+          <End Role="Sections" Type="Self.Section" Multiplicity="1" />
+          <End Role="Exams" Type="Self.Exam" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Sections">
               <PropertyRef Name="Id" />
@@ -702,8 +702,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_GradeSheets_Exams">
-          <End Role="Exams" Type="Self.Exams" Multiplicity="1" />
-          <End Role="GradeSheets" Type="Self.GradeSheets" Multiplicity="*" />
+          <End Role="Exams" Type="Self.Exam" Multiplicity="1" />
+          <End Role="GradeSheets" Type="Self.GradeSheet" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Exams">
               <PropertyRef Name="Id" />
@@ -714,8 +714,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_questions_exams">
-          <End Role="Exams" Type="Self.Exams" Multiplicity="1" />
-          <End Role="Questions" Type="Self.Questions" Multiplicity="*" />
+          <End Role="Exams" Type="Self.Exam" Multiplicity="1" />
+          <End Role="Questions" Type="Self.Question" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Exams">
               <PropertyRef Name="Id" />
@@ -726,8 +726,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_GradeSheets_Students">
-          <End Role="Students" Type="Self.Students" Multiplicity="1" />
-          <End Role="GradeSheets" Type="Self.GradeSheets" Multiplicity="*" />
+          <End Role="Students" Type="Self.Student" Multiplicity="1" />
+          <End Role="GradeSheets" Type="Self.GradeSheet" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Students">
               <PropertyRef Name="UserId" />
@@ -738,8 +738,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_options_questions">
-          <End Role="Questions" Type="Self.Questions" Multiplicity="1" />
-          <End Role="Options" Type="Self.Options" Multiplicity="*" />
+          <End Role="Questions" Type="Self.Question" Multiplicity="1" />
+          <End Role="Options" Type="Self.Option" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Questions">
               <PropertyRef Name="Id" />
@@ -750,8 +750,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_submitted_answers_questions">
-          <End Role="Questions" Type="Self.Questions" Multiplicity="1" />
-          <End Role="SubmittedAnswers" Type="Self.SubmittedAnswers" Multiplicity="*" />
+          <End Role="Questions" Type="Self.Question" Multiplicity="1" />
+          <End Role="SubmittedAnswers" Type="Self.SubmittedAnswer" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Questions">
               <PropertyRef Name="Id" />
@@ -762,8 +762,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Sections_Teachers">
-          <End Role="Teachers" Type="Self.Teachers" Multiplicity="0..1" />
-          <End Role="Sections" Type="Self.Sections" Multiplicity="*" />
+          <End Role="Teachers" Type="Self.Teacher" Multiplicity="0..1" />
+          <End Role="Sections" Type="Self.Section" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Teachers">
               <PropertyRef Name="UserId" />
@@ -774,8 +774,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Students_Users1">
-          <End Role="Users" Type="Self.Users" Multiplicity="1" />
-          <End Role="Students" Type="Self.Students" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Students" Type="Self.Student" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
@@ -786,8 +786,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SubmittedAnswers_Students">
-          <End Role="Students" Type="Self.Students" Multiplicity="1" />
-          <End Role="SubmittedAnswers" Type="Self.SubmittedAnswers" Multiplicity="*" />
+          <End Role="Students" Type="Self.Student" Multiplicity="1" />
+          <End Role="SubmittedAnswers" Type="Self.SubmittedAnswer" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Students">
               <PropertyRef Name="UserId" />
@@ -798,8 +798,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Teachers_Users1">
-          <End Role="Users" Type="Self.Users" Multiplicity="1" />
-          <End Role="Teachers" Type="Self.Teachers" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Teachers" Type="Self.Teacher" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
@@ -810,19 +810,19 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="ExamManagementSystemDBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Admins" EntityType="Self.Admins" />
-          <EntitySet Name="Courses" EntityType="Self.Courses" />
-          <EntitySet Name="Enrolls" EntityType="Self.Enrolls" />
-          <EntitySet Name="Exams" EntityType="Self.Exams" />
-          <EntitySet Name="GradeSheets" EntityType="Self.GradeSheets" />
-          <EntitySet Name="Options" EntityType="Self.Options" />
-          <EntitySet Name="Questions" EntityType="Self.Questions" />
-          <EntitySet Name="Sections" EntityType="Self.Sections" />
-          <EntitySet Name="Students" EntityType="Self.Students" />
-          <EntitySet Name="SubmittedAnswers" EntityType="Self.SubmittedAnswers" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <EntitySet Name="Teachers" EntityType="Self.Teachers" />
-          <EntitySet Name="Users" EntityType="Self.Users" />
+          <EntitySet Name="Admins" EntityType="Self.Admin" />
+          <EntitySet Name="Courses" EntityType="Self.Cours" />
+          <EntitySet Name="Enrolls" EntityType="Self.Enroll" />
+          <EntitySet Name="Exams" EntityType="Self.Exam" />
+          <EntitySet Name="GradeSheets" EntityType="Self.GradeSheet" />
+          <EntitySet Name="Options" EntityType="Self.Option" />
+          <EntitySet Name="Questions" EntityType="Self.Question" />
+          <EntitySet Name="Sections" EntityType="Self.Section" />
+          <EntitySet Name="Students" EntityType="Self.Student" />
+          <EntitySet Name="SubmittedAnswers" EntityType="Self.SubmittedAnswer" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Teachers" EntityType="Self.Teacher" />
+          <EntitySet Name="Users" EntityType="Self.User" />
           <AssociationSet Name="FK_Courses_Admins_CreatedBy" Association="Self.FK_Courses_Admins_CreatedBy">
             <End Role="Admins" EntitySet="Admins" />
             <End Role="Courses" EntitySet="Courses" />
@@ -899,7 +899,7 @@
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ExamManagementSystemDBModelStoreContainer" CdmEntityContainer="ExamManagementSystemDBEntities">
           <EntitySetMapping Name="Admins">
-            <EntityTypeMapping TypeName="ExamManagementSystemDBModel.Admins">
+            <EntityTypeMapping TypeName="ExamManagementSystemDBModel.Admin">
               <MappingFragment StoreEntitySet="Admins">
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="PermissionBin" ColumnName="PermissionBin" />
@@ -907,7 +907,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Courses">
-            <EntityTypeMapping TypeName="ExamManagementSystemDBModel.Courses">
+            <EntityTypeMapping TypeName="ExamManagementSystemDBModel.Cours">
               <MappingFragment StoreEntitySet="Courses">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="CourseName" ColumnName="CourseName" />
@@ -919,7 +919,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Enrolls">
-            <EntityTypeMapping TypeName="ExamManagementSystemDBModel.Enrolls">
+            <EntityTypeMapping TypeName="ExamManagementSystemDBModel.Enroll">
               <MappingFragment StoreEntitySet="Enrolls">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="SectionId" ColumnName="SectionId" />
@@ -929,7 +929,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Exams">
-            <EntityTypeMapping TypeName="ExamManagementSystemDBModel.Exams">
+            <EntityTypeMapping TypeName="ExamManagementSystemDBModel.Exam">
               <MappingFragment StoreEntitySet="Exams">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="SectionId" ColumnName="SectionId" />
@@ -942,7 +942,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="GradeSheets">
-            <EntityTypeMapping TypeName="ExamManagementSystemDBModel.GradeSheets">
+            <EntityTypeMapping TypeName="ExamManagementSystemDBModel.GradeSheet">
               <MappingFragment StoreEntitySet="GradeSheets">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="StudentId" ColumnName="StudentId" />
@@ -952,7 +952,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Options">
-            <EntityTypeMapping TypeName="ExamManagementSystemDBModel.Options">
+            <EntityTypeMapping TypeName="ExamManagementSystemDBModel.Option">
               <MappingFragment StoreEntitySet="Options">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
@@ -962,7 +962,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Questions">
-            <EntityTypeMapping TypeName="ExamManagementSystemDBModel.Questions">
+            <EntityTypeMapping TypeName="ExamManagementSystemDBModel.Question">
               <MappingFragment StoreEntitySet="Questions">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="ExamId" ColumnName="ExamId" />
@@ -975,7 +975,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Sections">
-            <EntityTypeMapping TypeName="ExamManagementSystemDBModel.Sections">
+            <EntityTypeMapping TypeName="ExamManagementSystemDBModel.Section">
               <MappingFragment StoreEntitySet="Sections">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="CourseId" ColumnName="CourseId" />
@@ -989,7 +989,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Students">
-            <EntityTypeMapping TypeName="ExamManagementSystemDBModel.Students">
+            <EntityTypeMapping TypeName="ExamManagementSystemDBModel.Student">
               <MappingFragment StoreEntitySet="Students">
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="AverageMarks" ColumnName="AverageMarks" />
@@ -997,7 +997,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SubmittedAnswers">
-            <EntityTypeMapping TypeName="ExamManagementSystemDBModel.SubmittedAnswers">
+            <EntityTypeMapping TypeName="ExamManagementSystemDBModel.SubmittedAnswer">
               <MappingFragment StoreEntitySet="SubmittedAnswers">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="StudentId" ColumnName="StudentId" />
@@ -1011,7 +1011,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="ExamManagementSystemDBModel.sysdiagrams">
+            <EntityTypeMapping TypeName="ExamManagementSystemDBModel.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -1022,7 +1022,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Teachers">
-            <EntityTypeMapping TypeName="ExamManagementSystemDBModel.Teachers">
+            <EntityTypeMapping TypeName="ExamManagementSystemDBModel.Teacher">
               <MappingFragment StoreEntitySet="Teachers">
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Faculty" ColumnName="Faculty" />
@@ -1030,7 +1030,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="ExamManagementSystemDBModel.Users">
+            <EntityTypeMapping TypeName="ExamManagementSystemDBModel.User">
               <MappingFragment StoreEntitySet="Users">
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Usertype" ColumnName="Usertype" />
@@ -1062,7 +1062,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

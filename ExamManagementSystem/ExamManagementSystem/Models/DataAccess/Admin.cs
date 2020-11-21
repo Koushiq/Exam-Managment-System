@@ -12,27 +12,27 @@ namespace ExamManagementSystem.Models.DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Questions
+    public partial class Admin
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Questions()
+        public Admin()
         {
-            this.Options = new HashSet<Options>();
-            this.SubmittedAnswers = new HashSet<SubmittedAnswers>();
+            this.Courses = new HashSet<Cours>();
+            this.Courses1 = new HashSet<Cours>();
+            this.Sections = new HashSet<Section>();
+            this.Sections1 = new HashSet<Section>();
         }
     
-        public int Id { get; set; }
-        public int ExamId { get; set; }
-        public string Statement { get; set; }
-        public string Type { get; set; }
-        public double Marks { get; set; }
-        public string AnswerText { get; set; }
-        public Nullable<int> CorrectAnswerBin { get; set; }
+        public int UserId { get; set; }
+        public int PermissionBin { get; set; }
     
-        public virtual Exams Exams { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Options> Options { get; set; }
+        public virtual ICollection<Cours> Courses { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SubmittedAnswers> SubmittedAnswers { get; set; }
+        public virtual ICollection<Cours> Courses1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Section> Sections { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Section> Sections1 { get; set; }
     }
 }

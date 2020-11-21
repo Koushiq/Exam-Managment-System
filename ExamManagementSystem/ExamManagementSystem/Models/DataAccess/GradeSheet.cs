@@ -12,14 +12,14 @@ namespace ExamManagementSystem.Models.DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Enrolls
+    public partial class GradeSheet
     {
         public int Id { get; set; }
-        public int SectionId { get; set; }
         public int StudentId { get; set; }
-        public System.DateTime EnrolledAt { get; set; }
+        public int ExamId { get; set; }
+        public double TotalObtainedMarks { get; set; }
     
-        public virtual Sections Sections { get; set; }
-        public virtual Students Students { get; set; }
+        public virtual Exam Exam { get; set; }
+        public virtual Student Student { get; set; }
     }
 }

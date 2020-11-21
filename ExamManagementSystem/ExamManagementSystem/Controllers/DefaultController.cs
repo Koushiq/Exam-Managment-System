@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ExamManagementSystem.Models.DataAccess;
+using ExamManagementSystem.Repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,5 +15,6 @@ namespace ExamManagementSystem.Controllers
         {
             return View();
         }
+
     }
 }

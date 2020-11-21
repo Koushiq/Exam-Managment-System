@@ -12,31 +12,27 @@ namespace ExamManagementSystem.Models.DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Sections
+    public partial class Exam
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Sections()
+        public Exam()
         {
-            this.Enrolls = new HashSet<Enrolls>();
-            this.Exams = new HashSet<Exams>();
+            this.GradeSheets = new HashSet<GradeSheet>();
+            this.Questions = new HashSet<Question>();
         }
     
         public int Id { get; set; }
-        public int CourseId { get; set; }
-        public Nullable<int> TeacherId { get; set; }
-        public string SectionName { get; set; }
+        public int SectionId { get; set; }
+        public string ExamName { get; set; }
+        public System.DateTime StartTime { get; set; }
+        public int Duration { get; set; }
+        public double TotalMarks { get; set; }
         public System.DateTime CreatedAt { get; set; }
-        public int CreatedBy { get; set; }
-        public Nullable<System.DateTime> DeletedAt { get; set; }
-        public Nullable<int> DeletedBy { get; set; }
     
-        public virtual Admins Admins { get; set; }
-        public virtual Admins Admins1 { get; set; }
-        public virtual Courses Courses { get; set; }
+        public virtual Section Section { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Enrolls> Enrolls { get; set; }
+        public virtual ICollection<GradeSheet> GradeSheets { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Exams> Exams { get; set; }
-        public virtual Teachers Teachers { get; set; }
+        public virtual ICollection<Question> Questions { get; set; }
     }
 }
