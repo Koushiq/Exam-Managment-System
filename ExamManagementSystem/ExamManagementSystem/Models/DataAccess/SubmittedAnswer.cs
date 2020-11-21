@@ -12,13 +12,18 @@ namespace ExamManagementSystem.Models.DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Options
+    public partial class SubmittedAnswer
     {
         public int Id { get; set; }
+        public int StudentId { get; set; }
         public int QuestionId { get; set; }
-        public string OptionText { get; set; }
-        public short OptionId { get; set; }
+        public int OptionBin { get; set; }
+        public string AnswerText { get; set; }
+        public int AttemptTime { get; set; }
+        public double ObtaintedMarks { get; set; }
+        public string Filepath { get; set; }
     
-        public virtual Questions Questions { get; set; }
+        public virtual Question Question { get; set; }
+        public virtual Student Student { get; set; }
     }
 }

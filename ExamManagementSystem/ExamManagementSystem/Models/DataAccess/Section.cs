@@ -12,27 +12,31 @@ namespace ExamManagementSystem.Models.DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Exams
+    public partial class Section
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Exams()
+        public Section()
         {
-            this.GradeSheets = new HashSet<GradeSheets>();
-            this.Questions = new HashSet<Questions>();
+            this.Enrolls = new HashSet<Enroll>();
+            this.Exams = new HashSet<Exam>();
         }
     
         public int Id { get; set; }
-        public int SectionId { get; set; }
-        public string ExamName { get; set; }
-        public System.DateTime StartTime { get; set; }
-        public int Duration { get; set; }
-        public double TotalMarks { get; set; }
+        public int CourseId { get; set; }
+        public Nullable<int> TeacherId { get; set; }
+        public string SectionName { get; set; }
         public System.DateTime CreatedAt { get; set; }
+        public int CreatedBy { get; set; }
+        public Nullable<System.DateTime> DeletedAt { get; set; }
+        public Nullable<int> DeletedBy { get; set; }
     
-        public virtual Sections Sections { get; set; }
+        public virtual Admin Admin { get; set; }
+        public virtual Admin Admin1 { get; set; }
+        public virtual Cours Cours { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GradeSheets> GradeSheets { get; set; }
+        public virtual ICollection<Enroll> Enrolls { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Questions> Questions { get; set; }
+        public virtual ICollection<Exam> Exams { get; set; }
+        public virtual Teacher Teacher { get; set; }
     }
 }

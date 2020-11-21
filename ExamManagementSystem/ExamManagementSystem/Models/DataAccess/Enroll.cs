@@ -12,12 +12,14 @@ namespace ExamManagementSystem.Models.DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class sysdiagrams
+    public partial class Enroll
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public int Id { get; set; }
+        public int SectionId { get; set; }
+        public int StudentId { get; set; }
+        public System.DateTime EnrolledAt { get; set; }
+    
+        public virtual Section Section { get; set; }
+        public virtual Student Student { get; set; }
     }
 }

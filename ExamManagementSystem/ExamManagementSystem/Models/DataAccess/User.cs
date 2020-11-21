@@ -12,7 +12,7 @@ namespace ExamManagementSystem.Models.DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Users
+    public partial class User
     {
         public string Username { get; set; }
         public string Usertype { get; set; }
@@ -28,7 +28,7 @@ namespace ExamManagementSystem.Models.DataAccess
         public string Status { get; set; }
         public int Id { get; set; }
     
-        public virtual Students Students { get; set; }
-        public virtual Teachers Teachers { get; set; }
+        public virtual Student Student { get; set; }
+        public virtual Teacher Teacher { get; set; }
     }
 }

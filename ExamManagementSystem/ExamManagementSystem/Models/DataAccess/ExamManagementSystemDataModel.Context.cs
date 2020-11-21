@@ -25,18 +25,18 @@ namespace ExamManagementSystem.Models.DataAccess
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Admins> Admins { get; set; }
-        public virtual DbSet<Courses> Courses { get; set; }
-        public virtual DbSet<Enrolls> Enrolls { get; set; }
-        public virtual DbSet<Exams> Exams { get; set; }
-        public virtual DbSet<GradeSheets> GradeSheets { get; set; }
-        public virtual DbSet<Options> Options { get; set; }
-        public virtual DbSet<Questions> Questions { get; set; }
-        public virtual DbSet<Sections> Sections { get; set; }
-        public virtual DbSet<Students> Students { get; set; }
-        public virtual DbSet<SubmittedAnswers> SubmittedAnswers { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
-        public virtual DbSet<Teachers> Teachers { get; set; }
-        public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<Admin> Admins { get; set; }
+        public virtual DbSet<Cours> Courses { get; set; }
+        public virtual DbSet<Enroll> Enrolls { get; set; }
+        public virtual DbSet<Exam> Exams { get; set; }
+        public virtual DbSet<GradeSheet> GradeSheets { get; set; }
+        public virtual DbSet<Option> Options { get; set; }
+        public virtual DbSet<Question> Questions { get; set; }
+        public virtual DbSet<Section> Sections { get; set; }
+        public virtual DbSet<Student> Students { get; set; }
+        public virtual DbSet<SubmittedAnswer> SubmittedAnswers { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<Teacher> Teachers { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
 }

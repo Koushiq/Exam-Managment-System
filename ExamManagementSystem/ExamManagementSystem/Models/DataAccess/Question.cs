@@ -12,24 +12,27 @@ namespace ExamManagementSystem.Models.DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Courses
+    public partial class Question
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Courses()
+        public Question()
         {
-            this.Sections = new HashSet<Sections>();
+            this.Options = new HashSet<Option>();
+            this.SubmittedAnswers = new HashSet<SubmittedAnswer>();
         }
     
         public int Id { get; set; }
-        public string CourseName { get; set; }
-        public System.DateTime CreatedAt { get; set; }
-        public int CreatedBy { get; set; }
-        public Nullable<System.DateTime> DeletedAt { get; set; }
-        public Nullable<int> DeletedBy { get; set; }
+        public int ExamId { get; set; }
+        public string Statement { get; set; }
+        public string Type { get; set; }
+        public double Marks { get; set; }
+        public string AnswerText { get; set; }
+        public Nullable<int> CorrectAnswerBin { get; set; }
     
-        public virtual Admins Admins { get; set; }
-        public virtual Admins Admins1 { get; set; }
+        public virtual Exam Exam { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Sections> Sections { get; set; }
+        public virtual ICollection<Option> Options { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SubmittedAnswer> SubmittedAnswers { get; set; }
     }
 }

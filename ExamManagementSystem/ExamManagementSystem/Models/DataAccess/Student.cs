@@ -12,27 +12,25 @@ namespace ExamManagementSystem.Models.DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Admins
+    public partial class Student
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Admins()
+        public Student()
         {
-            this.Courses = new HashSet<Courses>();
-            this.Courses1 = new HashSet<Courses>();
-            this.Sections = new HashSet<Sections>();
-            this.Sections1 = new HashSet<Sections>();
+            this.Enrolls = new HashSet<Enroll>();
+            this.GradeSheets = new HashSet<GradeSheet>();
+            this.SubmittedAnswers = new HashSet<SubmittedAnswer>();
         }
     
         public int UserId { get; set; }
-        public int PermissionBin { get; set; }
+        public double AverageMarks { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Courses> Courses { get; set; }
+        public virtual ICollection<Enroll> Enrolls { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Courses> Courses1 { get; set; }
+        public virtual ICollection<GradeSheet> GradeSheets { get; set; }
+        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Sections> Sections { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Sections> Sections1 { get; set; }
+        public virtual ICollection<SubmittedAnswer> SubmittedAnswers { get; set; }
     }
 }

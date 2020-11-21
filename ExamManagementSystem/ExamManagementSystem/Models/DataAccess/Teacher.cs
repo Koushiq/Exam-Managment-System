@@ -12,25 +12,19 @@ namespace ExamManagementSystem.Models.DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Students
+    public partial class Teacher
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Students()
+        public Teacher()
         {
-            this.Enrolls = new HashSet<Enrolls>();
-            this.GradeSheets = new HashSet<GradeSheets>();
-            this.SubmittedAnswers = new HashSet<SubmittedAnswers>();
+            this.Sections = new HashSet<Section>();
         }
     
         public int UserId { get; set; }
-        public double AverageMarks { get; set; }
+        public string Faculty { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Enrolls> Enrolls { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GradeSheets> GradeSheets { get; set; }
-        public virtual Users Users { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SubmittedAnswers> SubmittedAnswers { get; set; }
+        public virtual ICollection<Section> Sections { get; set; }
+        public virtual User User { get; set; }
     }
 }

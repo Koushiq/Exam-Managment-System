@@ -12,18 +12,12 @@ namespace ExamManagementSystem.Models.DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class SubmittedAnswers
+    public partial class sysdiagram
     {
-        public int Id { get; set; }
-        public int StudentId { get; set; }
-        public int QuestionId { get; set; }
-        public int OptionBin { get; set; }
-        public string AnswerText { get; set; }
-        public int AttemptTime { get; set; }
-        public double ObtaintedMarks { get; set; }
-        public string Filepath { get; set; }
-    
-        public virtual Questions Questions { get; set; }
-        public virtual Students Students { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }
