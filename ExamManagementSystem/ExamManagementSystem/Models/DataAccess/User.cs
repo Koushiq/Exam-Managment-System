@@ -11,17 +11,34 @@ namespace ExamManagementSystem.Models.DataAccess
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class User
     {
+        [Required]
         public string Username { get; set; }
+        [Required]
         public string Usertype { get; set; }
+        [DataType(DataType.Password)]
+        [Required]
         public string Password { get; set; }
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm Passowrd")]
+        public string ConfirmPassword { get; set; }
+        [Required]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
+        [Required]
+        [Display(Name = "First Name")]
         public string Firstname { get; set; }
+        [Display(Name = "Last Name")]
         public string Lastname { get; set; }
         public string Gender { get; set; }
+        [DataType(DataType.Date)]
+        [Display(Name = "Date of Birth")]
         public System.DateTime Dob { get; set; }
+        [Display(Name = "Profile Picture")]
+        [DataType(DataType.Upload)]
         public string Propic { get; set; }
         public System.DateTime CreatedAt { get; set; }
         public Nullable<System.DateTime> ActionAt { get; set; }
