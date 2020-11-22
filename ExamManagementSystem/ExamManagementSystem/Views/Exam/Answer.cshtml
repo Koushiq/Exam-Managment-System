@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = (ViewBag.Course + " " + ViewBag.Exm.ExamName);
+    var sid = ViewBag.Exm.SectionId;
 }
 
 <h2>@(ViewBag.Course + " " + ViewBag.Exm.ExamName)</h2>
@@ -22,7 +23,21 @@
                 }
                 else if (item.Type == "Text")
                 {
-                    <textarea name=@(item.Id+"Solved")></textarea>
+                    <textarea name=@(item.Id+"Solved") rows=5 cols=100></textarea>
+                }
+                else if (item.Type == "MCQ")
+                {
+                    foreach (var i in item.Options)
+                    {
+                        <input type="radio" name=@(item.Id+"Solved") /> @i.OptionText
+                    }
+                }
+                else
+                {
+                    foreach (var i in item.Options)
+                    {
+                        <input type="Checkbox" name=@(item.Id+"Solved") /> @i.OptionText
+                    }
                 }
             </td>
         </tr>
@@ -30,4 +45,4 @@
 </table>
 
 <br />
-@Html.ActionLink("Back","NewExams","Student")
+@Html.ActionLink("Back","NewExams","Student",new {sid = sid},null)
