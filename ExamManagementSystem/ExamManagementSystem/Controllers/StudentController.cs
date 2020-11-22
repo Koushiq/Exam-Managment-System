@@ -1,4 +1,5 @@
-﻿using ExamManagementSystem.Repository;
+﻿using ExamManagementSystem.Models.DataAccess;
+using ExamManagementSystem.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,25 +11,46 @@ namespace ExamManagementSystem.Controllers
     public class StudentController : Controller
     {
         StudentRepository student = new StudentRepository();
+        int id = 1;
         // GET: Student
         [HttpGet]
         public ActionResult Index()
         {
-            return View(student.Get(1));
+            return View(student.Get(id));
         }
         
         [HttpGet]
         public ActionResult CourseList()
         {
             EnrollRepository enr = new EnrollRepository();
-            return View(enr.GetAllByStudentId(1));
+            return View(enr.GetAllByStudentId(id));
+        }
+
+        [HttpGet]
+        public ActionResult NewExams(int sid)
+        {
+            ExamRepository exams = new ExamRepository();
+            return View(exams.GetFutureExamsBySectionId(sid));
+        }
+
+        [HttpGet]
+        public ActionResult StartExam(int eid)
+        {
+            return RedirectToAction("Answer","Exam",new {eid = eid});
+        }
+
+        [HttpGet]
+        public ActionResult PastExams(int sid)
+        {
+            ExamRepository exams = new ExamRepository();
+            return View(exams.GetPastExamsBySectionId(sid));
         }
 
         [HttpGet]
         public ActionResult Gradesheet()
         {
             GradeSheetRepository gsr = new GradeSheetRepository();
-            return View(gsr.GetStudentGradesheet(1));
+            return View(gsr.GetStudentGradesheet(id));
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Web;
 
 namespace ExamManagementSystem.Repository
 {
-    public class SectionRepository:Repository<Student>
+    public class SectionRepository:Repository<Section>
     {
     }
 }

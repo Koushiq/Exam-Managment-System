@@ -132,6 +132,18 @@
           <Property Name="Status" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Admins_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Admins" Type="Self.Admins" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Admins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Courses_Admins_CreatedBy">
           <End Role="Admins" Type="Self.Admins" Multiplicity="1" />
           <End Role="Courses" Type="Self.Courses" Multiplicity="*" />
@@ -349,6 +361,10 @@
           <EntitySet Name="SubmittedAnswers" EntityType="Self.SubmittedAnswers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Teachers" EntityType="Self.Teachers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Admins_Users" Association="Self.FK_Admins_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Admins" EntitySet="Admins" />
+          </AssociationSet>
           <AssociationSet Name="FK_Courses_Admins_CreatedBy" Association="Self.FK_Courses_Admins_CreatedBy">
             <End Role="Admins" EntitySet="Admins" />
             <End Role="Courses" EntitySet="Courses" />
@@ -432,6 +448,7 @@
           <NavigationProperty Name="Courses1" Relationship="Self.FK_Courses_Admins_DeletedBy" FromRole="Admins" ToRole="Courses" />
           <NavigationProperty Name="Sections" Relationship="Self.FK_Sections_Admins_CreatedBy" FromRole="Admins" ToRole="Sections" />
           <NavigationProperty Name="Sections1" Relationship="Self.FK_Sections_Admins_DeletedBy" FromRole="Admins" ToRole="Sections" />
+          <NavigationProperty Name="User" Relationship="ExamManagementSystemDBModel.FK_Admins_Users" FromRole="Admin" ToRole="User" />
         </EntityType>
         <EntityType Name="Cours">
           <Key>
@@ -582,6 +599,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Student" Relationship="Self.FK_Students_Users1" FromRole="Users" ToRole="Students" />
           <NavigationProperty Name="Teacher" Relationship="Self.FK_Teachers_Users1" FromRole="Users" ToRole="Teachers" />
+          <NavigationProperty Name="Admin" Relationship="ExamManagementSystemDBModel.FK_Admins_Users" FromRole="User" ToRole="Admin" />
         </EntityType>
         <Association Name="FK_Courses_Admins_CreatedBy">
           <End Role="Admins" Type="Self.Admin" Multiplicity="1" />
@@ -868,7 +886,23 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Teachers" EntitySet="Teachers" />
           </AssociationSet>
+          <AssociationSet Name="FK_Admins_Users" Association="ExamManagementSystemDBModel.FK_Admins_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Admin" EntitySet="Admins" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_Admins_Users">
+          <End Type="ExamManagementSystemDBModel.User" Role="User" Multiplicity="1" />
+          <End Type="ExamManagementSystemDBModel.Admin" Role="Admin" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Admin">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->

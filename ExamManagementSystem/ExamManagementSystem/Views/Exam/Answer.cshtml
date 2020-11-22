@@ -1,0 +1,33 @@
+﻿@model IEnumerable<ExamManagementSystem.Models.DataAccess.Question>
+
+@{
+    ViewBag.Title = (ViewBag.Course + " " + ViewBag.Exm.ExamName);
+}
+
+<h2>@(ViewBag.Course + " " + ViewBag.Exm.ExamName)</h2>
+
+<table>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <h3>@item.Statement: </h3>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @if (item.Type == "Descriptive")
+                {
+                    <input type="file" name=@(item.Id+"Solved") />
+                }
+                else if (item.Type == "Text")
+                {
+                    <textarea name=@(item.Id+"Solved")></textarea>
+                }
+            </td>
+        </tr>
+    }
+</table>
+
+<br />
+@Html.ActionLink("Back","NewExams","Student")

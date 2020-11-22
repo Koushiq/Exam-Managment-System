@@ -8,5 +8,9 @@ namespace ExamManagementSystem.Repository
 {
     public class QuestionRepository:Repository<Question>
     {
+        public List<Question> GetQuestionsByExamId(int eid)
+        {
+            return this.GetAll().Where(x => x.ExamId == eid).ToList();
+        }
     }
 }

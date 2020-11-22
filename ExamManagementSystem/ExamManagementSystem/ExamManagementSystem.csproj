@@ -113,6 +113,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
+    <Compile Include="Controllers\ExamController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -163,9 +164,6 @@
     <Compile Include="Models\DataAccess\SubmittedAnswer.cs">
       <DependentUpon>ExamManagementSystemDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DataAccess\sysdiagram.cs">
-      <DependentUpon>ExamManagementSystemDataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\DataAccess\Teacher.cs">
       <DependentUpon>ExamManagementSystemDataModel.tt</DependentUpon>
     </Compile>
@@ -202,6 +200,9 @@
     <Content Include="Views\Student\Index.cshtml" />
     <Content Include="Views\Student\CourseList.cshtml" />
     <Content Include="Views\Student\Gradesheet.cshtml" />
+    <Content Include="Views\Student\NewExams.cshtml" />
+    <Content Include="Views\Student\PastExams.cshtml" />
+    <Content Include="Views\Exam\Answer.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
