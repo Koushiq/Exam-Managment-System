@@ -8,7 +8,9 @@ namespace ExamManagementSystem.Repository
 {
     public class UserRepository: Repository<User>
     {
-        
-
+        public List<User> GetAllByUserType(string usertype)
+        {
+            return this.GetAll().Where(s => s.Usertype == usertype && s.Status=="approved").ToList();
+        }
     }
 }

@@ -1,0 +1,77 @@
+﻿@model IEnumerable<ExamManagementSystem.Models.DataAccess.Section>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SectionName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedAt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeletedAt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Admin.UserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Admin1.UserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cours.CourseName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Teacher.Faculty)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SectionName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeletedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Admin.UserId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Admin1.UserId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cours.CourseName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Teacher.Faculty)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>
