@@ -7,42 +7,73 @@
 
 <h2>@(ViewBag.Course + " " + ViewBag.Exm.ExamName)</h2>
 
-<table>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                <h3>@item.Statement: </h3>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @if (item.Type == "Descriptive")
-                {
-                    <input type="file" name=@(item.Id+"Solved") />
-                }
-                else if (item.Type == "Text")
-                {
-                    <textarea name=@(item.Id+"Solved") rows=5 cols=100></textarea>
-                }
-                else if (item.Type == "MCQ")
-                {
-                    foreach (var i in item.Options)
+<form method="POST" enctype="multipart/form-data">
+    <table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <h3>@item.Statement: </h3>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @if (item.Type == "Descriptive")
                     {
-                        <input type="radio" name=@(item.Id+"Solved") /> @i.OptionText
+                        <input type="file" name=@item.Id />
                     }
-                }
-                else
-                {
-                    foreach (var i in item.Options)
+                    else if (item.Type == "Text")
                     {
-                        <input type="Checkbox" name=@(item.Id+"Solved") /> @i.OptionText
+                        <textarea name=item.Id rows=5 cols=100></textarea>
                     }
-                }
-            </td>
-        </tr>
-    }
-</table>
+                    else if (item.Type == "MCQ")
+                    {
+                        <div id="mcq">
+                            @foreach (var i in item.Options)
+                            {
+                                <input type="radio" class="radio" name="@i.QuestionId" id="@i.Id" value="@i.OptionId" /> @i.OptionText
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div id="mcq">
+                            @foreach (var i in item.Options)
+                            {
+                                <input type="Checkbox" name="@i.QuestionId" id="check" value="@i.Id" /> @i.OptionText
+                            }
+                        </div>
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+    <br />
+    <!--<input type="submit" name="Submit" id="submit" value="Submit"/>-->
+</form>
 
 <br />
 @Html.ActionLink("Back","NewExams","Student",new {sid = sid},null)
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".radio").on("click",function () {
+            $.ajax(
+            {
+                type: 'POST',
+                url: "/Exam/Answer",
+                data: {
+                    questionId: $(this).attr("id"),
+                    id: $(this).val()
+                },
+                success: function (data) {
+                    console.log(data);
+                },
+                error: (error) => {
+                    console.log(JSON.stringify(error));
+                }
+            });
+        });
+    });
+</script>
