@@ -13,7 +13,16 @@ namespace ExamManagementSystem.Repository
         {
             //section.CourseId = 5; //
             section.CreatedAt = DateTime.Now;
-            section.CreatedBy = 2;  // insert admin id using session
+            section.CreatedBy = 2;  // insert admin id using cookie
+        }
+
+
+        public void SetValues(int id)
+        {
+            Section section = this.Get(id);
+            section.DeletedAt = DateTime.Now;
+            section.DeletedBy = 2; // assign admin user validate using id
+
         }
 
        

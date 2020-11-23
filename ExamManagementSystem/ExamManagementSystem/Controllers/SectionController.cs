@@ -39,5 +39,39 @@ namespace ExamManagementSystem.Controllers
             sectionRepo.Insert(section);
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public ActionResult Delete(int id=-1)
+        {
+            if(id!=-1)
+            {
+                return View(sectionRepo.Get(id));
+            }
+            return RedirectToAction("Index");
+            
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public ActionResult ConfirmDelete(int id)
+        {
+            /*if(//usertype == teacher)
+            {
+                sectionRepo.SetValues(id);
+            }
+            else if(usertype=="admin" && Admin.PermissionBin== ) 
+            {
+                sectionRepo.Delete(id);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+            
+            
+            */
+            
+            sectionRepo.Delete(id);
+            return RedirectToAction("Index");
+        }
     }
 }

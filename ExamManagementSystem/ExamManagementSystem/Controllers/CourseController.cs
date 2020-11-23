@@ -28,5 +28,28 @@ namespace ExamManagementSystem.Controllers
             courseRepo.Insert(course);
             return RedirectToAction("Create"); 
         }
+
+
+        [HttpGet]
+        public ActionResult Delete(int id=-1)
+        {
+            bool res = courseRepo.GetAll().Any(s => s.Id == id);
+            if (id!=-1 && res)
+            {
+                return View(courseRepo.Get(id));
+            }
+
+            Session["wrongId"] = true;
+            return RedirectToAction("Index");
+
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public ActionResult ConfirmDelete(int id)
+        {
+            courseRepo.Delete(id);
+            Session["confirmDelete"] = true;
+            return RedirectToAction("Index");
+        }
     }
 }

@@ -15,6 +15,21 @@
     <p>
         @Html.ActionLink("Create New", "Create")
     </p>
+
+    @{
+        if (Session["wrongId"] != null)
+        {
+            <script>alert("Wrong Id ! ");</script>
+            Session["wrongId"] = null;
+        }
+
+        if (Session["confirmDelete"] != null)
+        {
+            <script>alert("Deleted Successfully! ");</script>
+            Session["confirmDelete"] = null;
+        }
+
+    }
     <table class="table" border="1">
         <tr>
             <th>
@@ -35,33 +50,34 @@
             </th>
             <th>Action</th>
         </tr>
-    
-    @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CourseName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreatedAt)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Admin.User.Username)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DeletedAt)
-        </td>
 
-        <td>
-            @Html.DisplayFor(modelItem => item.Admin1.User.Username)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-        </td>
-    </tr>
-    }
-    
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CourseName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedAt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Admin.User.Username)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeletedAt)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Admin1.User.Username)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+
     </table>
 </body>
 </html>
