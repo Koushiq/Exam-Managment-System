@@ -8,5 +8,6 @@ namespace ExamManagementSystem.Repository
 {
     public class StudentRepository:Repository<Student>
     {
+
     }
 }

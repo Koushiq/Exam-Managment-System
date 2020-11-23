@@ -11,21 +11,57 @@ namespace ExamManagementSystem.Models.DataAccess
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class User
     {
+        [Required]
+        [MinLength(8, ErrorMessage = "Username too short")]
         public string Username { get; set; }
+
+        [Required]
+        [MinLength(5, ErrorMessage = "Must select user type")]
         public string Usertype { get; set; }
+
+        [Required]
+        [MinLength(8, ErrorMessage = "Password too short")]
+        [DataType(DataType.Password, ErrorMessage = "Password format not strong enough")]
         public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm Passowrd")]
+        public string ConfirmPassword { get; set; }
+
+        [Required]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
+
+        [Required]
+        [MinLength(2, ErrorMessage = "First Name too short")]
+        [Display(Name = "First Name")]
         public string Firstname { get; set; }
+
+        [MinLength(2, ErrorMessage = "Last Name too short")]
+        [Display(Name = "Last Name")]
         public string Lastname { get; set; }
+
+        [MinLength(4, ErrorMessage = "You must select your gender")]
         public string Gender { get; set; }
+
+        [DataType(DataType.Date)]
+        [Display(Name = "Date of Birth")]
         public System.DateTime Dob { get; set; }
+
+        [Display(Name = "Profile Picture")]
+        [DataType(DataType.Upload)]
         public string Propic { get; set; }
+
         public System.DateTime CreatedAt { get; set; }
+
         public Nullable<System.DateTime> ActionAt { get; set; }
+
         public string Status { get; set; }
+
         public int Id { get; set; }
     
         public virtual Admin Admin { get; set; }
