@@ -54,23 +54,18 @@ namespace ExamManagementSystem.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult ConfirmDelete(int id)
         {
-            /*if(//usertype == teacher)
+            Section section = sectionRepo.Get(id);
+            if(section.DeletedBy==null)
             {
-                sectionRepo.SetValues(id);
-            }
-            else if(usertype=="admin" && Admin.PermissionBin== ) 
-            {
-                sectionRepo.Delete(id);
+                Session["DeleteSection"] =true;
+                section.DeletedBy = (int)Session["userId"];
+                sectionRepo.SoftDelete(section);
             }
             else
             {
-                return RedirectToAction("Index");
+                Session["DeleteSection"] = false;
             }
-            
-            
-            */
-            
-            sectionRepo.Delete(id);
+           
             return RedirectToAction("Index");
         }
     }

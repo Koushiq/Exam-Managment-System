@@ -9,6 +9,7 @@ namespace ExamManagementSystem.Repository
 {
     public class Repository<T> : IRepository<T> where T : class
     {
+        protected DateTime time;
         protected ExamManagementSystemDBEntities context = new ExamManagementSystemDBEntities();
         public void Delete(int id)
         {
@@ -36,6 +37,11 @@ namespace ExamManagementSystem.Repository
         {
             this.context.Entry(entity).State = EntityState.Modified;
             this.context.SaveChanges();
+        }
+
+        public virtual void SoftDelete(T entity)
+        {
+            time = DateTime.Now;
         }
     }
 }

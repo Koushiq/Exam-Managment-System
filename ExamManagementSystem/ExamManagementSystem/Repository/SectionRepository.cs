@@ -13,7 +13,7 @@ namespace ExamManagementSystem.Repository
         {
             //section.CourseId = 5; //
             section.CreatedAt = DateTime.Now;
-            section.CreatedBy = 2;  // insert admin id using cookie
+            section.CreatedBy = (int)HttpContext.Current.Session["userId"]; 
         }
 
 
@@ -21,14 +21,19 @@ namespace ExamManagementSystem.Repository
         {
             Section section = this.Get(id);
             section.DeletedAt = DateTime.Now;
-            section.DeletedBy = 2; // assign admin user validate using id
+            section.DeletedBy = (int)HttpContext.Current.Session["userId"]; // assign admin user validate using id
 
         }
 
-       
+        public override void SoftDelete(Section entity)
+        {
+            base.SoftDelete(entity);
+            entity.DeletedAt = base.time;
+            base.Update(entity);
+        }
 
-     
 
-        
+
+
     }
 }

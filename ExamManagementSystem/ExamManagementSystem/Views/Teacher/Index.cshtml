@@ -1,0 +1,61 @@
+﻿@model IEnumerable<ExamManagementSystem.Models.DataAccess.Teacher>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Faculty)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.Username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.Firstname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.Lastname)
+            </th>
+           
+            <th>Actions</th>
+        </tr>
+    
+    @foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Faculty)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.Username)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.Firstname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.Lastname)
+        </td>
+        
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.UserId }) |
+            @Html.ActionLink("Details", "Details", new { id = item.UserId }) |
+            
+        </td>
+    </tr>
+    }
+    
+    </table>
+</body>
+</html>

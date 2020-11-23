@@ -24,6 +24,7 @@ namespace ExamManagementSystem.Controllers
         [HttpPost]
         public ActionResult Create(Cours course)
         {
+            course.CreatedBy = (int)Session["userId"]; //Convert.ToInt32(HttpContext.Request.Cookies.Get("Id"));
             courseRepo.SetValues(course);
             courseRepo.Insert(course);
             return RedirectToAction("Create"); 
@@ -47,8 +48,22 @@ namespace ExamManagementSystem.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult ConfirmDelete(int id)
         {
-            courseRepo.Delete(id);
-            Session["confirmDelete"] = true;
+
+
+
+            Cours course = courseRepo.Get(id);
+            if (course.DeletedBy == null)
+            {
+                course.DeletedBy = (int)Session["userId"];
+                courseRepo.SoftDelete(course);
+
+                Session["confirmDelete"] = true;
+            }
+            else
+            {
+                Session["confirmDelete"] = false;
+            }
+            
             return RedirectToAction("Index");
         }
     }

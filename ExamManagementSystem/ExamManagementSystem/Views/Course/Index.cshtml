@@ -25,11 +25,20 @@
 
         if (Session["confirmDelete"] != null)
         {
-            <script>alert("Deleted Successfully! ");</script>
+            if ((bool)Session["confirmDelete"] == true)
+            {
+                <script>alert("Deleted Successfully! ");</script>
+            }
+            else
+            {
+                <script>alert("Already Deleted !");</script>
+            }
             Session["confirmDelete"] = null;
         }
 
     }
+  
+
     <table class="table" border="1">
         <tr>
             <th>

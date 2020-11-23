@@ -16,12 +16,14 @@ namespace ExamManagementSystem.Controllers
     {
         readonly UserRepository _user_repo;
         HttpCookie _cookie;
-
+        HttpCookie userId = new HttpCookie("userId");
+       
         public UserController(UserRepository user_repo, HttpCookie cookie)
         {
             this._user_repo = user_repo;
             this._cookie = cookie;
         }
+
         // GET: Default
         public ActionResult Index()
         {
@@ -40,15 +42,25 @@ namespace ExamManagementSystem.Controllers
         {
             string username = credentials["Username"];
             string password = credentials["Password"];
-
-            if( !string.IsNullOrEmpty(username) && 
+           
+            if ( !string.IsNullOrEmpty(username) && 
                 !string.IsNullOrEmpty(password))
             {
                 User user = _user_repo.GetByUsername(username);
+
+                User users = _user_repo.GetAll().Where(s => s.Username == username).FirstOrDefault();
+
+
+                Session["userId"] = users.Id;
+                userId["userId"] = users.Id.ToString();
+                userId.Expires = new DateTime(2022,11,11);
                 if (user?.Password == password)
                 {
                     RegisterUser(user);
                     return ValidateUserStatus();
+
+                    
+
                 }
                 else
                 {
@@ -91,7 +103,14 @@ namespace ExamManagementSystem.Controllers
             {
                 return UserApprovalMessage();
             }
-            return RedirectToAction("Index", _cookie["Type"]);
+            if (_cookie["Type"] != "admin")
+            {
+                return RedirectToAction("Index", _cookie["Type"]);
+            }
+            else
+            {
+                return RedirectToAction("Home", _cookie["Type"]);
+            }
         }
 
         private ActionResult UserApprovalMessage()
@@ -181,7 +200,7 @@ namespace ExamManagementSystem.Controllers
 
             _cookie.Expires = DateTime.Now.AddDays(
                 int.Parse(ConfigurationManager.AppSettings["cookieExpiryDays"]));
-
+            
             _cookie["Id"] = user.Id.ToString();
             _cookie["User"] = user.Username;
             _cookie["FirstName"] = user.Firstname;

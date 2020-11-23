@@ -32,5 +32,7 @@ namespace ExamManagementSystem.Repository
             return teachersInfo;
             
         }
+
+      
     }
 }

@@ -11,7 +11,6 @@ namespace ExamManagementSystem.Repository
     {
         public void SetValues(Cours course)
         {
-            course.CreatedBy = 1;
             course.CreatedAt = DateTime.Now;
         }
 
@@ -34,6 +33,15 @@ namespace ExamManagementSystem.Repository
             course.courseIds = couresIds;
 
             return course;
+        }
+
+        public override void SoftDelete(Cours entity)
+        {
+           
+            base.SoftDelete(entity);
+            entity.DeletedAt = base.time;
+            base.Update(entity);
+
         }
     }
 }
