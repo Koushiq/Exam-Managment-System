@@ -25,11 +25,11 @@ namespace ExamManagementSystem.Models.ServiceAccess
             }
             return integerValue;
         }
-        public static void SetBit(this int integerValue, int bit)
+        public static void SetBit(ref this int integerValue, int bit)
         {
             integerValue = integerValue | (1 << bit);
         }
-        public static void ClearBit(this int integerValue, int bit)
+        public static void ClearBit(ref this int integerValue, int bit)
         {
             integerValue = integerValue & (~(1 << bit));
         }
