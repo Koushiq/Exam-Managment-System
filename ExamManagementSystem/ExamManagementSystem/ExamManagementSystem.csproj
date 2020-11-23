@@ -137,6 +137,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ServiceAccess\MailServices.cs" />
     <Compile Include="Models\DataAccess\Admin.cs">
       <DependentUpon>ExamManagementSystemDataModel.tt</DependentUpon>
     </Compile>
@@ -188,7 +189,7 @@
     <Compile Include="Models\DataAccess\User.cs">
       <DependentUpon>ExamManagementSystemDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\UserAccess\LoginAuthorization.cs" />
+    <Compile Include="Models\ServiceAccess\UserServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AdminRepository.cs" />
     <Compile Include="Repository\CourseRepository.cs" />
@@ -216,6 +217,7 @@
     <None Include="packages.config" />
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\User\Signup.cshtml" />
+    <Content Include="Views\User\EmailVerification.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

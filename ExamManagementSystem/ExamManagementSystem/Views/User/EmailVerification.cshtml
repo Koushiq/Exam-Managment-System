@@ -1,0 +1,24 @@
+﻿@model string
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>EmailVerification</title>
+</head>
+<body>
+    <div> 
+        <form action="VerifyEmail" method="post">
+            Verification Code <input type="number" name="verificationCode" required/>
+            <div class="text-danger">
+                @ViewBag.Message
+            </div>
+            <input type="submit" value="Verify" name="submit" />
+        </form>
+    </div>
+</body>
+</html>

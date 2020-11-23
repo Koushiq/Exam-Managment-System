@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using Unity;
 using Unity.AspNet.Mvc;
+using Unity.Injection;
 
 namespace ExamManagementSystem
 {
@@ -19,6 +20,7 @@ namespace ExamManagementSystem
 
             container.RegisterType<IRepository<User>, UserRepository>();
             container.RegisterType<UserRepository, UserRepository>();
+            container.RegisterType<HttpCookie, HttpCookie>(new InjectionConstructor("userData"));
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
