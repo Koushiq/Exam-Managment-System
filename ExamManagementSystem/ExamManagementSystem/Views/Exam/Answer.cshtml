@@ -20,11 +20,13 @@
                 <td>
                     @if (item.Type == "Descriptive")
                     {
-                        <input type="file" name=@item.Id />
+                        <input type="file" class="file" id="@item.Id" name=@item.Id />
                     }
                     else if (item.Type == "Text")
                     {
-                        <textarea name=item.Id rows=5 cols=100></textarea>
+                        <textarea id="text" name="@item.Id" rows=5 cols=100></textarea>
+                        <br />
+                        <input type="submit" name="Submit" id="submit" value="Submit"/>
                     }
                     else if (item.Type == "MCQ")
                     {
@@ -49,7 +51,6 @@
         }
     </table>
     <br />
-    <!--<input type="submit" name="Submit" id="submit" value="Submit"/>-->
 </form>
 
 <br />
@@ -72,6 +73,29 @@
                 },
                 error: (error) => {
                     console.log(JSON.stringify(error));
+                }
+            });
+        });
+    });
+
+    $(document).ready(function () {
+        $("#submit").on("click", function () {
+            $.ajax(
+            {
+                type: 'POST',
+                url: "/Exam/TextAnswer",
+                /*data: {
+                    
+                },
+                success: function (data) {
+                    console.log(data);
+                },
+                error: (error) => {
+                    console.log(JSON.stringify(error));
+                }*/,
+                success: function (data) {
+                        console.log($("#text").attr("name"));
+                        console.log($("#text").val());
                 }
             });
         });

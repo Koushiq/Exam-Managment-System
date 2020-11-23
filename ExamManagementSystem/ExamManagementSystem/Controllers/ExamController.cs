@@ -53,5 +53,28 @@ namespace ExamManagementSystem.Controllers
 
             return Content("QId: "+questionId+" OId: "+id);
         }
+
+        [HttpPost]
+        public ActionResult TextAnswer(int questionId, string ansText)
+        {
+            SubmittedAnswerRepository sar = new SubmittedAnswerRepository();
+            SubmittedAnswer sa = new SubmittedAnswer();
+            sa.StudentId = uid;
+            sa.QuestionId = questionId;
+            sa.AnswerText = ansText;
+
+            if (sar.GetSAByQuestionId(questionId) == null)
+            {
+                sa.AttemptTime = 1;
+                sar.Insert(sa);
+            }
+            else
+            {
+                sa.AttemptTime += 1;
+                sar.Update(sa);
+            }
+
+            return Content("QId: " + questionId + "AnsText: "+ansText);
+        }
     }
 }
