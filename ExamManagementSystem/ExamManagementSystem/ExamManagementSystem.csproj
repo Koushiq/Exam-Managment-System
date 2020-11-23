@@ -96,24 +96,58 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-grid.css" />
+    <Content Include="Content\bootstrap-grid.min.css" />
+    <Content Include="Content\bootstrap-reboot.css" />
+    <Content Include="Content\bootstrap-reboot.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\sb2.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <EntityDeploy Include="Models\DataAccess\ExamManagementSystemDataModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ExamManagementSystemDataModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Models\DataAccess\ExamManagementSystemDataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ExamManagementSystemDataModel.edmx</DependentUpon>
       <LastGenOutput>ExamManagementSystemDataModel.Context.cs</LastGenOutput>
     </Content>
+    <Content Include="Models\DataAccess\ExamManagementSystemDataModel.edmx.diagram">
+      <DependentUpon>ExamManagementSystemDataModel.edmx</DependentUpon>
+    </Content>
     <Content Include="Models\DataAccess\ExamManagementSystemDataModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ExamManagementSystemDataModel.edmx</DependentUpon>
       <LastGenOutput>ExamManagementSystemDataModel.cs</LastGenOutput>
+      <DependentUpon>ExamManagementSystemDataModel.edmx</DependentUpon>
     </Content>
+    <Content Include="Scripts\bootstrap.bundle.js" />
+    <Content Include="Scripts\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
+    <Compile Include="Controllers\ExamController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
+    <Compile Include="Controllers\TeacherController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -131,18 +165,18 @@
       <DependentUpon>ExamManagementSystemDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DataAccess\ExamManagementSystemDataModel.Context.cs">
-      <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
       <DependentUpon>ExamManagementSystemDataModel.Context.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DataAccess\ExamManagementSystemDataModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>ExamManagementSystemDataModel.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Models\DataAccess\ExamManagementSystemDataModel.Designer.cs">
-      <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
       <DependentUpon>ExamManagementSystemDataModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\DataAccess\GradeSheet.cs">
@@ -163,15 +197,15 @@
     <Compile Include="Models\DataAccess\SubmittedAnswer.cs">
       <DependentUpon>ExamManagementSystemDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DataAccess\sysdiagram.cs">
-      <DependentUpon>ExamManagementSystemDataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\DataAccess\Teacher.cs">
       <DependentUpon>ExamManagementSystemDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DataAccess\User.cs">
       <DependentUpon>ExamManagementSystemDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\MetaDataClasses\ExamMetaData.cs" />
+    <Compile Include="Models\PartialModels\Exam.cs" />
+    <Compile Include="Models\ViewModels\TeacherSectionViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AdminRepository.cs" />
     <Compile Include="Repository\CourseRepository.cs" />
@@ -189,19 +223,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
-    <EntityDeploy Include="Models\DataAccess\ExamManagementSystemDataModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ExamManagementSystemDataModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\DataAccess\ExamManagementSystemDataModel.edmx.diagram">
-      <DependentUpon>ExamManagementSystemDataModel.edmx</DependentUpon>
-    </Content>
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Student\Index.cshtml" />
-    <Content Include="Views\Student\CourseList.cshtml" />
-    <Content Include="Views\Student\Gradesheet.cshtml" />
+    <Content Include="Views\Teacher\Index.cshtml" />
+    <Content Include="Views\Shared\_SectionCard.cshtml" />
+    <Content Include="Views\Teacher\Section.cshtml" />
+    <Content Include="Views\Exam\Create.cshtml" />
+    <Content Include="Views\Exam\CreateQuestions.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

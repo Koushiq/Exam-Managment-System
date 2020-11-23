@@ -1,0 +1,12 @@
+﻿@model ExamManagementSystem.Models.DataAccess.Section
+
+<div class="col-sm-3 py-2">
+    <div class="card h-100">
+        <div class="card-body">
+            <h3 class="card-title">@Model.Cours.CourseName [ @Model.SectionName ]</h3>
+            <p class="card-text">Enrolled Students: @Model.Enrolls.Count</p>
+            <p class="card-text">Upcoming Exam Count: @Model.Exams.Where(exam => exam.StartTime >= DateTime.Now).ToList().Count</p>
+            <a href="/Section/@Model.Id" class="btn btn-outline-secondary">View</a>
+        </div>
+    </div>
+</div>

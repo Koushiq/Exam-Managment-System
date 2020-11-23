@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ExamManagementSystemDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="ExamManagementSystemDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Admins">
           <Key>
             <PropertyRef Name="UserId" />
@@ -132,6 +132,18 @@
           <Property Name="Status" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Admins_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Admins" Type="Self.Admins" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Admins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Courses_Admins_CreatedBy">
           <End Role="Admins" Type="Self.Admins" Multiplicity="1" />
           <End Role="Courses" Type="Self.Courses" Multiplicity="*" />
@@ -349,6 +361,10 @@
           <EntitySet Name="SubmittedAnswers" EntityType="Self.SubmittedAnswers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Teachers" EntityType="Self.Teachers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Admins_Users" Association="Self.FK_Admins_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Admins" EntitySet="Admins" />
+          </AssociationSet>
           <AssociationSet Name="FK_Courses_Admins_CreatedBy" Association="Self.FK_Courses_Admins_CreatedBy">
             <End Role="Admins" EntitySet="Admins" />
             <End Role="Courses" EntitySet="Courses" />
@@ -418,7 +434,8 @@
             <End Role="Teachers" EntitySet="Teachers" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ExamManagementSystemDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -428,6 +445,7 @@
           </Key>
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="PermissionBin" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Admins_Users" FromRole="Admins" ToRole="Users" />
           <NavigationProperty Name="Courses" Relationship="Self.FK_Courses_Admins_CreatedBy" FromRole="Admins" ToRole="Courses" />
           <NavigationProperty Name="Courses1" Relationship="Self.FK_Courses_Admins_DeletedBy" FromRole="Admins" ToRole="Courses" />
           <NavigationProperty Name="Sections" Relationship="Self.FK_Sections_Admins_CreatedBy" FromRole="Admins" ToRole="Sections" />
@@ -580,9 +598,22 @@
           <Property Name="ActionAt" Type="DateTime" Precision="3" />
           <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Admin" Relationship="Self.FK_Admins_Users" FromRole="Users" ToRole="Admins" />
           <NavigationProperty Name="Student" Relationship="Self.FK_Students_Users1" FromRole="Users" ToRole="Students" />
           <NavigationProperty Name="Teacher" Relationship="Self.FK_Teachers_Users1" FromRole="Users" ToRole="Teachers" />
         </EntityType>
+        <Association Name="FK_Admins_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Admins" Type="Self.Admin" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Admins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Courses_Admins_CreatedBy">
           <End Role="Admins" Type="Self.Admin" Multiplicity="1" />
           <End Role="Courses" Type="Self.Cours" Multiplicity="*" />
@@ -800,6 +831,10 @@
           <EntitySet Name="SubmittedAnswers" EntityType="Self.SubmittedAnswer" />
           <EntitySet Name="Teachers" EntityType="Self.Teacher" />
           <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_Admins_Users" Association="Self.FK_Admins_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Admins" EntitySet="Admins" />
+          </AssociationSet>
           <AssociationSet Name="FK_Courses_Admins_CreatedBy" Association="Self.FK_Courses_Admins_CreatedBy">
             <End Role="Admins" EntitySet="Admins" />
             <End Role="Courses" EntitySet="Courses" />

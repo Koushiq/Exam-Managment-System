@@ -4,19 +4,20 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="faa70b37df7d47de904a204cf32cf8af" Name="Diagram1">
-        <EntityTypeShape EntityType="ExamManagementSystemDBModel.Admin" Width="1.5" PointX="0.75" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExamManagementSystemDBModel.Cours" Width="1.5" PointX="3" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExamManagementSystemDBModel.Enroll" Width="1.5" PointX="7.5" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExamManagementSystemDBModel.Exam" Width="1.5" PointX="7.5" PointY="8.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExamManagementSystemDBModel.GradeSheet" Width="1.5" PointX="9.75" PointY="8" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExamManagementSystemDBModel.Option" Width="1.5" PointX="12" PointY="12" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExamManagementSystemDBModel.Question" Width="1.5" PointX="9.75" PointY="11.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExamManagementSystemDBModel.Section" Width="1.5" PointX="5.25" PointY="5.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExamManagementSystemDBModel.Student" Width="1.5" PointX="5.25" PointY="2.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExamManagementSystemDBModel.SubmittedAnswer" Width="1.5" PointX="15" PointY="11.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExamManagementSystemDBModel.Teacher" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExamManagementSystemDBModel.User" Width="1.5" PointX="0.75" PointY="9.875" IsExpanded="true" />
+      <Diagram DiagramId="cfb0858f7fe44adabc5e10f9bcfd9f71" Name="Diagram1">
+        <EntityTypeShape EntityType="ExamManagementSystemDBModel.Admin" Width="1.5" PointX="3" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamManagementSystemDBModel.Cours" Width="1.5" PointX="5.25" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamManagementSystemDBModel.Enroll" Width="1.5" PointX="9.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamManagementSystemDBModel.Exam" Width="1.5" PointX="9.75" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamManagementSystemDBModel.GradeSheet" Width="1.5" PointX="12" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamManagementSystemDBModel.Option" Width="1.5" PointX="14.25" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamManagementSystemDBModel.Question" Width="1.5" PointX="12" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamManagementSystemDBModel.Section" Width="1.5" PointX="7.5" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamManagementSystemDBModel.Student" Width="1.5" PointX="3" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamManagementSystemDBModel.SubmittedAnswer" Width="1.5" PointX="14.25" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamManagementSystemDBModel.Teacher" Width="1.5" PointX="3" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamManagementSystemDBModel.User" Width="1.5" PointX="0.75" PointY="8.125" IsExpanded="true" />
+        <AssociationConnector Association="ExamManagementSystemDBModel.FK_Admins_Users" ManuallyRouted="false" />
         <AssociationConnector Association="ExamManagementSystemDBModel.FK_Courses_Admins_CreatedBy" ManuallyRouted="false" />
         <AssociationConnector Association="ExamManagementSystemDBModel.FK_Courses_Admins_DeletedBy" ManuallyRouted="false" />
         <AssociationConnector Association="ExamManagementSystemDBModel.FK_Sections_Admins_CreatedBy" ManuallyRouted="false" />

@@ -1,0 +1,121 @@
+﻿@model ExamManagementSystem.Models.DataAccess.Exam
+
+@{
+    ViewBag.Title = "CreateQuestions";
+    int count = 1;
+}
+
+<h2>CreateQuestions</h2>
+
+@foreach(var question in Model.Questions)
+{
+    <h6 class="font-weight-bold">@(count++). &nbsp; @question.Statement</h6>
+    if(question.Type == "MCQ")
+    {
+        foreach(var option in question.Options)
+        {
+            <input type="radio" value="@option.Id" name="@option.QuestionId"/> <span>@option.OptionText</span> <br />
+        }
+    }
+    if(question.Type == "Descriptive")
+    {
+        <textarea name="AnswerText" class="form-control">@question.AnswerText</textarea>
+    }
+    <br />
+}
+
+<div class="row mb-4 border-top">
+    <div class="col-md-12">
+        Add New Question
+    </div>
+    <div class="col-md-12">
+        <input type="hidden" name="ExamId" value="@Model.Id" />
+
+        <div class="form-group">
+            <label for="Statement">Statement</label>
+            <textarea name="Statement" class="form-control"></textarea>
+            <small class="text-danger"></small>
+        </div>
+        <div class="form-group">
+            <label>Select Type</label>
+            <br />
+            <div class="form-check-inline">
+                <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="Type" value="MCQ"> MCQ Single
+                </label>
+            </div>
+            <div class="form-check-inline">
+                <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="Type" value="Multiple"> MCQ Multiple
+                </label>
+            </div>
+            <div class="form-check-inline">
+                <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="Type" value="Descriptive"> Descriptive
+                </label>
+            </div>
+            <small class="text-danger"></small>
+        </div>
+
+        <div class="form-group for-descriptive">
+            <label for="AnswerText">Answer for this Question</label>
+            <textarea name="AnswerText" class="form-control"></textarea>
+            <small class="text-danger"></small>
+        </div>
+        <div class="form-group for-mcq">
+            <label>Options</label><br />
+            <div class="row border p-1 mb-2">
+                <div class="col-md-1">
+                    SL
+                </div>
+                <div class="col-md-9">
+                    Option Text
+                </div>
+                <div class="col-md-2">
+                    Correct Answer
+                </div>
+            </div>
+            <div class="row border p-1 mb-2">
+                <div class="col-md-1">
+                    1
+                </div>
+                <div class="col-md-9">
+                    <input type="text" class="form-control" />
+                </div>
+                <div class="col-md-2">
+                    <input type="radio" />
+                </div>
+            </div>
+            <div class="row border p-1 mb-2">
+                <div class="col-md-1">
+                    1
+                </div>
+                <div class="col-md-9">
+                    <input type="text" class="form-control" />
+                </div>
+                <div class="col-md-2">
+                    <input type="radio" />
+                </div>
+            </div>
+            <small class="text-danger"></small>
+            <button class="btn btn-info mt-1">Add Another Option</button>
+        </div>
+
+        <div class="form-group for-multiple">
+            <label for="AnswerText">Answer for this Question</label>
+            <textarea name="AnswerText" class="form-control"></textarea>
+            <small class="text-danger"></small>
+        </div>
+
+        <div class="form-group d-flex justify-content-end">
+            <button type="reset" class="btn btn-secondary mr-2 reset">Clear</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        console.log("siam");
+    </script>
+}

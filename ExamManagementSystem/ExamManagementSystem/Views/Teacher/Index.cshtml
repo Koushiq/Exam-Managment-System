@@ -1,0 +1,12 @@
+﻿@model IEnumerable<ExamManagementSystem.Models.DataAccess.Section>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        @Html.Partial("_SectionCard",item)
+    }
+</div>

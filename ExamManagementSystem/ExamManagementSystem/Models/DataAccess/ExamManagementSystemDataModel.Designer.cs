@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\Habiba\Desktop\APWDN\Project\Exam Management System\ExamManagementSystem\ExamManagementSystem\Models\DataAccess\ExamManagementSystemDataModel.edmx'. 
+﻿// T4 code generation is enabled for model 'D:\Edu\Programs\atp2\Exam-Managment-System\ExamManagementSystem\ExamManagementSystem\Models\DataAccess\ExamManagementSystemDataModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

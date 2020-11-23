@@ -1,0 +1,130 @@
+﻿@model ExamManagementSystem.Models.ViewModels.TeacherSectionViewModel
+@{
+    ViewBag.Title = Model.CourseName + " [ " + Model.SectionName + " ]";
+}
+
+<div class="row mb-4">
+    <div class="col-sm-12 mb-1">
+        <div class="card bg-white text-black p-1 px-3">
+            <div class="card-body p-0">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <h2>@ViewBag.Title</h2>
+                    </div>
+                    <div class="col-auto">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <a href="/Exam/Create/@Model.Id" type="button" class="btn btn-info">Create Exam</a>
+                            <a href="/Section/AddStudent/@Model.Id" type="button" class="btn btn-info">Add Student</a>
+                            <a href="/Section/ViewStat/@Model.Id" type="button" class="btn btn-info">View Stat</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#exams">Exams</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#students">Students</a>
+    </li>
+</ul>
+<div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade active show" id="exams">
+        @if (Model.OnGoingExams.Count > 0)
+        {
+            <div class="row mb-4">
+                <div class="col-sm-12 text-info h4 mb-2">
+                    Currently Being Held Exam List:
+                </div>
+                @foreach (var examListItem in Model.OnGoingExams)
+                {
+                    <div class="col-sm-12 mb-1">
+                        <div class="card bg-light text-black p-1 px-3">
+                            <div class="card-body p-0">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="font-weight-bold text-black mb-1">@examListItem.ExamName</div>
+                                        <div class="h7 mb-0 font-weight-light text-gray-800">@examListItem.TotalMarks Marks</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        @examListItem.StartTime
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        <div class="row mb-4">
+            <div class="col-sm-12 text-info h4 mb-2">
+                Upcoming Exam List:
+            </div>
+            @foreach (var examListItem in Model.UpcomingExams)
+            {
+                <div class="col-sm-12 mb-1">
+                    <div class="card bg-light text-black p-1 px-3">
+                        <div class="card-body p-0">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="font-weight-bold text-black mb-1">@examListItem.ExamName</div>
+                                    <div class="h7 mb-0 font-weight-light text-gray-800">@examListItem.TotalMarks Marks | @examListItem.Duration Minutes</div>
+                                </div>
+                                <div class="col-auto">
+                                    @examListItem.StartTime
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="tab-pane fade" id="students">
+        <div class="row mt-3 mb-4">
+            <table class="table table-sm table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Student ID</th>
+                        <th scope="col" style="width: 50%">Name</th>
+                        <th scope="col">Average Mark</th>
+                        <th scope="col">Participation</th>
+                        <th scope="col">Remove</th>
+                        <th scope="col">View Stat</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var studentListItem in Model.Stuents)
+                    {
+                        <tr>
+                            <th scope="row">@studentListItem.StudentId</th>
+                            <td>@studentListItem.Student.User.Firstname @studentListItem.Student.User.Lastname</td>
+                            <td>@studentListItem.Student.AverageMarks</td>
+                            <td><input type="checkbox" />haha</td>
+                            <td>
+                                <a href="/Section/RemoveStudent/@studentListItem.StudentId" class="btn btn-sm btn-block btn-danger">Remove</a>
+                            </td>
+                            <td>
+                                <a href="/Teacher/ViewSTudentStat/@studentListItem.StudentId" class="btn btn-sm btn-block btn-info">Stat</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
