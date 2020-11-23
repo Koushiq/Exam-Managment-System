@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
 
@@ -10,6 +11,7 @@ namespace ExamManagementSystem.Repository
     public class Repository<T> : IRepository<T> where T : class
     {
         protected ExamManagementSystemDBEntities context = new ExamManagementSystemDBEntities();
+
         public void Delete(int id)
         {
             this.context.Set<T>().Remove(Get(id));
@@ -36,6 +38,11 @@ namespace ExamManagementSystem.Repository
         {
             this.context.Entry(entity).State = EntityState.Modified;
             this.context.SaveChanges();
+        }
+
+        public void AddOrUpdate(T entity)
+        {
+            this.context.Set<T>().AddOrUpdate(entity);
         }
     }
 }

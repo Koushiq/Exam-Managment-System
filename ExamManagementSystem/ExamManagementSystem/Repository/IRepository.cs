@@ -12,6 +12,7 @@ namespace ExamManagementSystem.Repository
         T Get(int id);
         void Insert(T entity);
         void Update(T entity);
+        void AddOrUpdate(T entity);
         void Delete(int id);
     }
 }

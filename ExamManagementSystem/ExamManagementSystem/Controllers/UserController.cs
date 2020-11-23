@@ -14,8 +14,8 @@ namespace ExamManagementSystem.Controllers
 {
     public class UserController : Controller
     {
-        readonly UserRepository _user_repo;
-        HttpCookie _cookie;
+        private readonly UserRepository _user_repo;
+        private HttpCookie _cookie;
 
         public UserController(UserRepository user_repo, HttpCookie cookie)
         {
@@ -142,7 +142,7 @@ namespace ExamManagementSystem.Controllers
             {
                 User user = SessionUser;
                 user.Status = "awaiting_approval";
-                _user_repo.Update(user);
+                _user_repo.AddOrUpdate(user);
                 ClearVerificationCode();
                 return ValidateUserStatus();
             }
