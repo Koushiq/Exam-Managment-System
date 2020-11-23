@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -70,6 +71,9 @@ namespace ExamManagementSystem.Controllers
 
             if (isValid)
             {
+                userData.Teacher = new Teacher();
+                userData.Student = new Student();
+                userData.Admin = new Admin();
                 _user_repo.Insert(userData);
                 return RedirectToAction("Login", 
                     new { message = $"Welcome, {userData.Firstname} Signup Successful!"});
@@ -113,7 +117,7 @@ namespace ExamManagementSystem.Controllers
             if (!ModelState.IsValid) return false;
 
             userData.CreatedAt = DateTime.Now;
-            userData.Status = "unverified_email";
+            userData.Status = "valid";      // it will be "unverified_email". Fix it after fixing the Update() method of the repository
 
             return true;
         }
@@ -136,7 +140,7 @@ namespace ExamManagementSystem.Controllers
             }
             else if (Session["emailVerificationCode"]?.ToString() == verificationCode)
             {
-                User user = ((User)Session["User"]);
+                User user = SessionUser;
                 user.Status = "awaiting_approval";
                 _user_repo.Update(user);
                 ClearVerificationCode();

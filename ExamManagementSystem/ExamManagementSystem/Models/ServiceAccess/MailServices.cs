@@ -11,47 +11,40 @@ namespace ExamManagementSystem.Models.ServiceAccess
 {
     public class MailServices
     {
-        public static bool SendEmail(string receiverEmail, string mailSubject, string mailBody)
+        public static void SendEmail(string receiverEmail, string mailSubject, string mailBody)
         {
             List<string> receiverEmailList = new List<string>();
             receiverEmailList.Add(receiverEmail);
-            return SendEmail(receiverEmailList, mailSubject, mailBody);
+            SendEmail(receiverEmailList, mailSubject, mailBody);
         }
-        public static bool SendEmail(List<string> receiverEmailList, string mailSubject, string mailBody)
+
+        public static void SendEmail(List<string> receiverEmailList, string mailSubject, string mailBody)
         {
-            try
+            MailMessage mail = new MailMessage();
+            string host = ConfigurationManager.AppSettings["SmtpHost"];
+            string emailFrom = ConfigurationManager.AppSettings["emailFrom"];
+            int port = int.Parse(ConfigurationManager.AppSettings["SmtpPort"]);
+            string credentialUsername = ConfigurationManager.AppSettings["SmtpUsername"];
+            string credentialPassword = ConfigurationManager.AppSettings["SmtpPassword"];
+
+            SmtpClient SmtpServer = new SmtpClient(host);
+
+            mail.From = new MailAddress(emailFrom);
+            foreach (string emailAddress in receiverEmailList)
             {
-                string host = ConfigurationManager.AppSettings["SmtpHost"];
-                string emailFrom = ConfigurationManager.AppSettings["emailFrom"];
-                int port = int.Parse(ConfigurationManager.AppSettings["SmtpPort"]);
-                string credentialUsername = ConfigurationManager.AppSettings["SmtpUsername"];
-                string credentialPassword = ConfigurationManager.AppSettings["SmtpPassword"];
-
-                MailMessage mail = new MailMessage();
-                SmtpClient SmtpServer = new SmtpClient(host);
-
-                mail.From = new MailAddress(emailFrom);
-                foreach(string emailAddress in receiverEmailList)
-                {
-                    mail.To.Add(emailAddress);
-                }
-                
-                mail.Subject = mailSubject;
-                mail.IsBodyHtml = true;
-                mail.Body = mailBody;
-
-                SmtpServer.Port = port;
-                SmtpServer.UseDefaultCredentials = false;
-                SmtpServer.Credentials = new System.Net.NetworkCredential(credentialUsername, credentialPassword);
-                SmtpServer.EnableSsl = true;
-
-                SmtpServer.Send(mail);
-                return true;
+                mail.To.Add(emailAddress);
             }
-            catch (Exception ex)
-            {
-                return false;
-            }
+
+            mail.Subject = mailSubject;
+            mail.IsBodyHtml = true;
+            mail.Body = mailBody;
+
+            SmtpServer.Port = port;
+            SmtpServer.UseDefaultCredentials = false;
+            SmtpServer.Credentials = new System.Net.NetworkCredential(credentialUsername, credentialPassword);
+            SmtpServer.EnableSsl = true;
+
+            SmtpServer.Send(mail);
         }
     }
 }
