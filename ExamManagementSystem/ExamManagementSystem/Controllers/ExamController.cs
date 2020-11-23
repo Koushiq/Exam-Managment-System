@@ -11,6 +11,7 @@ namespace ExamManagementSystem.Controllers
 {
     public class ExamController : Controller
     {
+        int uid = 1;
         // GET: Exam
         [HttpGet]
         public ActionResult Answer(int eid)
@@ -29,14 +30,28 @@ namespace ExamManagementSystem.Controllers
         [HttpPost]
         public ActionResult Answer(int questionId, int id)
         {
+            SubmittedAnswerRepository sar = new SubmittedAnswerRepository();
             OptionRepository opr = new OptionRepository();
             int OptionId = opr.Get(id).OptionId;
             SubmittedAnswer sa = new SubmittedAnswer();
+            sa.StudentId = uid;
             sa.QuestionId = questionId;
             int bin = 0;
             BitwiseServices.SetBit(ref bin, OptionId);
             sa.OptionBin = bin;
-            return Content("OptionNo: "+ OptionId + " Bin: "+bin+" OptionBin: "+sa.OptionBin);
+
+            if (sar.GetSAByQuestionId(questionId) == null)
+            {
+                sa.AttemptTime = 1;
+                sar.Insert(sa);
+            }
+            else
+            {
+                sa.AttemptTime += 1;
+                sar.Update(sa);
+            }
+
+            return Content("QId: "+questionId+" OId: "+id);
         }
     }
 }

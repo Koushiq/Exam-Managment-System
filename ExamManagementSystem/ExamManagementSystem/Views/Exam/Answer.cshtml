@@ -64,7 +64,7 @@
                 type: 'POST',
                 url: "/Exam/Answer",
                 data: {
-                    questionId: $(this).attr("id"),
+                    questionId: $(this).attr("name"),
                     id: $(this).val()
                 },
                 success: function (data) {
