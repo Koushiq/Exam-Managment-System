@@ -42,13 +42,13 @@ namespace ExamManagementSystem.Controllers
         public ActionResult Login(FormCollection credentials)
         {
             string username = credentials["Username"];
-            string password = CryptographicServices.MD5Hash(credentials["Password"]);
+            string inputPasswordHash = CryptographicServices.MD5Hash(credentials["Password"]);
 
             if( !string.IsNullOrEmpty(username) && 
-                !string.IsNullOrEmpty(password))
+                !string.IsNullOrEmpty(inputPasswordHash))
             {
                 User user = _user_repo.GetByUsername(username);
-                if (user?.Password == password)
+                if (user?.Password == inputPasswordHash)
                 {
                     RegisterLogin(user);
                     return ValidateUserStatus();
