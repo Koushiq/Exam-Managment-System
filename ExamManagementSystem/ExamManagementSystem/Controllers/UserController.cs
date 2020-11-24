@@ -17,7 +17,7 @@ namespace ExamManagementSystem.Controllers
         readonly UserRepository _user_repo;
         HttpCookie _cookie;
         HttpCookie userId = new HttpCookie("userId");
-       
+
         public UserController(UserRepository user_repo, HttpCookie cookie)
         {
             this._user_repo = user_repo;
@@ -42,8 +42,8 @@ namespace ExamManagementSystem.Controllers
         {
             string username = credentials["Username"];
             string password = credentials["Password"];
-           
-            if ( !string.IsNullOrEmpty(username) && 
+
+            if (!string.IsNullOrEmpty(username) &&
                 !string.IsNullOrEmpty(password))
             {
                 User user = _user_repo.GetByUsername(username);
@@ -51,18 +51,18 @@ namespace ExamManagementSystem.Controllers
                 User users = _user_repo.GetAll().Where(s => s.Username == username).FirstOrDefault();
 
 
-              
+
 
                 if (user?.Password == password)
                 {
-                    RegisterUser(user); 
+                    RegisterUser(user);
                     Session["userId"] = users.Id;
                     userId["userId"] = users.Id.ToString();
                     userId.Expires = new DateTime(2022, 11, 11);
                     return ValidateUserStatus();
                 }
                 else
-        {
+                {
                     ViewBag.ErrorMessage = "Incorrect username or password!";
                 }
             }
@@ -86,19 +86,19 @@ namespace ExamManagementSystem.Controllers
                 userData.Student = new Student();
                 userData.Admin = new Admin();
                 _user_repo.Insert(userData);
-                return RedirectToAction("Login", 
-                    new { message = $"Welcome, {userData.Firstname} Signup Successful!"});
+                return RedirectToAction("Login",
+                    new { message = $"Welcome, {userData.Firstname} Signup Successful!" });
             }
             return View(userData);
         }
 
         public ActionResult ValidateUserStatus()
         {
-            if(SessionUser.Status == "unverified_email")
+            if (SessionUser.Status == "unverified_email")
             {
                 return VerifyEmail();
             }
-            else if(SessionUser.Status == "awaiting_approval")
+            else if (SessionUser.Status == "awaiting_approval")
             {
                 return UserApprovalMessage();
             }
@@ -114,35 +114,35 @@ namespace ExamManagementSystem.Controllers
 
         public ActionResult List()
         {
-            return View(_user_repo.GetAll().Where(s=>s.Status== "awaiting_approval"));
+            return View(_user_repo.GetAll().Where(s => s.Status == "awaiting_approval"));
         }
         [HttpGet]
         public ActionResult Approve(int id)
         {
-            _user_repo.SetUserStatus(id,"valid",(int)Session["userId"]);
+            _user_repo.SetUserStatus(id, "valid", (int)Session["userId"]);
             return RedirectToAction("List", "User");
         }
         [HttpGet]
         public ActionResult Decline(int id)
         {
-           _user_repo.SetUserStatus(id, "invalid", (int)Session["userId"]);
+            _user_repo.SetUserStatus(id, "invalid", (int)Session["userId"]);
             return RedirectToAction("List", "User");
         }
 
         public ActionResult Activity(int id)
         {
-            Admin admin =  new AdminRepository().Get(id);
-            if(admin.PermissionBin>0)
+            Admin admin = new AdminRepository().Get(id);
+            if (admin.PermissionBin > 0)
             {
                 return View(_user_repo.GetAll().Where(s => s.ActionBy == id));
             }
             else
             {
-                return RedirectToAction("Home","Action");
+                return RedirectToAction("Home", "Action");
             }
-            
+
         }
-        
+
 
         private ActionResult UserApprovalMessage()
         {
@@ -155,7 +155,7 @@ namespace ExamManagementSystem.Controllers
             {
                 ModelState.AddModelError("ConfirmPassword", "Password doesn't match");
             }
-            if(_user_repo.UsernameExists(userData.Username))
+            if (_user_repo.UsernameExists(userData.Username))
             {
                 ModelState.AddModelError("Username", "Username is already taken");
             }
@@ -182,7 +182,7 @@ namespace ExamManagementSystem.Controllers
         [HttpPost]
         public ActionResult VerifyEmail(string verificationCode)
         {
-            if((int?)Session["emailVerificationAttemptCount"] >= int.Parse(ConfigurationManager.AppSettings["maximumVerificationAttempts"]))
+            if ((int?)Session["emailVerificationAttemptCount"] >= int.Parse(ConfigurationManager.AppSettings["maximumVerificationAttempts"]))
             {
                 ViewBag.Message = "Too many attempts. A new verification code is sent.";
                 ClearVerificationCode();
@@ -231,7 +231,7 @@ namespace ExamManagementSystem.Controllers
 
             _cookie.Expires = DateTime.Now.AddDays(
                 int.Parse(ConfigurationManager.AppSettings["cookieExpiryDays"]));
-            
+
             _cookie["Id"] = user.Id.ToString();
             _cookie["User"] = user.Username;
             _cookie["FirstName"] = user.Firstname;

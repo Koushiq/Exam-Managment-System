@@ -59,12 +59,22 @@ else
                     @Html.DisplayFor(modelItem => item.Section.SectionName)
                 </td>
                 <td>
-                    @Html.ActionLink("Start Exam", "StartExam", new { eid = item.Id })
+                    @{
+                        if (item.StartTime <= DateTime.Now && item.StartTime.AddMinutes(item.Duration) >= DateTime.Now)
+                        {
+                            @Html.ActionLink("Start Exam", "StartExam", new { eid = item.Id });
+                        }
+                        else
+                        {
+                            <label>Locked</label>
+                        }
+                    }
+
                 </td>
             </tr>
         }
 
     </table>
 }
-
+<br />
 @Html.ActionLink("Back", "CourseList")

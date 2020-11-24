@@ -12,5 +12,10 @@ namespace ExamManagementSystem.Repository
         {
             return this.GetAll().Where(x => x.ExamId == eid).ToList();
         }
+        public SubmittedAnswer GetLatestAnswer(int qid)
+        {
+            return this.Get(qid).SubmittedAnswers.OrderByDescending(x => x.AttemptTime).FirstOrDefault();
+        }
+        
     }
 }

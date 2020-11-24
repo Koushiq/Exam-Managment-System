@@ -19,30 +19,104 @@
             <td>
                 @if (item.Type == "Descriptive")
                 {
-                    <input type="file" name=@(item.Id+"Solved") />
+                    <form id="fileUpload" method="post" action="/Exam/FileAnswer" enctype="multipart/form-data">
+                        @Html.Hidden("QId", item.Id)
+                        <input type="file" id="@item.Id" name="File" />
+                        <input type="submit" name="submitFile" id="submitFile" value="Submit" />
+                    </form>
                 }
                 else if (item.Type == "Text")
                 {
-                    <textarea name=@(item.Id+"Solved") rows=5 cols=100></textarea>
+                    <textarea id="text" name="@item.Id" rows=5 cols=100></textarea>
+                    <br />
+                    <input type="submit" name="Submit" id="submit" value="Submit" />
                 }
                 else if (item.Type == "MCQ")
                 {
-                    foreach (var i in item.Options)
-                    {
-                        <input type="radio" name=@(item.Id+"Solved") /> @i.OptionText
-                    }
+                    <div id="mcq">
+                        @foreach (var i in item.Options)
+                        {
+                            <input type="radio" class="radio" name="@i.QuestionId" id="@i.Id" value="@i.OptionId" /> @i.OptionText
+                        }
+                    </div>
                 }
                 else
                 {
-                    foreach (var i in item.Options)
-                    {
-                        <input type="Checkbox" name=@(item.Id+"Solved") /> @i.OptionText
-                    }
+                    <form action="">
+                        @foreach (var i in item.Options)
+                        {
+                            <input type="Checkbox" class="check" name="selected" id="@i.QuestionId" value="@i.Id" /> @i.OptionText
+                        }
+                    </form>
+                    <br />
+                    <input type="submit" name="Submit" id="subCheck" value="Submit" />
                 }
             </td>
         </tr>
     }
 </table>
-
 <br />
-@Html.ActionLink("Back","NewExams","Student",new {sid = sid},null)
+@Html.ActionLink("Exam Completed", "Completed", "Exam", new { eid = ViewBag.Exm.Id }, null)
+<br />
+<p id="ptag"></p>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".radio").on("click", function () {
+            $.ajax(
+                {
+                    type: 'POST',
+                    url: "/Exam/Answer",
+                    data: {
+                        questionId: $(this).attr("name"),
+                        id: $(this).val()
+                    },
+                    success: function (data) {
+                        console.log(data);
+                    },
+                    error: (error) => {
+                        console.log(JSON.stringify(error));
+                    }
+                });
+        });
+    });
+    $(document).ready(function () {
+        $("#submit").on("click", function () {
+            $.ajax(
+                {
+                    type: 'POST',
+                    url: "/Exam/TextAnswer",
+                    data: {
+                        questionId: $("#text").attr("name"),
+                        ansText: $("#text").val()
+                    },
+                    success: function (data) {
+                        console.log(data);
+                    },
+                    error: (error) => {
+                        console.log(JSON.stringify(error));
+                    }
+                });
+        });
+    });
+    $(document).ready(function () {
+        $("#subCheck").on("click", function () {
+            $.ajax(
+            {
+                type: 'POST',
+                url: "/Exam/CheckboxAnswer",
+                data: {
+                    questionId: $(".check").attr("id"),
+                    selected: $("form").serialize(),
+                },
+                success: function (data) {
+                    console.log(data);
+                },
+                error: (error) => {
+                    console.log(JSON.stringify(error));
+                }
+            });
+        });
+    });
+</script>

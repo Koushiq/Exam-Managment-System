@@ -178,17 +178,11 @@
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Controllers\TeacherController.cs" />
     <Compile Include="App_Start\UnityRegistration.cs" />
-    <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\ExamController.cs" />
-    <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\FileGenerator\PDFReport.cs" />
-    <Compile Include="Models\ServiceAccess\BitwiseServices.cs" />
-    <Compile Include="Models\ServiceAccess\MailServices.cs" />
     <Compile Include="Models\DataAccess\Admin.cs">
       <DependentUpon>ExamManagementSystemDataModel.tt</DependentUpon>
     </Compile>
@@ -234,12 +228,19 @@
     <Compile Include="Models\DataAccess\SubmittedAnswer.cs">
       <DependentUpon>ExamManagementSystemDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DataAccess\sysdiagram.cs">
+      <DependentUpon>ExamManagementSystemDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DataAccess\Teacher.cs">
       <DependentUpon>ExamManagementSystemDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DataAccess\User.cs">
       <DependentUpon>ExamManagementSystemDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\FileGenerator\PDFReport.cs" />
+    <Compile Include="Models\ImageModel.cs" />
+    <Compile Include="Models\ServiceAccess\BitwiseServices.cs" />
+    <Compile Include="Models\ServiceAccess\MailServices.cs" />
     <Compile Include="Models\ServiceAccess\UserServices.cs" />
     <Compile Include="Models\ViewModel\CourseViewModel.cs" />
     <Compile Include="Models\ViewModel\TeacherViewModel.cs" />
@@ -255,6 +256,7 @@
     <Compile Include="Repository\Repository.cs" />
     <Compile Include="Repository\SectionRepository.cs" />
     <Compile Include="Repository\StudentRepository.cs" />
+    <Compile Include="Repository\SubmittedAnswerRepository.cs" />
     <Compile Include="Repository\TeacherRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
   </ItemGroup>
@@ -303,8 +305,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="PDFs\" />
     <Folder Include="res\" />
-    <Folder Include="Views\Student\" />
+    <Folder Include="Uploaded Files\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

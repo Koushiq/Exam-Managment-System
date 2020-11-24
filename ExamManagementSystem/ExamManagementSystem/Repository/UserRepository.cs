@@ -29,6 +29,7 @@ namespace ExamManagementSystem.Repository
         internal bool UsernameExists(string username)
         {
             return this.context.Users.Where(u => u.Username == username).FirstOrDefault() != null;
+            
         }
 
         internal bool EmailExists(string email)

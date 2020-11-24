@@ -10,18 +10,22 @@ namespace ExamManagementSystem.Controllers
 {
     public class StudentController : Controller
     {
+        private int id;
+        
         StudentRepository student = new StudentRepository();
-        int id = 1;
+
         // GET: Student
         [HttpGet]
         public ActionResult Index()
         {
+            this.id = (int)Session["userId"];
             return View(student.Get(id));
         }
-        
+
         [HttpGet]
         public ActionResult CourseList()
         {
+            this.id = (int)Session["userId"];
             EnrollRepository enr = new EnrollRepository();
             return View(enr.GetAllByStudentId(id));
         }
@@ -36,7 +40,7 @@ namespace ExamManagementSystem.Controllers
         [HttpGet]
         public ActionResult StartExam(int eid)
         {
-            return RedirectToAction("Answer","Exam",new {eid = eid});
+            return RedirectToAction("Answer", "Exam", new { eid = eid });
         }
 
         [HttpGet]
@@ -49,6 +53,7 @@ namespace ExamManagementSystem.Controllers
         [HttpGet]
         public ActionResult Gradesheet()
         {
+            this.id = (int)Session["userId"];
             GradeSheetRepository gsr = new GradeSheetRepository();
             return View(gsr.GetStudentGradesheet(id));
         }
