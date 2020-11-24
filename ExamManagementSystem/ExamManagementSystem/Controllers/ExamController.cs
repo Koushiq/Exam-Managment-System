@@ -55,6 +55,39 @@ namespace ExamManagementSystem.Controllers
         }
 
         [HttpPost]
+        public ActionResult CheckBoxAnswer(int questionId, string selected)
+        {
+            SubmittedAnswerRepository sar = new SubmittedAnswerRepository();
+            SubmittedAnswer sa = new SubmittedAnswer();
+            List<SubmittedAnswer> sal = sar.GetAllSAByQuestionId(questionId);
+            OptionRepository opr = new OptionRepository();
+            List<int> OptionList = new List<int>();
+
+            List<int> OpId = this.ParseSelection(selected);
+            foreach(var id in OpId)
+            {
+               OptionList.Add(opr.Get(id).OptionId);
+            }
+
+            sa.StudentId = uid;
+            sa.QuestionId = questionId;
+            sa.OptionBin = BitwiseServices.GetIntegerValue(OptionList);
+
+            if (sal.Count == 0)
+            {
+                sa.AttemptTime = 1;
+                sar.Insert(sa);
+            }
+            else
+            {
+                sa.AttemptTime = sal.Count + 1;
+                sar.Insert(sa);
+            }
+
+            return Content("QId: "+questionId+" OptionBin: "+sa.OptionBin+" List: " +selected);
+        }
+
+        [HttpPost]
         public ActionResult TextAnswer(int questionId, string ansText)
         {
             SubmittedAnswerRepository sar = new SubmittedAnswerRepository();
@@ -76,6 +109,23 @@ namespace ExamManagementSystem.Controllers
             }
 
             return Content("QId: " + questionId + "AnsText: "+ansText+" Count: "+ sal.Count);
+        }
+
+        private List<int> ParseSelection(string selected)
+        {
+            List<int> OpId = new List<int>();
+            string[] split = selected.Split(new char[] {'=','&'});
+            
+            foreach(var s in split)
+            {
+                s.Trim();
+                if (s.Trim() != "selected")
+                {
+                    OpId.Add(Convert.ToInt32(s));
+                }
+            }
+
+            return OpId;
         }
     }
 }

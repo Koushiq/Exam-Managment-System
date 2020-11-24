@@ -7,7 +7,6 @@
 
 <h2>@(ViewBag.Course + " " + ViewBag.Exm.ExamName)</h2>
 
-<!--<form method="POST" enctype="multipart/form-data">-->
 <table>
     @foreach (var item in Model)
     {
@@ -39,22 +38,23 @@
                 }
                 else
                 {
-                    <div id="mcq">
+                    <form action="">
                         @foreach (var i in item.Options)
                         {
-                            <input type="Checkbox" name="@i.QuestionId" id="check" value="@i.Id" /> @i.OptionText
+                            <input type="Checkbox" class="check" name="selected" id="@i.QuestionId" value="@i.Id" /> @i.OptionText
                         }
-                    </div>
+                    </form>
+                    <br />
+                    <input type="submit" name="Submit" id="subCheck" value="Submit" />
                 }
             </td>
         </tr>
     }
 </table>
 <br />
-<!--</form>-->
-
-<br />
 @Html.ActionLink("Done", "NewExams", "Student", new { sid = sid }, null)
+<br />
+<p id="ptag"></p>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>
@@ -95,6 +95,33 @@
                         console.log(JSON.stringify(error));
                     }
                 });
+        });
+    });
+
+
+
+
+
+
+
+
+    $(document).ready(function () {
+        $("#subCheck").on("click", function () {
+            $.ajax(
+            {
+                type: 'POST',
+                url: "/Exam/CheckboxAnswer",
+                data: {
+                    questionId: $(".check").attr("id"),
+                    selected: $("form").serialize(),
+                },
+                success: function (data) {
+                    console.log(data);
+                },
+                error: (error) => {
+                    console.log(JSON.stringify(error));
+                }
+            });
         });
     });
 </script>
