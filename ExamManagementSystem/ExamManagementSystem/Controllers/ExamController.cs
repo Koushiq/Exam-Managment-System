@@ -3,6 +3,8 @@ using ExamManagementSystem.Models.ServiceAccess;
 using ExamManagementSystem.Repository;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -92,7 +94,7 @@ namespace ExamManagementSystem.Controllers
         {
             SubmittedAnswerRepository sar = new SubmittedAnswerRepository();
             SubmittedAnswer sa = new SubmittedAnswer();
-            List<SubmittedAnswer> sal = sar.GetAllSAByQuestionId(questionId); ;
+            List<SubmittedAnswer> sal = sar.GetAllSAByQuestionId(questionId);
             sa.StudentId = uid;
             sa.QuestionId = questionId;
             sa.AnswerText = ansText;
@@ -111,6 +113,32 @@ namespace ExamManagementSystem.Controllers
             return Content("QId: " + questionId + "AnsText: "+ansText+" Count: "+ sal.Count);
         }
 
+        [HttpPost]
+        public ActionResult FileAnswer(ImageModel img)
+        {
+            SubmittedAnswerRepository sar = new SubmittedAnswerRepository();
+            SubmittedAnswer sa = new SubmittedAnswer();
+            int questionId = Convert.ToInt32(Request.Form["QId"]);
+            List<SubmittedAnswer> sal = sar.GetAllSAByQuestionId(questionId);
+            sa.StudentId = uid;
+            sa.QuestionId = questionId;
+            sa.Filepath = ImageHandler(questionId, img);
+
+            if (sal.Count == 0)
+            {
+                sa.AttemptTime = 1;
+                sar.Insert(sa);
+            }
+            else
+            {
+                sa.AttemptTime = sal.Count + 1;
+                sar.Insert(sa);
+            }
+
+            int eid = Convert.ToInt32(Request.Form["EId"]);
+            return RedirectToAction("Answer", new { eid = eid});
+        }
+
         private List<int> ParseSelection(string selected)
         {
             List<int> OpId = new List<int>();
@@ -126,6 +154,17 @@ namespace ExamManagementSystem.Controllers
             }
 
             return OpId;
+        }
+
+        private string ImageHandler(int questionId, ImageModel img)
+        {
+            string Filename = Path.GetFileNameWithoutExtension(img.File.FileName);
+            string FileExt = Path.GetExtension(img.File.FileName);
+            Filename = questionId + "-" + uid + "-" + DateTime.Now.ToString("yyyyMMdd HHmmss") + FileExt;
+            string UploadPath = ConfigurationManager.AppSettings["UserImagePath"].ToString();
+            img.ImagePath = UploadPath + Filename;
+            img.File.SaveAs(img.ImagePath);
+            return img.ImagePath;
         }
     }
 }

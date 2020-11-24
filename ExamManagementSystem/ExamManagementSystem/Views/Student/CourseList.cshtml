@@ -42,7 +42,6 @@ else
                 @Html.DisplayFor(modelItem => item.Section.Teacher.User.Firstname)
             </td>
             <td>
-                @Html.ActionLink("Course Details", "Details", new { sid = item.SectionId }) |
                 @Html.ActionLink("Scheduled Exams", "NewExams", new { sid = item.SectionId }) |
                 @Html.ActionLink("Past Exams", "PastExams", new { sid = item.SectionId })
             </td>

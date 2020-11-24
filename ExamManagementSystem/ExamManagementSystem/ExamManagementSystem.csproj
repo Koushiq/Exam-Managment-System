@@ -150,6 +150,7 @@
     <Compile Include="Models\DataAccess\GradeSheet.cs">
       <DependentUpon>ExamManagementSystemDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DataAccess\ImageModel.cs" />
     <Compile Include="Models\DataAccess\Option.cs">
       <DependentUpon>ExamManagementSystemDataModel.tt</DependentUpon>
     </Compile>
@@ -215,6 +216,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Uploaded Files\" />
     <Folder Include="Views\Home\" />
   </ItemGroup>
   <ItemGroup>
