@@ -57,7 +57,7 @@
     </div>
     <div class="col-md-12">
         <div class="form-group d-flex justify-content-end">
-            <button  class="btn btn-secondary mr-2 reset" onclick="window.location.href='/Question/Create/'@Model.Id'">Clear</button>
+            <button  class="btn btn-secondary mr-2 reset" onclick="window.location.href='/Question/Create/@Model.Id'">Clear</button>
             <a href="/Exam/Index/@Model.Id" class="btn btn-info mr-2">Back To Exam</a>
             <button type="submit" class="btn btn-primary sub">Submit</button>
         </div>
@@ -84,32 +84,33 @@
             mcqCount = multipleCount = 1; optionArray = []; correctAnswerArray = [];
             if (type == "MCQ") {
 
-                $('.append-type').html(`<div class="form-group for-mcq">
-            <label>Options</label><br />
-            <div class="row border p-1 mb-2">
-                <div class="col-md-1">
-                    SL
+                $('.append-type').html(`
+            <div class="form-group for-mcq">
+                <label>Options</label><br />
+                <div class="row border p-1 mb-2">
+                    <div class="col-md-1">
+                        SL
+                    </div>
+                    <div class="col-md-9">
+                        Option Text
+                    </div>
+                    <div class="col-md-2">
+                        Correct Answer
+                    </div>
                 </div>
-                <div class="col-md-9">
-                    Option Text
+                <div class="row border p-1 mb-2">
+                    <div class="col-md-1">
+                        ${mcqCount}
+                    </div>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control new-option-text" data-sl="${mcqCount}"/>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="radio" class="new-mcq-radio" name="new-mcq-radio" value="${mcqCount}"/>
+                    </div>
                 </div>
-                <div class="col-md-2">
-                    Correct Answer
-                </div>
-            </div>
-            <div class="row border p-1 mb-2">
-                <div class="col-md-1">
-                    ${mcqCount}
-                </div>
-                <div class="col-md-9">
-                    <input type="text" class="form-control new-option-text" data-sl="${mcqCount}"/>
-                </div>
-                <div class="col-md-2">
-                    <input type="radio" class="new-mcq-radio" name="new-mcq-radio" value="${mcqCount}"/>
-                </div>
-            </div>
 
-            <small class="text-danger"></small>
+                <small class="text-danger"></small>
             </div>
             <button class="btn btn-info mt-1" id="addMCQOption">Add Another Option</button>
         `);

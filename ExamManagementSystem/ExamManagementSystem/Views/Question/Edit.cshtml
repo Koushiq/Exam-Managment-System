@@ -1,64 +1,147 @@
-﻿@model ExamManagementSystem.Models.DataAccess.Exam
+﻿@model ExamManagementSystem.Models.DataAccess.Question
 
 @{
-    ViewBag.Title = "Create Questions";
-    int count = 1;
+    ViewBag.Title = "Edit";
+    ViewBag.Check = "checked='checked'";
 }
 
-<h3>Create Questions for @Model.ExamName  | @Model.Section.Cours.CourseName [ @Model.Section.SectionName ]</h3>
-
+<h2>Edit</h2>
 
 <div class="row mb-4 border-top">
     <div class="col-md-12">
         Add New Question
     </div>
     <div class="col-md-12">
-        <input type="hidden" name="ExamId" value="@Model.Id" />
+        <input type="hidden" name="ExamId" value="@Model.ExamId" />
+        <input type="hidden" name="QuestionId" value="@Model.Id" />
 
         <div class="form-group">
             <label for="Statement">Statement</label>
-            <textarea name="Statement" class="form-control input-area" id="Statement"></textarea>
+            <textarea name="Statement" class="form-control input-area" id="Statement">@Model.Statement</textarea>
             <small class="text-danger" id="errStatement"></small>
         </div>
         <div class="form-group">
             <label for="Marks">Marks</label>
-            <input type="number" name="Marks" class="form-control input-area" id="Marks">
+            <input type="number" name="Marks" class="form-control input-area" id="Marks" value="@Model.Marks">
             <small class="text-danger" id="errMarks"></small>
         </div>
-        <div class="form-group">
-            <label>Select Type</label>
-            <br />
-            <div class="form-check-inline">
-                <label class="form-check-label">
-                    <input type="radio" class="form-check-input" name="Type" value="MCQ"> MCQ Single
-                </label>
-            </div>
-            <div class="form-check-inline">
-                <label class="form-check-label">
-                    <input type="radio" class="form-check-input" name="Type" value="Check"> MCQ Multiple
-                </label>
-            </div>
-            <div class="form-check-inline">
-                <label class="form-check-label">
-                    <input type="radio" class="form-check-input" name="Type" value="Text"> Text
-                </label>
-            </div>
-            <div class="form-check-inline">
-                <label class="form-check-label">
-                    <input type="radio" class="form-check-input" name="Type" value="Descriptive"> File Upload
-                </label>
-            </div>
-            <small class="text-danger" id="errType"></small>
-        </div>
+        @*<div class="form-group">
+                <label>Select Type</label>
+                <br />
+                <div class="form-check-inline">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="Type" value="MCQ" @if (Model.Type == "MCQ") { @ViewBag.Check}> MCQ Single
+                    </label>
+                </div>
+                <div class="form-check-inline">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="Type" value="Check" @if (Model.Type == "Check") { @ViewBag.Check}> MCQ Multiple
+                    </label>
+                </div>
+                <div class="form-check-inline">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="Type" value="Text" @if (Model.Type == "Text") { @ViewBag.Check}> Text
+                    </label>
+                </div>
+                <div class="form-check-inline">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="Type" value="Descriptive" @if (Model.Type == "Descriptive") { @ViewBag.Check}> File Upload
+                    </label>
+                </div>
+                <small class="text-danger" id="errType"></small>
+            </div>*@
     </div>
     <div class="col-md-12 append-type">
 
-        
+        @if (Model.Type == "Text")
+        {
+            <div class="form-group for-descriptive">
+                <label for="AnswerText">Answer for this Question</label>
+                <textarea name="AnswerText" id="AnswerText" class="form-control input-area">@Model.AnswerText</textarea>
+                <small class="text-danger" id="errAnswerText"></small>
+            </div>
+        }
+        else if (Model.Type == "MCQ")
+        {
+            <div class="form-group for-mcq">
+                <label>Options</label><br />
+                <div class="row border p-1 mb-2">
+                    <div class="col-md-1">
+                        SL
+                    </div>
+                    <div class="col-md-9">
+                        Option Text
+                    </div>
+                    <div class="col-md-2">
+                        Correct Answer
+                    </div>
+                </div>
+                @foreach (var option in Model.Options)
+                {
+                    ViewBag.SL = option.OptionId;
+                    <div class="row border p-1 mb-2">
+                        <div class="col-md-1">
+                            @option.OptionId
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control new-option-text" data-sl="@option.OptionId" id="@option.Id" value="@option.OptionText" />
+                        </div>
+                        <div class="col-md-2">
+                            <input type="radio" class="new-mcq-radio" name="new-mcq-radio" value="@option.OptionId" @if (((Model.CorrectAnswerBin & (1 << option.OptionId)) != 0)) { @ViewBag.check } />
+                        </div>
+                    </div>
+
+                }
+                <small class="text-danger"></small>
+            </div>
+            <button class="btn btn-info mt-1" id="addMCQOption">Add Another Option</button>
+
+        }
+
+        else if (Model.Type == "Check")
+        {
+            <div class="form-group for-multiple">
+                <label>Options</label><br />
+                <div class="row border p-1 mb-2">
+                    <div class="col-md-1">
+                        SL
+                    </div>
+                    <div class="col-md-9">
+                        Option Text
+                    </div>
+                    <div class="col-md-2">
+                        Correct Answer
+                    </div>
+                </div>
+                @foreach (var option in Model.Options)
+                {
+                    ViewBag.SL = option.OptionId;
+
+                    <div class="row border p-1 mb-2">
+                        <div class="col-md-1">
+                            @option.OptionId
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control new-option-text" data-sl="@option.OptionId" id="@option.Id" value="@option.OptionText" />
+                        </div>
+                        <div class="col-md-2">
+                            <input type="checkbox" class="new-mcq-check" name="new-mcq-check" value="@option.OptionId" @if (((Model.CorrectAnswerBin & (1 << option.OptionId)) != 0)) { @ViewBag.check } />
+                        </div>
+                    </div>
+
+                }
+                <small class="text-danger"></small>
+            </div>
+            <button class="btn btn-info mt-1" id="addMultipleOption">Add Another Option</button>
+
+        }
+
+
     </div>
     <div class="col-md-12">
         <div class="form-group d-flex justify-content-end">
-            <button  class="btn btn-secondary mr-2 reset" onclick="window.location.href='/Question/Create/'@Model.Id'">Clear</button>
-            <a href="/Exam/Index/@Model.Id" class="btn btn-info mr-2">Back To Exam</a>
+            <button class="btn btn-secondary mr-2 reset" onclick="window.location.href='/Question/Edit/@Model.Id'">Clear</button>
+            <a href="/Exam/Index/@Model.ExamId" class="btn btn-info mr-2">Back To Exam</a>
             <button type="submit" class="btn btn-primary sub">Submit</button>
         </div>
     </div>
@@ -67,98 +150,15 @@
 
 @section scripts{
     <script>
-        let mcqCount = 1, multipleCount = 1;
-        let type = null;
+
+        let mcqCount = parseInt("@ViewBag.SL"), multipleCount = parseInt("@ViewBag.SL");
+        let type = "@Model.Type";
         let optionArray = [];
         let correctAnswerArray = [];
 
 
         $('.input-area').click(function () {
             $(this).siblings("small").html("");
-        });
-
-
-        $('input[name="Type"]').on('change', function () {
-            $('#errType').html("");
-            type = this.value;
-            mcqCount = multipleCount = 1; optionArray = []; correctAnswerArray = [];
-            if (type == "MCQ") {
-
-                $('.append-type').html(`<div class="form-group for-mcq">
-            <label>Options</label><br />
-            <div class="row border p-1 mb-2">
-                <div class="col-md-1">
-                    SL
-                </div>
-                <div class="col-md-9">
-                    Option Text
-                </div>
-                <div class="col-md-2">
-                    Correct Answer
-                </div>
-            </div>
-            <div class="row border p-1 mb-2">
-                <div class="col-md-1">
-                    ${mcqCount}
-                </div>
-                <div class="col-md-9">
-                    <input type="text" class="form-control new-option-text" data-sl="${mcqCount}"/>
-                </div>
-                <div class="col-md-2">
-                    <input type="radio" class="new-mcq-radio" name="new-mcq-radio" value="${mcqCount}"/>
-                </div>
-            </div>
-
-            <small class="text-danger"></small>
-            </div>
-            <button class="btn btn-info mt-1" id="addMCQOption">Add Another Option</button>
-        `);
-
-            } else if (type == "Check") {
-
-                $('.append-type').html(`<div class="form-group for-multiple">
-                    <label>Options</label><br />
-                    <div class="row border p-1 mb-2">
-                        <div class="col-md-1">
-                            SL
-                        </div>
-                        <div class="col-md-9">
-                            Option Text
-                        </div>
-                        <div class="col-md-2">
-                            Correct Answer
-                        </div>
-                    </div>
-
-                    <div class="row border p-1 mb-2">
-                        <div class="col-md-1">
-                            ${multipleCount}
-                        </div>
-                        <div class="col-md-9">
-                            <input type="text" class="form-control new-option-text" data-sl="${multipleCount}"/>
-                        </div>
-                        <div class="col-md-2">
-                            <input type="checkbox" class="new-mcq-check" name="new-mcq-check" value="${multipleCount}"/>
-                        </div>
-                    </div>
-
-                    <small class="text-danger"></small>
-
-                </div>
-                <button class="btn btn-info mt-1" id="addMultipleOption">Add Another Option</button>
-            `);
-
-            } else if (type == "Text") {
-                $('.append-type').html(`
-                    <div class="form-group for-descriptive">
-                        <label for="AnswerText">Answer for this Question</label>
-                        <textarea name="AnswerText" id="AnswerText" class="form-control input-area"></textarea>
-                        <small class="text-danger" id="errAnswerText"></small>
-                    </div>
-                `);
-            } else {
-                $('.append-type').html(``);
-            }
         });
 
         $(document).on('click', '#addMultipleOption', function () {
@@ -250,7 +250,8 @@
             $('.new-option-text').each(function () {
                 const optionObj = {
                     optionText: $(this).val().trim(),
-                    optionId: $(this).data("sl")
+                    optionId: $(this).data("sl"),
+                    Id: this.id || null
                 };
                 optionArray.push(optionObj);
             });
@@ -273,7 +274,7 @@
             });
             data.CorrectAnswers = JSON.stringify(correctAnswerArray);
 
-            sendToServer(data, '/Question/CreateM');
+            sendToServer(data, '/Question/EditM');
         }
 
         function submitCheck(_statement, _marks) {
@@ -296,19 +297,24 @@
             }
 
             $('.new-option-text').each(function () {
+                console.log("Id: ", this.id);
                 const optionObj = {
                     optionText: $(this).val().trim(),
-                    optionId: $(this).data("sl")
+                    optionId: $(this).data("sl"),
+                    Id: this.id || null
+
                 };
                 optionArray.push(optionObj);
             });
 
-            console.log(_examId);
-            console.log(_statement);
-            console.log(_marks);
-            console.log(type);
-            console.log(correctAnswerArray);
             console.log(optionArray);
+
+            //console.log(_examId);
+            //console.log(_statement);
+            //console.log(_marks);
+            //console.log(type);
+            //console.log(correctAnswerArray);
+            //console.log(optionArray);
 
             const data = {};
 
@@ -321,7 +327,7 @@
             });
             data.CorrectAnswers = JSON.stringify(correctAnswerArray);
 
-            sendToServer(data, '/Question/CreateM');
+            sendToServer(data, '/Question/EditM');
         }
 
         function submitText(_statement, _marks) {
@@ -347,7 +353,7 @@
                 AnswerText: _answerText
             });
 
-            sendToServer(data, '/Question/Create');
+            sendToServer(data, '/Question/Edit');
         }
 
         function submitDescriptive(_statement, _marks) {
@@ -369,13 +375,14 @@
                 AnswerText: null
             });
 
-            sendToServer(data, '/Question/Create');
+            sendToServer(data, '/Question/Edit');
         }
 
 
 
         function sendToServer(data, url) {
-
+            //return;
+            data.Id = JSON.stringify(@Model.Id);
             $.ajax({
                 url: url,
                 type: "post",
@@ -386,10 +393,12 @@
                     console.log(response);
                     optionArray = [];
                     correctAnswerArray = [];
-                    window.location.href = "/Exam/Index/@Model.Id";
+                    window.location.href = "/Exam/Index/@Model.ExamId";
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     console.log(textStatus, errorThrown);
+                    optionArray = [];
+                    correctAnswerArray = [];
                 }
             });
         }

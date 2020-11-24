@@ -9,12 +9,9 @@
 
 namespace ExamManagementSystem.Models.DataAccess
 {
-    using ExamManagementSystem.Models.MetaDataClasses;
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
-    [MetadataType(typeof(ExamMetaData))]
+    
     public partial class Exam
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -28,8 +25,6 @@ namespace ExamManagementSystem.Models.DataAccess
         public int SectionId { get; set; }
         public string ExamName { get; set; }
         public System.DateTime StartTime { get; set; }
-        //[Required, Range(1, int.MaxValue, ErrorMessage = "Please enter valid duration"), Display(Name = "Exam Duration (In Minutes)")]
-
         public int Duration { get; set; }
         public double TotalMarks { get; set; }
         public System.DateTime CreatedAt { get; set; }

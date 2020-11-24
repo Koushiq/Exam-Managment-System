@@ -50,6 +50,9 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -146,6 +149,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\ExamController.cs" />
+    <Compile Include="Controllers\QuestionController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Controllers\TeacherController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -205,6 +209,9 @@
     </Compile>
     <Compile Include="Models\MetaDataClasses\ExamMetaData.cs" />
     <Compile Include="Models\PartialModels\Exam.cs" />
+    <Compile Include="Models\ServiceAccess\BitwiseServices.cs" />
+    <Compile Include="Models\ViewModels\OptionJSONModel.cs" />
+    <Compile Include="Models\ViewModels\QuestionJSONModel.cs" />
     <Compile Include="Models\ViewModels\TeacherSectionViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AdminRepository.cs" />
@@ -231,6 +238,9 @@
     <Content Include="Views\Teacher\Section.cshtml" />
     <Content Include="Views\Exam\Create.cshtml" />
     <Content Include="Views\Exam\CreateQuestions.cshtml" />
+    <Content Include="Views\Exam\Index.cshtml" />
+    <Content Include="Views\Question\Create.cshtml" />
+    <Content Include="Views\Question\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

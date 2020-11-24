@@ -6,7 +6,7 @@
             <h3 class="card-title">@Model.Cours.CourseName [ @Model.SectionName ]</h3>
             <p class="card-text">Enrolled Students: @Model.Enrolls.Count</p>
             <p class="card-text">Upcoming Exam Count: @Model.Exams.Where(exam => exam.StartTime >= DateTime.Now).ToList().Count</p>
-            <a href="/Section/@Model.Id" class="btn btn-outline-secondary">View</a>
+            <a href="/Teacher/Section/@Model.Id" class="btn btn-outline-secondary">View</a>
         </div>
     </div>
 </div>

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
 
@@ -35,6 +36,12 @@ namespace ExamManagementSystem.Repository
         public void Update(T entity)
         {
             this.context.Entry(entity).State = EntityState.Modified;
+            this.context.SaveChanges();
+        }
+
+        public void AddOrUpdate(T entity)
+        {
+            this.context.Set<T>().AddOrUpdate(entity);
             this.context.SaveChanges();
         }
     }

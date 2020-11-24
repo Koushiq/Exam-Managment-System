@@ -1,0 +1,82 @@
+﻿@model ExamManagementSystem.Models.DataAccess.Exam
+
+@{
+    ViewBag.Title = Model.ExamName + " | " + Model.Section.Cours.CourseName + " [ " + Model.Section.SectionName + " ]";
+    int count = 1;
+    ViewBag.check = "checked='true'";
+
+    double marks = 0.00;
+}
+
+<h2>@Model.ExamName  | @Model.Section.Cours.CourseName [ @Model.Section.SectionName ]</h2>
+
+<h4>Total Questions: @Model.Questions.Count</h4>
+<h4>Total Marks: <span id="marks-span"></span></h4>
+<h4>Exam Start Date and Time: @Model.StartTime.ToString()</h4>
+
+<div class="row">
+
+    @foreach (var question in Model.Questions)
+    {
+        marks += question.Marks;
+        <div class="col-sm-12 py-2">
+            <div class="card h-100">
+                <div class="card-body pb-0">
+                    <h5 class="card-title">@(count++). &nbsp; @question.Statement <span class="font-weight-light">[ @question.Marks marks ]</span></h5>
+                    <div>
+                        @if (question.Type == "MCQ")
+                        {
+                        foreach (var option in question.Options)
+                        {
+                        <input type="radio" value="@option.Id" name="@option.QuestionId" @if (((question.CorrectAnswerBin & (1 << option.OptionId)) != 0)) { @ViewBag.check } />
+                        <span>@option.OptionText</span>
+                        <br />
+                        }
+                        }
+                        else if (question.Type == "Check")
+                        {
+                        foreach (var option in question.Options)
+                        {
+                        <input type="checkbox" value="@option.Id" name="@option.QuestionId" @if (((question.CorrectAnswerBin & (1 << option.OptionId)) != 0)) { @ViewBag.check } />
+                        <span>@option.OptionText</span>
+                        <br />
+                        }
+                        }
+
+                        else if (question.Type == "Text")
+                        {
+                        if(question.AnswerText == null)
+                        {
+                        question.AnswerText = "Not Provided";
+                        }
+                        <textarea name="AnswerText" class="form-control">@question.AnswerText</textarea>
+                        }
+                        else if (question.Type == "Descriptive")
+                        {
+                        <p>File Upload</p>
+                        }
+                        <br />
+                    </div>
+                    <div>
+                        <div class="form-group d-flex justify-content-end">
+                            <a href="/Question/Edit/@question.Id" class="btn btn-sm btn-info mr-2">Edit</a>
+                            <a href="/Question/Delete/@question.Id" class="btn btn-sm btn-danger mr-2">Delete</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    }
+
+</div>
+
+
+<a href="/Question/Create/@Model.Id" class="btn btn-block btn-success">Add Question</a>
+
+@section scripts{
+    <script>
+        $('#marks-span').html("@marks");
+    </script>
+}
