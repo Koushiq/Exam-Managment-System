@@ -6,7 +6,7 @@ using System.Web;
 
 namespace ExamManagementSystem.Repository
 {
-    public class AdminRepository:Repository<Admin>
+    public class AdminRepository : Repository<Admin>
     {
 
     }

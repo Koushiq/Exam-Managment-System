@@ -1,6 +1,8 @@
-﻿
+﻿@model ExamManagementSystem.Models.DataAccess.Admin
+@using ExamManagementSystem.Models.ServiceAccess;
 @{
     Layout = null;
+    
 }
 
 <!DOCTYPE html>
@@ -11,7 +13,116 @@
     <title>Index</title>
 </head>
 <body>
-    <div> 
+    <div>
+        @if (Model.PermissionBin.CheckBit((int)AdminPermissions.AddAdmin))
+        {
+            <div>
+                @Html.ActionLink("Add Admin", "AddAdmin", "Admin")
+            </div>
+        }
+        @if (Model.PermissionBin.CheckBit((int)AdminPermissions.ApproveStudent))
+        {
+            <div>
+                @Html.ActionLink("Approve New Student", "ApproveStudent", "Admin")
+            </div>
+        }
+        @if (Model.PermissionBin.CheckBit((int)AdminPermissions.ApproveTeacher))
+        {
+            <div>
+                @Html.ActionLink("Approve New Teacher", "ApproveTeacher", "Admin")
+            </div>
+        }
+        @if (Model.PermissionBin.CheckBit((int)AdminPermissions.AssignTeacherToSection))
+        {
+            <div>
+                @Html.ActionLink("Assign Teacher To Section", "AssignTeacherToSection", "Admin")
+            </div>
+        }
+        @if (Model.PermissionBin.CheckBit((int)AdminPermissions.CreateCourse))
+        {
+            <div>
+                @Html.ActionLink("Create Course", "CreateCourse", "Admin")
+            </div>
+        }
+        @if (Model.PermissionBin.CheckBit((int)AdminPermissions.CreateSection))
+        {
+            <div>
+                @Html.ActionLink("Create Section", "CreateSection", "Admin")
+            </div>
+        }
+        @if (Model.PermissionBin.CheckBit((int)AdminPermissions.DeleteAdmin))
+        {
+            <div>
+                @Html.ActionLink("Delete Admin", "DeleteAdmin", "Admin")
+            </div>
+        }
+        @if (Model.PermissionBin.CheckBit((int)AdminPermissions.DeleteStudent))
+        {
+            <div>
+                @Html.ActionLink("Delete Student", "DeleteStudent", "Admin")
+            </div>
+        }
+        @if (Model.PermissionBin.CheckBit((int)AdminPermissions.DeleteTeacher))
+        {
+            <div>
+                @Html.ActionLink("Delete Teacher", "DeleteTeacher", "Admin")
+            </div>
+        }
+        @if (Model.PermissionBin.CheckBit((int)AdminPermissions.ModifyAdminPermission))
+        {
+            <div>
+                @Html.ActionLink("Modify Admin Permission", "ModifyAdminPermission", "Admin")
+            </div>
+        }
+
+        @if (Model.PermissionBin.CheckBit((int)AdminPermissions.ModifySelfInfo))
+        {
+            <div>
+                @Html.ActionLink("Modify Self Information", "ModifySelfInfo", "Admin")
+            </div>
+        }
+        @if (Model.PermissionBin.CheckBit((int)AdminPermissions.ModifyAdminInfo))
+        {
+            <div>
+                @Html.ActionLink("Modify Admin's Information", "ModifyAdminInfo", "Admin")
+            </div>
+        }
+        @if (Model.PermissionBin.CheckBit((int)AdminPermissions.ModifyStudentInfo))
+        {
+            <div>
+                @Html.ActionLink("Modify Student's Information", "ModifyStudentInfo", "Admin")
+            </div>
+        }
+        @if (Model.PermissionBin.CheckBit((int)AdminPermissions.ModifyTeacherInfo))
+        {
+            <div>
+                @Html.ActionLink("Modify Teacher's Information", "ModifyTeacherInfo", "Admin")
+            </div>
+        }
+        @if (Model.PermissionBin.CheckBit((int)AdminPermissions.ViewAllAdmins))
+        {
+            <div>
+                @Html.ActionLink("View All Admins", "ViewAllAdmins", "Admin")
+            </div>
+        }
+        @if (Model.PermissionBin.CheckBit((int)AdminPermissions.ViewAllStudents))
+        {
+            <div>
+                @Html.ActionLink("View All Students", "ViewAllStudents", "Admin")
+            </div>
+        }
+        @if (Model.PermissionBin.CheckBit((int)AdminPermissions.ViewAllTeachers))
+        {
+            <div>
+                @Html.ActionLink("View All Teachers", "ViewAllTeachers", "Admin")
+            </div>
+        }
+        @if (Model.PermissionBin.CheckBit((int)AdminPermissions.ViewAllUsers))
+        {
+            <div>
+                @Html.ActionLink("View All Users", "ViewAllUsers", "Admin")
+            </div>
+        }
     </div>
 </body>
 </html>

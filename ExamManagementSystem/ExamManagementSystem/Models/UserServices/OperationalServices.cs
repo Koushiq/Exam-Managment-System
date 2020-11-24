@@ -1,15 +1,19 @@
 ﻿using ExamManagementSystem.Models.DataAccess;
 using ExamManagementSystem.Models.ServiceAccess;
+using ExamManagementSystem.Models.UserServices;
+using ExamManagementSystem.Repository;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Web;
+using Unity;
 
 namespace ExamManagementSystem.Models.ServiceAccess
 {
-    public class UserServices
+    public class OperationalServices
     {
         public static void SendVerificationCode(string firstName, string emailAddress, string code, string purpose)
         {
@@ -32,6 +36,37 @@ namespace ExamManagementSystem.Models.ServiceAccess
                 code += (random.Next() % 10);
             }
             return code;
+        }
+
+        internal static void AddUserToDatabase(User userData)
+        {
+            userData.Teacher = UnityConfig.container.Resolve<Teacher>();
+            userData.Student = UnityConfig.container.Resolve<Student>();
+            userData.Admin = UnityConfig.container.Resolve<Admin>();
+
+            IRepository<User> _user_repo = UnityConfig.container.Resolve<IRepository<User>>();
+            _user_repo.Insert(userData);
+
+            if (userData.Usertype == UserTypes.Student)
+            {
+                Student student = UnityConfig.container.Resolve<Student>();
+                student.AverageMarks = 0.0;
+                student.UserId = userData.Id;
+                UnityConfig.container.Resolve<IRepository<Student>>().Insert(student);
+            }
+            else if (userData.Usertype == UserTypes.Teacher)
+            {
+                Teacher teacher = UnityConfig.container.Resolve<Teacher>();
+                teacher.UserId = userData.Id;
+                UnityConfig.container.Resolve<IRepository<Teacher>>().Insert(teacher);
+            }
+            else if (userData.Usertype == UserTypes.Admin)
+            {
+                Admin admin = UnityConfig.container.Resolve<Admin>();
+                admin.UserId = userData.Id;
+                admin.PermissionBin = 0;
+                UnityConfig.container.Resolve<IRepository<Admin>>().Insert(admin);
+            }
         }
     }
 }

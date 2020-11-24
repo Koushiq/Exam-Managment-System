@@ -14,6 +14,7 @@ namespace ExamManagementSystem
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
+            UserConfig.RegisterUserDataTypes();
             UnityConfig.RegisterComponents();
         }
     }

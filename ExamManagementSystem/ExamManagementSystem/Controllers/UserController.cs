@@ -1,11 +1,12 @@
 ﻿using ExamManagementSystem.Models.DataAccess;
 using ExamManagementSystem.Models.ServiceAccess;
+using ExamManagementSystem.Models.UserServices;
 using ExamManagementSystem.Repository;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -15,9 +16,11 @@ namespace ExamManagementSystem.Controllers
     public class UserController : Controller
     {
         private readonly UserRepository _user_repo;
-        private HttpCookie _cookie;
+        private readonly HttpCookie _cookie;
 
-        public UserController(UserRepository user_repo, HttpCookie cookie)
+        public UserController(
+            UserRepository user_repo,
+            HttpCookie cookie)
         {
             this._user_repo = user_repo;
             this._cookie = cookie;
@@ -47,7 +50,7 @@ namespace ExamManagementSystem.Controllers
                 User user = _user_repo.GetByUsername(username);
                 if (user?.Password == password)
                 {
-                    RegisterUser(user);
+                    RegisterLogin(user);
                     return ValidateUserStatus();
                 }
                 else
@@ -71,10 +74,7 @@ namespace ExamManagementSystem.Controllers
 
             if (isValid)
             {
-                userData.Teacher = new Teacher();
-                userData.Student = new Student();
-                userData.Admin = new Admin();
-                _user_repo.Insert(userData);
+                OperationalServices.AddUserToDatabase(userData);
                 return RedirectToAction("Login", 
                     new { message = $"Welcome, {userData.Firstname} Signup Successful!"});
             }
@@ -89,12 +89,12 @@ namespace ExamManagementSystem.Controllers
             }
             else if(SessionUser.Status == "awaiting_approval")
             {
-                return UserApprovalMessage();
+                return ShowUserApprovalMessage();
             }
             return RedirectToAction("Index", _cookie["Type"]);
         }
 
-        private ActionResult UserApprovalMessage()
+        private ActionResult ShowUserApprovalMessage()
         {
             return Content("Need admin approval");
         }
@@ -117,7 +117,7 @@ namespace ExamManagementSystem.Controllers
             if (!ModelState.IsValid) return false;
 
             userData.CreatedAt = DateTime.Now;
-            userData.Status = "valid";      // it will be "unverified_email". Fix it after fixing the Update() method of the repository
+            userData.Status = "unverified_email";
 
             return true;
         }
@@ -164,18 +164,18 @@ namespace ExamManagementSystem.Controllers
         {
             if (Session["emailVerificationCode"] == null)
             {
-                Session["emailVerificationCode"] = UserServices.GenerateRandomNumericCode();
+                Session["emailVerificationCode"] = OperationalServices.GenerateRandomNumericCode();
                 Session["emailVerificationAttemptCount"] = 0;
             }
 
-            UserServices.SendVerificationCode(
+            OperationalServices.SendVerificationCode(
                 _cookie["FirstName"],
                 _cookie["Email"],
                 Session["emailVerificationCode"].ToString(),
                 "Email Verification");
         }
 
-        private void RegisterUser(User user)
+        private void RegisterLogin(User user)
         {
             SessionUser = user;
 
@@ -193,8 +193,8 @@ namespace ExamManagementSystem.Controllers
 
         private User SessionUser
         {
-            set { Session["User"] = value; }
-            get { return (User)Session["User"]; }
+            set { System.Web.HttpContext.Current.Session["User"] = value; }
+            get { return (User)System.Web.HttpContext.Current.Session["User"]; }
         }
     }
 }

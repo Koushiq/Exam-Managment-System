@@ -7,19 +7,33 @@ namespace ExamManagementSystem.Models.ServiceAccess
 {
     public enum AdminPermissions
     {
-        AddAdmins = 1,
-        ApproveTeachers,
-        ApproveUsers,
+        //Permissions' orders must not be changed.
+        //Permissions' must only be appended to the end of the existing list.
+        //Any existing permission name must not be removed or modified.
 
-        CreateCourses,
-        CreateSections,
+        AddAdmin,
+        ApproveTeacher,
+        ApproveStudent,
 
-        AssignTeacherToSections,
+        CreateCourse,
+        CreateSection,
 
-        DeleteTeachers,
-        DeleteStudents,
+        AssignTeacherToSection,
+
         DeleteAdmin,
+        DeleteTeacher,
+        DeleteStudent,
 
-        ModifyAdminPermissions
+        ModifyAdminPermission,
+
+        ModifySelfInfo,
+        ModifyAdminInfo,
+        ModifyStudentInfo,
+        ModifyTeacherInfo,
+
+        ViewAllUsers,
+        ViewAllStudents,
+        ViewAllTeachers,
+        ViewAllAdmins
     }
 }

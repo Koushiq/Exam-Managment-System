@@ -129,7 +129,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="App_Start\UnityRegistration.cs" />
+    <Compile Include="App_Start\UnityConfig.cs" />
+    <Compile Include="App_Start\UserConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -189,7 +190,8 @@
     <Compile Include="Models\DataAccess\User.cs">
       <DependentUpon>ExamManagementSystemDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ServiceAccess\UserServices.cs" />
+    <Compile Include="Models\UserServices\OperationalServices.cs" />
+    <Compile Include="Models\UserServices\UserTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AdminRepository.cs" />
     <Compile Include="Repository\CourseRepository.cs" />
