@@ -138,6 +138,7 @@
     </Compile>
     <Compile Include="Models\ServiceAccess\AdminPermissions.cs" />
     <Compile Include="Models\ServiceAccess\BitwiseServices.cs" />
+    <Compile Include="Models\ServiceAccess\CryptographicServices.cs" />
     <Compile Include="Models\ServiceAccess\MailServices.cs" />
     <Compile Include="Models\DataAccess\Admin.cs">
       <DependentUpon>ExamManagementSystemDataModel.tt</DependentUpon>
@@ -219,8 +220,10 @@
     <None Include="packages.config" />
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\User\Signup.cshtml" />
-    <Content Include="Views\User\EmailVerification.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\User\ForgotPasswordUnameInput.cshtml" />
+    <Content Include="Views\User\EmailVerificationCodeInput.cshtml" />
+    <Content Include="Views\User\ResetPassword.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

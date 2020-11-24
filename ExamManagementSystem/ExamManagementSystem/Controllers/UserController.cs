@@ -42,7 +42,7 @@ namespace ExamManagementSystem.Controllers
         public ActionResult Login(FormCollection credentials)
         {
             string username = credentials["Username"];
-            string password = credentials["Password"];
+            string password = CryptographicServices.MD5Hash(credentials["Password"]);
 
             if( !string.IsNullOrEmpty(username) && 
                 !string.IsNullOrEmpty(password))
@@ -79,6 +79,41 @@ namespace ExamManagementSystem.Controllers
                     new { message = $"Welcome, {userData.Firstname} Signup Successful!"});
             }
             return View(userData);
+        }
+
+        [HttpGet]
+        public ActionResult ForgotPassword()
+        {
+            return PartialView("ForgotPasswordUnameInput");
+        }
+
+        [HttpPost]
+        public ActionResult ForgotPassword(FormCollection formData)
+        {
+            ViewBag.usernameOrEmail = formData["usernameOrEmail"];
+            string verificationCode = formData["verificationCode"];
+            if (string.IsNullOrWhiteSpace(ViewBag.usernameOrEmail))
+            {
+                ViewBag.Message = "Must enter a valid username or email";
+                return PartialView("ForgotPasswordUnameInput");
+            }
+            User user = _user_repo.GetUserByEmailOrUsername(ViewBag.usernameOrEmail, ViewBag.usernameOrEmail);
+            if (user == null)
+            {
+                ViewBag.Message = "User not found in our system";
+                return PartialView("ForgotPasswordUnameInput");
+            }
+
+            SessionUser = user;
+            Session["Purpose"] = "forgotPasswordEmailVerification";
+
+            OperationalServices.GenerateAndSendVerificationCode(Session);
+
+            ViewBag.Title = "Forgot password email verification";
+            ViewBag.Username = user.Username;
+            ViewBag.Email = user.Email;
+            ViewBag.Purpose = "forgotPasswordEmailVerification";
+            return PartialView("EmailVerificationCodeInput", formData);
         }
 
         public ActionResult ValidateUserStatus()
@@ -125,54 +160,109 @@ namespace ExamManagementSystem.Controllers
         [HttpGet]
         public ActionResult VerifyEmail()
         {
-            GenerateAndSendVerificationCode();
-            return View("EmailVerification");
+            Session["Purpose"] = "User Email Verification";
+            OperationalServices.GenerateAndSendVerificationCode(Session);
+            ViewBag.Title = "New user email verification";
+            ViewBag.Username = SessionUser.Username;
+            ViewBag.Email = SessionUser.Email;
+            ViewBag.ActionName = "VerifyEmail";
+            ViewBag.Purpose = "newUserVerification";
+            return PartialView("EmailVerificationCodeInput", new FormCollection());
         }
 
         [HttpPost]
-        public ActionResult VerifyEmail(string verificationCode)
+        public ActionResult VerifyEmail(FormCollection formData)
         {
             if((int?)Session["emailVerificationAttemptCount"] >= int.Parse(ConfigurationManager.AppSettings["maximumVerificationAttempts"]))
             {
                 ViewBag.Message = "Too many attempts. A new verification code is sent.";
                 ClearVerificationCode();
-                GenerateAndSendVerificationCode();
+
+                OperationalServices.GenerateAndSendVerificationCode(Session);
             }
-            else if (Session["emailVerificationCode"]?.ToString() == verificationCode)
+            else if (Session["emailVerificationCode"]?.ToString() == formData["verificationCode"])
             {
-                User user = SessionUser;
-                user.Status = "awaiting_approval";
-                _user_repo.AddOrUpdate(user);
-                ClearVerificationCode();
-                return ValidateUserStatus();
+                return PerformPostEmailVerificationTasks(formData["purpose"], formData["Username"]);
             }
             else
             {
                 Session["emailVerificationAttemptCount"] = (int?)Session["emailVerificationAttemptCount"] + 1;
                 ViewBag.Message = "Invalid verification code. Try again";
             }
-            return View("EmailVerification");
+            return PartialView("EmailVerificationCodeInput", formData);
+        }
+
+        [HttpGet]
+        public ActionResult ResetPassword()
+        {
+            if(SessionUser == null || (bool?)Session["EmailVerified"] != true)
+            {
+                ModelState.AddModelError("Email", "Email not verified");
+            }
+
+            return PartialView("ResetPassword", SessionUser);
+        }
+
+        [HttpPost]
+        public ActionResult ResetPassword(User user)
+        {
+            if(string.IsNullOrWhiteSpace(user.Password))
+            {
+                ModelState.AddModelError("Password", "Password can't be empty");
+                return PartialView("ResetPassword", user);
+            }
+
+            if(string.IsNullOrWhiteSpace(user.ConfirmPassword))
+            {
+                ModelState.AddModelError("ConfirmPassword", "Confirm Password can't be empty");
+                return PartialView("ResetPassword", user);
+            }
+
+            if ((User)Session["User"] == null || (bool?)Session["EmailVerified"] != true)
+            {
+                ModelState.AddModelError("Email", "Email not verified");
+                return PartialView("ResetPassword", user);
+            }
+
+            if(user.Password != user.ConfirmPassword)
+            {
+                ModelState.AddModelError("ConfirmPassword", "Password doesn't match");
+                return PartialView("ResetPassword", user);
+            }
+
+            SessionUser.Password = CryptographicServices.MD5Hash(user.Password);
+            _user_repo.AddOrUpdate(SessionUser);
+
+            Session.Remove("User");
+            return RedirectToAction("Login", new { message = "Password reset successful." });
+        }
+
+        private ActionResult PerformPostEmailVerificationTasks(string purpose, string username = null)
+        {
+            ActionResult actionResult = null;
+            if(purpose == "newUserVerification")
+            {
+                User user = SessionUser;
+                user.Status = "awaiting_approval";
+                _user_repo.AddOrUpdate(user);
+                actionResult = ValidateUserStatus();
+            }
+            else if(purpose == "forgotPasswordEmailVerification")
+            {
+                ViewBag.Title = "Reset Password";
+                ViewBag.Username = username;
+                Session["EmailVerified"] = true;
+                actionResult = ResetPassword();
+            }
+            ClearVerificationCode();
+            return actionResult;
         }
 
         private void ClearVerificationCode()
         {
             Session.Remove("emailVerificationCode");
             Session.Remove("emailVerificationAttemptCount");
-        }
-
-        private void GenerateAndSendVerificationCode()
-        {
-            if (Session["emailVerificationCode"] == null)
-            {
-                Session["emailVerificationCode"] = OperationalServices.GenerateRandomNumericCode();
-                Session["emailVerificationAttemptCount"] = 0;
-            }
-
-            OperationalServices.SendVerificationCode(
-                _cookie["FirstName"],
-                _cookie["Email"],
-                Session["emailVerificationCode"].ToString(),
-                "Email Verification");
+            Session.Remove("Purpose");
         }
 
         private void RegisterLogin(User user)

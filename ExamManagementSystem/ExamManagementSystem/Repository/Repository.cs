@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 
 namespace ExamManagementSystem.Repository
@@ -43,6 +44,12 @@ namespace ExamManagementSystem.Repository
         public void AddOrUpdate(T entity)
         {
             this.context.Set<T>().AddOrUpdate(entity);
+            this.context.SaveChanges();
+        }
+
+        public T Where(Expression<Func<T, bool>> predicate)
+        {
+            return this.context.Set<T>().Where(predicate).FirstOrDefault();
         }
     }
 }

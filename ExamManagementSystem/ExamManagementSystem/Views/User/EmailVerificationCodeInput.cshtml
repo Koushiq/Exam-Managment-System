@@ -1,0 +1,31 @@
+﻿@model FormCollection
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Enter Verification Code</title>
+</head>
+<body>
+    <div>
+        <h4>@ViewBag.Title</h4>
+        <hr />
+        <div>
+            Hey <b>@ViewBag.Username</b>,
+            <br />
+            An Email verification has been sent to <b>@ViewBag.Email.Substring(0, 3)*******@@@ViewBag.Email.Split('@')[1]</b>
+        </div>
+        <div>
+            <form action="VerifyEmail" method="post">
+                Verification Code <input type="number" name="verificationCode" required />
+                <div class="text-danger">
+                    @ViewBag.Message
+                </div>
+
+                <input type="hidden" value="@ViewBag.Purpose" name="Purpose" />
+                <input type="hidden" value="@ViewBag.Username" name="Username" />
+                <input type="hidden" value="@ViewBag.Email" name="Email" />
+
+                <input type="submit" value="Verify" name="submit" />
+            </form>
+        </div>
+    </div>
+</body>
