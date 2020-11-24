@@ -11,6 +11,7 @@ namespace ExamManagementSystem.Controllers
     public class CourseController : Controller
     {
         CourseRepository courseRepo = new CourseRepository();
+        AdminRepository adminRepo = new AdminRepository();
         // GET: Course
         public ActionResult Index()
         {
@@ -48,9 +49,6 @@ namespace ExamManagementSystem.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult ConfirmDelete(int id)
         {
-
-
-
             Cours course = courseRepo.Get(id);
             if (course.DeletedBy == null)
             {
@@ -66,5 +64,21 @@ namespace ExamManagementSystem.Controllers
             
             return RedirectToAction("Index");
         }
+
+        public ActionResult CoursesAdded(int id)
+        {
+            Admin admin = adminRepo.Get((int)Session["userId"]);
+            if (admin!=null && admin.PermissionBin > 0)
+            {
+                return View(courseRepo.GetAll().Where(s => s.CreatedBy == id));
+            }
+            else
+            {
+                return RedirectToAction("Home");
+            }
+        }
+
+
+
     }
 }

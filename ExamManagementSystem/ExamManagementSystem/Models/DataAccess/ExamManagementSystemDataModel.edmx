@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ExamManagementSystemDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ExamManagementSystemDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Admins">
           <Key>
             <PropertyRef Name="UserId" />
@@ -129,6 +129,7 @@
           <Property Name="Propic" Type="varchar" MaxLength="250" />
           <Property Name="CreatedAt" Type="datetime" Nullable="false" />
           <Property Name="ActionAt" Type="datetime" />
+          <Property Name="ActionBy" Type="int" />
           <Property Name="Status" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
@@ -434,8 +435,7 @@
             <End Role="Teachers" EntitySet="Teachers" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ExamManagementSystemDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -601,6 +601,7 @@
           <NavigationProperty Name="Admin" Relationship="Self.FK_Admins_Users" FromRole="Users" ToRole="Admins" />
           <NavigationProperty Name="Student" Relationship="Self.FK_Students_Users1" FromRole="Users" ToRole="Students" />
           <NavigationProperty Name="Teacher" Relationship="Self.FK_Teachers_Users1" FromRole="Users" ToRole="Teachers" />
+          <Property Name="ActionBy" Type="Int32" />
         </EntityType>
         <Association Name="FK_Admins_Users">
           <End Role="Users" Type="Self.User" Multiplicity="1" />
@@ -1033,6 +1034,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="ExamManagementSystemDBModel.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="ActionBy" ColumnName="ActionBy" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Usertype" ColumnName="Usertype" />
                 <ScalarProperty Name="Password" ColumnName="Password" />

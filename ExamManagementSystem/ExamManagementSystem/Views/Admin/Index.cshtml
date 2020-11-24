@@ -17,7 +17,7 @@
     <p>
         @Html.ActionLink("Create New", "Create")
     </p>
-    <table class="table">
+    <table class="table" border="1">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.PermissionBin)
@@ -25,7 +25,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.User.Username)
             </th>
-            <th></th>
+            <th>Action</th>
         </tr>
     
     @foreach (var item in Model) {
@@ -37,9 +37,12 @@
                 @Html.DisplayFor(modelItem => item.User.Username)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.UserId }) |
-                @Html.ActionLink("Details", "Details", new { id=item.UserId }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.UserId })
+              
+                @Html.ActionLink("Approval Activity", "Activity", new { id = item.UserId }) |
+                @Html.ActionLink("Courses Added", "CoursesAdded", new { id = item.UserId }) |
+                @Html.ActionLink("Courses Soft Deleted", "CoursesSoftDeleted", new { id = item.UserId }) |
+                @Html.ActionLink("Section Added", "SectionsAdded", new { id = item.UserId }) |
+                @Html.ActionLink("Section Soft Deleted", "SectionsSoftDeleted", new { id = item.UserId }) |
             </td>
         </tr>
     }

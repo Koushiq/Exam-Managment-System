@@ -1,0 +1,48 @@
+﻿@model IEnumerable<ExamManagementSystem.Models.DataAccess.Cours>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CoursesAdded</title>
+</head>
+<body>
+    <div>
+        <table border="1">
+            <tr>
+                <th>
+                    Course Name
+                </th>
+               
+                <th>
+                    Created At
+                </th>
+                <th>
+                    Created By
+                </th>
+                
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.CourseName
+                    </td>
+                    <td>
+                        @item.CreatedAt
+                    </td>
+                    
+                    <td>
+                        @item.Admin.User.Username
+                    </td>
+                    
+                </tr>
+            }
+        </table>
+    </div>
+</body>
+</html>

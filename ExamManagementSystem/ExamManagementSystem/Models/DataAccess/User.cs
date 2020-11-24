@@ -18,11 +18,11 @@ namespace ExamManagementSystem.Models.DataAccess
         [Required]
         [MinLength(8, ErrorMessage = "Username too short")]
         public string Username { get; set; }
-
         [Required]
         [MinLength(5, ErrorMessage = "Must select user type")]
         public string Usertype { get; set; }
 
+        public Nullable<int> ActionBy { get; set; }
         [Required]
         [MinLength(8, ErrorMessage = "Password too short")]
         [DataType(DataType.Password, ErrorMessage = "Password format not strong enough")]
@@ -63,7 +63,7 @@ namespace ExamManagementSystem.Models.DataAccess
         public string Status { get; set; }
 
         public int Id { get; set; }
-    
+
         public virtual Admin Admin { get; set; }
         public virtual Student Student { get; set; }
         public virtual Teacher Teacher { get; set; }

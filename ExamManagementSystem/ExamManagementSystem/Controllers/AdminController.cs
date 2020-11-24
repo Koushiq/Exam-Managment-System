@@ -42,10 +42,80 @@ namespace ExamManagementSystem.Controllers
             PDFReport pdf = new PDFReport("Dummyfile.pdf","arial",10,20);
             pdf.Generate(buff);
             return RedirectToAction("Index");*/
-            Admin admin = adminRepo.Get(id);
-            int idx = admin.User.Id;
             //userRepo.GetAll().Where(s=>s.Id==idx && s.)
             return View();
         }
+
+        [HttpGet]
+        public ActionResult Activity(int id)
+        {
+            Admin admin = adminRepo.Get((int)Session["userId"]);
+            if(admin.PermissionBin>0)
+            {
+                return RedirectToAction("Activity", "User", new { Id=id }); 
+            }
+            else
+            {
+                return RedirectToAction("Home");
+            }
+            
+        }
+
+
+        public ActionResult CoursesAdded(int id)
+        {
+
+            Admin admin = adminRepo.Get((int)Session["userId"]);
+            if (admin.PermissionBin > 0)
+            {
+                return RedirectToAction("CoursesAdded", "Course", new { Id = id });
+            }
+            else
+            {
+                return RedirectToAction("Home");
+            }
+        }
+
+        public ActionResult CoursesSoftDeleted(int id)
+        {
+
+            Admin admin = adminRepo.Get((int)Session["userId"]);
+            if (admin.PermissionBin > 0)
+            {
+                return RedirectToAction("CoursesSoftDeleted", "Course", new { Id = id });
+            }
+            else
+            {
+                return RedirectToAction("Home");
+            }
+        }
+        public ActionResult SectionsAdded(int id)
+        {
+
+            Admin admin = adminRepo.Get((int)Session["userId"]);
+            if (admin.PermissionBin > 0)
+            {
+                return RedirectToAction("SectionsAdded", "Section", new { Id = id });
+            }
+            else
+            {
+                return RedirectToAction("Home");
+            }
+        }
+
+        public ActionResult SectionsSoftDeleted(int id)
+        {
+
+            Admin admin = adminRepo.Get((int)Session["userId"]);
+            if (admin.PermissionBin > 0)
+            {
+                return RedirectToAction("SectionsSoftDeleted", "Section", new { Id = id });
+            }
+            else
+            {
+                return RedirectToAction("Home");
+            }
+        }
+
     }
 }

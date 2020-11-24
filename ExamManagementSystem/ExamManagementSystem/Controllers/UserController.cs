@@ -119,16 +119,29 @@ namespace ExamManagementSystem.Controllers
         [HttpGet]
         public ActionResult Approve(int id)
         {
-            _user_repo.SetUserStatus(id,"valid");
+            _user_repo.SetUserStatus(id,"valid",(int)Session["userId"]);
             return RedirectToAction("List", "User");
         }
         [HttpGet]
         public ActionResult Decline(int id)
         {
-           _user_repo.SetUserStatus(id, "invalid");
+           _user_repo.SetUserStatus(id, "invalid", (int)Session["userId"]);
             return RedirectToAction("List", "User");
         }
 
+        public ActionResult Activity(int id)
+        {
+            Admin admin =  new AdminRepository().Get(id);
+            if(admin.PermissionBin>0)
+            {
+                return View(_user_repo.GetAll().Where(s => s.ActionBy == id));
+            }
+            else
+            {
+                return RedirectToAction("Home","Action");
+            }
+            
+        }
         
 
         private ActionResult UserApprovalMessage()

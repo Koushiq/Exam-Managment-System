@@ -8,11 +8,12 @@ namespace ExamManagementSystem.Repository
 {
     public class UserRepository: Repository<User>
     {
-        public void SetUserStatus(int id, string status)
+        public void SetUserStatus(int id, string status,int adminId)
         {
             User user = this.Get(id);
             user.Status = "valid";
             user.ActionAt = DateTime.Now;
+            user.ActionBy = adminId; 
             this.Update(user);
             
         }

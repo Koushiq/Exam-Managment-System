@@ -11,8 +11,7 @@ namespace ExamManagementSystem.Models.DataAccess
 {
     using System;
     using System.Collections.Generic;
-    using System.Collections.Specialized;
-
+    
     public partial class Section
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -39,10 +38,5 @@ namespace ExamManagementSystem.Models.DataAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Exam> Exams { get; set; }
         public virtual Teacher Teacher { get; set; }
-
-        public static implicit operator Section(BitVector32.Section v)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

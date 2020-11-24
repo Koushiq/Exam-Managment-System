@@ -1,0 +1,57 @@
+﻿@model IEnumerable<ExamManagementSystem.Models.DataAccess.User>
+    @{
+        Layout = null;
+    }
+
+    <!DOCTYPE html>
+
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Activity</title>
+    </head>
+    <body>
+        <div>
+            <table  border="1">
+                <tr>
+                    <th>
+                        Action Against
+                    </th>
+                    <th>
+                        User Email
+                    </th>
+                    <th>
+                        Action At
+                    </th>
+                    <th>
+                        Action By Admin Id
+                    </th>
+                    <th>
+                        Action Status
+                    </th>
+                </tr>
+                @foreach(var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item.Username
+                        </td>
+                        <td>
+                            @item.Email
+                        </td>
+                       
+                        <td>
+                            @item.ActionAt
+                        </td>
+                        <td>
+                            @item.ActionBy
+                        </td>
+                        <td>
+                            @item.Status
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </body>
+</html>
