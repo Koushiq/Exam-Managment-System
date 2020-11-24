@@ -1,6 +1,11 @@
 ﻿using ExamManagementSystem.Models.DataAccess;
 using ExamManagementSystem.Models.ServiceAccess;
 using ExamManagementSystem.Repository;
+using iText.Kernel.Pdf;
+using iText.Kernel.Pdf.Canvas.Draw;
+using iText.Layout;
+using iText.Layout.Element;
+using iText.Layout.Properties;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -139,6 +144,13 @@ namespace ExamManagementSystem.Controllers
             return RedirectToAction("Answer", new { eid = eid});
         }
 
+        public ActionResult Completed(int eid)
+        {
+            string pdf = this.GeneratedPDF(eid);
+            return View();
+        }
+
+        [NonAction]
         private List<int> ParseSelection(string selected)
         {
             List<int> OpId = new List<int>();
@@ -156,6 +168,7 @@ namespace ExamManagementSystem.Controllers
             return OpId;
         }
 
+        [NonAction]
         private string ImageHandler(int questionId, ImageModel img)
         {
             string Filename = Path.GetFileNameWithoutExtension(img.File.FileName);
@@ -165,6 +178,41 @@ namespace ExamManagementSystem.Controllers
             img.ImagePath = UploadPath + Filename;
             img.File.SaveAs(img.ImagePath);
             return img.ImagePath;
+        }
+
+        [NonAction]
+        private string GeneratedPDF(int eid)
+        {
+            List<SubmittedAnswer> answers = GetAnswerList(eid);
+            string pdfFolder = @"C:\Users\Habiba\Desktop\APWDN\Project\Exam Management System\ExamManagementSystem\ExamManagementSystem\PDFs\";
+
+            PdfWriter writer = new PdfWriter(pdfFolder);
+            PdfDocument pdf = new PdfDocument(writer);
+            Document document = new Document(pdf);
+            //Header
+            Paragraph header = new Paragraph("DEMO").SetTextAlignment(TextAlignment.CENTER).SetFontSize(20);
+            //New Line
+            Paragraph newline = new Paragraph(new Text("\n"));
+            //Adding Header & New Line
+            document.Add(newline);
+            document.Add(header);
+            //Line Separator
+            LineSeparator ls = new LineSeparator(new SolidLine());
+            document.Add(ls);
+        }
+
+        [NonAction]
+        public List<SubmittedAnswer> GetAnswerList(int eid)
+        {
+            SubmittedAnswerRepository sar = new SubmittedAnswerRepository();
+            List<SubmittedAnswer> allAnswers = sar.GetAllSAByExamId(eid);
+            List<SubmittedAnswer> latestAns = new List<SubmittedAnswer>();
+            foreach (var ans in allAnswers)
+            {
+                latestAns.Add(sar.GetLatestAnswer(ans));
+            }
+
+            return latestAns;
         }
     }
 }
