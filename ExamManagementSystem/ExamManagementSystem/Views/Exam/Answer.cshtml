@@ -21,8 +21,7 @@
                 {
                     <form id="fileUpload" method="post" action="/Exam/FileAnswer" enctype="multipart/form-data">
                         @Html.Hidden("QId", item.Id)
-                        @Html.Hidden("EId",item.ExamId)
-                        <input type="file" id="@item.Id" name="File" />
+                        <input type="file" id="@item.Id" name="File"/>
                         <input type="submit" name="submitFile" id="submitFile" value="Submit" />
                     </form>
                 }

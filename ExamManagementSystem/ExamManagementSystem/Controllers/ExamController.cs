@@ -1,6 +1,7 @@
 ﻿using ExamManagementSystem.Models.DataAccess;
 using ExamManagementSystem.Models.ServiceAccess;
 using ExamManagementSystem.Repository;
+using iText.IO.Image;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas.Draw;
 using iText.Layout;
@@ -11,6 +12,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 
@@ -121,6 +123,7 @@ namespace ExamManagementSystem.Controllers
         [HttpPost]
         public ActionResult FileAnswer(ImageModel img)
         {
+            QuestionRepository qtr = new QuestionRepository();
             SubmittedAnswerRepository sar = new SubmittedAnswerRepository();
             SubmittedAnswer sa = new SubmittedAnswer();
             int questionId = Convert.ToInt32(Request.Form["QId"]);
@@ -140,30 +143,36 @@ namespace ExamManagementSystem.Controllers
                 sar.Insert(sa);
             }
 
-            int eid = Convert.ToInt32(Request.Form["EId"]);
+            int eid = qtr.Get(questionId).ExamId;
             return RedirectToAction("Answer", new { eid = eid});
         }
 
+        [HttpGet]
         public ActionResult Completed(int eid)
         {
-            string pdf = this.GeneratedPDF(eid);
-            return View();
+            string pdf = this.GeneratePDF(eid);
+            byte[] FileBytes = System.IO.File.ReadAllBytes(pdf);
+            return File(FileBytes, "application/pdf");
         }
 
         [NonAction]
         private List<int> ParseSelection(string selected)
         {
             List<int> OpId = new List<int>();
+
             string[] split = selected.Split(new char[] {'=','&'});
-            
+            Regex rgx = new Regex(@"^[0-9]*$");
+
             foreach(var s in split)
             {
                 s.Trim();
-                if (s.Trim() != "selected")
+                if (rgx.IsMatch(s.Trim())==true)
                 {
                     OpId.Add(Convert.ToInt32(s));
                 }
             }
+
+            OpId.RemoveAt(0);
 
             return OpId;
         }
@@ -181,16 +190,18 @@ namespace ExamManagementSystem.Controllers
         }
 
         [NonAction]
-        private string GeneratedPDF(int eid)
+        private string GeneratePDF(int eid)
         {
+            ExamRepository exr = new ExamRepository();
+            Exam exam = exr.Get(eid);
             List<SubmittedAnswer> answers = GetAnswerList(eid);
-            string pdfFolder = @"C:\Users\Habiba\Desktop\APWDN\Project\Exam Management System\ExamManagementSystem\ExamManagementSystem\PDFs\";
-
+            string pdfFolder = @"C:\Users\Habiba\Desktop\APWDN\Project\Exam Management System\ExamManagementSystem\ExamManagementSystem\PDFs\"+uid+"-"+eid+".pdf";
+            
             PdfWriter writer = new PdfWriter(pdfFolder);
             PdfDocument pdf = new PdfDocument(writer);
             Document document = new Document(pdf);
             //Header
-            Paragraph header = new Paragraph("DEMO").SetTextAlignment(TextAlignment.CENTER).SetFontSize(20);
+            Paragraph header = new Paragraph(exam.ExamName).SetTextAlignment(TextAlignment.CENTER).SetFontSize(20);
             //New Line
             Paragraph newline = new Paragraph(new Text("\n"));
             //Adding Header & New Line
@@ -199,20 +210,61 @@ namespace ExamManagementSystem.Controllers
             //Line Separator
             LineSeparator ls = new LineSeparator(new SolidLine());
             document.Add(ls);
+
+            foreach(var a in answers)
+            {
+                Paragraph question = new Paragraph(new Text(a.Question.Statement));
+                document.Add(question);
+                document.Add(newline);
+
+                if (a.Question.Type == "Text")
+                {
+                    Paragraph answer = new Paragraph(new Text(a.AnswerText));
+                    document.Add(answer);
+                    document.Add(newline);
+                }
+                else if (a.Question.Type == "Check" || a.Question.Type == "MCQ")
+                {
+                    List<Option> opt = a.Question.Options.ToList();
+                    List<int> selected = BitwiseServices.GetEnabledIndexList(a.OptionBin);
+                    foreach (var o in opt)
+                    {
+                        foreach (var s in selected)
+                        {
+                            if (o.OptionId == s)
+                            {
+                                Paragraph answer = new Paragraph(new Text(o.OptionText));
+                                document.Add(answer);
+                                document.Add(newline);
+                            }   
+                        }
+                    }
+                }
+                else if (a.Question.Type == "Descriptive")
+                {
+                    Image img = new Image(ImageDataFactory.Create(a.Filepath)).SetTextAlignment(TextAlignment.CENTER);
+                    document.Add(img);
+                }
+                else { break; }
+            }
+
+            document.Close();
+            return pdfFolder;
         }
 
         [NonAction]
         public List<SubmittedAnswer> GetAnswerList(int eid)
         {
-            SubmittedAnswerRepository sar = new SubmittedAnswerRepository();
-            List<SubmittedAnswer> allAnswers = sar.GetAllSAByExamId(eid);
-            List<SubmittedAnswer> latestAns = new List<SubmittedAnswer>();
-            foreach (var ans in allAnswers)
+            List<SubmittedAnswer> sa = new List<SubmittedAnswer>();
+            QuestionRepository qtr = new QuestionRepository();
+            List<Question> qList = qtr.GetQuestionsByExamId(eid);
+            
+            foreach(var q in qList)
             {
-                latestAns.Add(sar.GetLatestAnswer(ans));
+                sa.Add(qtr.GetLatestAnswer(q.Id));
             }
 
-            return latestAns;
+            return sa;
         }
     }
 }
