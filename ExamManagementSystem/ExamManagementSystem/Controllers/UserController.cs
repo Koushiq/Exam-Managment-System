@@ -51,16 +51,15 @@ namespace ExamManagementSystem.Controllers
                 User users = _user_repo.GetAll().Where(s => s.Username == username).FirstOrDefault();
 
 
-                Session["userId"] = users.Id;
-                userId["userId"] = users.Id.ToString();
-                userId.Expires = new DateTime(2022,11,11);
+              
+
                 if (user?.Password == password)
                 {
-                    RegisterUser(user);
+                    RegisterUser(user); 
+                    Session["userId"] = users.Id;
+                    userId["userId"] = users.Id.ToString();
+                    userId.Expires = new DateTime(2022, 11, 11);
                     return ValidateUserStatus();
-
-                    
-
                 }
                 else
                 {
@@ -113,6 +112,25 @@ namespace ExamManagementSystem.Controllers
             }
         }
 
+        public ActionResult List()
+        {
+            return View(_user_repo.GetAll().Where(s=>s.Status== "awaiting_approval"));
+        }
+        [HttpGet]
+        public ActionResult Approve(int id)
+        {
+            _user_repo.SetUserStatus(id,"valid");
+            return RedirectToAction("List", "User");
+        }
+        [HttpGet]
+        public ActionResult Decline(int id)
+        {
+           _user_repo.SetUserStatus(id, "invalid");
+            return RedirectToAction("List", "User");
+        }
+
+        
+
         private ActionResult UserApprovalMessage()
         {
             return Content("Need admin approval");
@@ -136,7 +154,7 @@ namespace ExamManagementSystem.Controllers
             if (!ModelState.IsValid) return false;
 
             userData.CreatedAt = DateTime.Now;
-            userData.Status = "valid";      // it will be "unverified_email". Fix it after fixing the Update() method of the repository
+            userData.Status = "awaiting_approval";      // it will be "unverified_email". Fix it after fixing the Update() method of the repository
 
             return true;
         }
