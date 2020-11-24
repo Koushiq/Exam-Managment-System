@@ -7,97 +7,94 @@
 
 <h2>@(ViewBag.Course + " " + ViewBag.Exm.ExamName)</h2>
 
-<form method="POST" enctype="multipart/form-data">
-    <table>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    <h3>@item.Statement: </h3>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    @if (item.Type == "Descriptive")
-                    {
-                        <input type="file" class="file" id="@item.Id" name=@item.Id />
-                    }
-                    else if (item.Type == "Text")
-                    {
-                        <textarea id="text" name="@item.Id" rows=5 cols=100></textarea>
-                        <br />
-                        <input type="submit" name="Submit" id="submit" value="Submit"/>
-                    }
-                    else if (item.Type == "MCQ")
-                    {
-                        <div id="mcq">
-                            @foreach (var i in item.Options)
-                            {
-                                <input type="radio" class="radio" name="@i.QuestionId" id="@i.Id" value="@i.OptionId" /> @i.OptionText
-                            }
-                        </div>
-                    }
-                    else
-                    {
-                        <div id="mcq">
-                            @foreach (var i in item.Options)
-                            {
-                                <input type="Checkbox" name="@i.QuestionId" id="check" value="@i.Id" /> @i.OptionText
-                            }
-                        </div>
-                    }
-                </td>
-            </tr>
-        }
-    </table>
-    <br />
-</form>
+<!--<form method="POST" enctype="multipart/form-data">-->
+<table>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <h3>@item.Statement: </h3>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @if (item.Type == "Descriptive")
+                {
+                    <input type="file" class="file" id="@item.Id" name=@item.Id />
+                }
+                else if (item.Type == "Text")
+                {
+                    <textarea id="text" name="@item.Id" rows=5 cols=100></textarea>
+                    <br />
+                    <input type="submit" name="Submit" id="submit" value="Submit" />
+                }
+                else if (item.Type == "MCQ")
+                {
+                    <div id="mcq">
+                        @foreach (var i in item.Options)
+                        {
+                            <input type="radio" class="radio" name="@i.QuestionId" id="@i.Id" value="@i.OptionId" /> @i.OptionText
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div id="mcq">
+                        @foreach (var i in item.Options)
+                        {
+                            <input type="Checkbox" name="@i.QuestionId" id="check" value="@i.Id" /> @i.OptionText
+                        }
+                    </div>
+                }
+            </td>
+        </tr>
+    }
+</table>
+<br />
+<!--</form>-->
 
 <br />
-@Html.ActionLink("Back","NewExams","Student",new {sid = sid},null)
+@Html.ActionLink("Done", "NewExams", "Student", new { sid = sid }, null)
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
-        $(".radio").on("click",function () {
+        $(".radio").on("click", function () {
             $.ajax(
-            {
-                type: 'POST',
-                url: "/Exam/Answer",
-                data: {
-                    questionId: $(this).attr("name"),
-                    id: $(this).val()
-                },
-                success: function (data) {
-                    console.log(data);
-                },
-                error: (error) => {
-                    console.log(JSON.stringify(error));
-                }
-            });
+                {
+                    type: 'POST',
+                    url: "/Exam/Answer",
+                    data: {
+                        questionId: $(this).attr("name"),
+                        id: $(this).val()
+                    },
+                    success: function (data) {
+                        console.log(data);
+                    },
+                    error: (error) => {
+                        console.log(JSON.stringify(error));
+                    }
+                });
         });
     });
 
     $(document).ready(function () {
         $("#submit").on("click", function () {
             $.ajax(
-            {
-                type: 'POST',
-                url: "/Exam/TextAnswer",
-                /*data: {
-                    
-                },
-                success: function (data) {
-                    console.log(data);
-                },
-                error: (error) => {
-                    console.log(JSON.stringify(error));
-                }*/,
-                success: function (data) {
-                        console.log($("#text").attr("name"));
-                        console.log($("#text").val());
-                }
-            });
+                {
+                    type: 'POST',
+                    url: "/Exam/TextAnswer",
+                    data: {
+                        questionId: $("#text").attr("name"),
+                        ansText: $("#text").val()
+                    },
+                    success: function (data) {
+                        console.log(data);
+                    },
+                    error: (error) => {
+                        console.log(JSON.stringify(error));
+                    }
+                });
         });
     });
 </script>

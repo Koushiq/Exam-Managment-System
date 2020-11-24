@@ -8,9 +8,9 @@ namespace ExamManagementSystem.Repository
 {
     public class SubmittedAnswerRepository:Repository<SubmittedAnswer>
     {
-        public SubmittedAnswer GetSAByQuestionId(int qid)
+        public List<SubmittedAnswer> GetAllSAByQuestionId(int qid)
         {
-            return this.GetAll().Where(x => x.QuestionId == qid).FirstOrDefault();
+            return this.GetAll().Where(x => x.QuestionId == qid).ToList();
         }
     }
 }

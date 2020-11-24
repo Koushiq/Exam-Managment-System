@@ -21,9 +21,8 @@ namespace ExamManagementSystem.Controllers
             ViewBag.Course = exam.Get(eid).Section.Cours.CourseName;
             
             QuestionRepository qtr = new QuestionRepository();
-            List<Question> qts = new List<Question>();
-            qts = qtr.GetQuestionsByExamId(eid);
-
+            List<Question> qts = qtr.GetQuestionsByExamId(eid);
+            
             return View(qts);
         }
 
@@ -31,6 +30,7 @@ namespace ExamManagementSystem.Controllers
         public ActionResult Answer(int questionId, int id)
         {
             SubmittedAnswerRepository sar = new SubmittedAnswerRepository();
+            List<SubmittedAnswer> sal = sar.GetAllSAByQuestionId(questionId);
             OptionRepository opr = new OptionRepository();
             int OptionId = opr.Get(id).OptionId;
             SubmittedAnswer sa = new SubmittedAnswer();
@@ -40,18 +40,18 @@ namespace ExamManagementSystem.Controllers
             BitwiseServices.SetBit(ref bin, OptionId);
             sa.OptionBin = bin;
 
-            if (sar.GetSAByQuestionId(questionId) == null)
+            if (sal.Count == 0)
             {
                 sa.AttemptTime = 1;
                 sar.Insert(sa);
             }
             else
             {
-                sa.AttemptTime += 1;
-                sar.Update(sa);
+                sa.AttemptTime = sal.Count + 1;
+                sar.Insert(sa);
             }
 
-            return Content("QId: "+questionId+" OId: "+id);
+            return Content("QId: "+questionId+" OId: "+id + " Count: " + sal.Count);
         }
 
         [HttpPost]
@@ -59,22 +59,23 @@ namespace ExamManagementSystem.Controllers
         {
             SubmittedAnswerRepository sar = new SubmittedAnswerRepository();
             SubmittedAnswer sa = new SubmittedAnswer();
+            List<SubmittedAnswer> sal = sar.GetAllSAByQuestionId(questionId); ;
             sa.StudentId = uid;
             sa.QuestionId = questionId;
             sa.AnswerText = ansText;
 
-            if (sar.GetSAByQuestionId(questionId) == null)
+            if (sal.Count == 0)
             {
                 sa.AttemptTime = 1;
                 sar.Insert(sa);
             }
             else
             {
-                sa.AttemptTime += 1;
-                sar.Update(sa);
+                sa.AttemptTime = sal.Count + 1;
+                sar.Insert(sa);
             }
 
-            return Content("QId: " + questionId + "AnsText: "+ansText);
+            return Content("QId: " + questionId + "AnsText: "+ansText+" Count: "+ sal.Count);
         }
     }
 }
