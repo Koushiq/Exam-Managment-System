@@ -67,5 +67,6 @@ namespace ExamManagementSystem.Models.DataAccess
         public virtual Admin Admin { get; set; }
         public virtual Student Student { get; set; }
         public virtual Teacher Teacher { get; set; }
+        public virtual Admin Admin { get; set; }
     }
 }

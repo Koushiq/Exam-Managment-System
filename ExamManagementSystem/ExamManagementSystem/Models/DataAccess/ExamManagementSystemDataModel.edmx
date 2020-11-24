@@ -450,6 +450,7 @@
           <NavigationProperty Name="Courses1" Relationship="Self.FK_Courses_Admins_DeletedBy" FromRole="Admins" ToRole="Courses" />
           <NavigationProperty Name="Sections" Relationship="Self.FK_Sections_Admins_CreatedBy" FromRole="Admins" ToRole="Sections" />
           <NavigationProperty Name="Sections1" Relationship="Self.FK_Sections_Admins_DeletedBy" FromRole="Admins" ToRole="Sections" />
+          <NavigationProperty Name="User" Relationship="ExamManagementSystemDBModel.FK_Admins_Users" FromRole="Admin" ToRole="User" />
         </EntityType>
         <EntityType Name="Cours">
           <Key>
@@ -904,7 +905,23 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Teachers" EntitySet="Teachers" />
           </AssociationSet>
+          <AssociationSet Name="FK_Admins_Users" Association="ExamManagementSystemDBModel.FK_Admins_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Admin" EntitySet="Admins" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_Admins_Users">
+          <End Type="ExamManagementSystemDBModel.User" Role="User" Multiplicity="1" />
+          <End Type="ExamManagementSystemDBModel.Admin" Role="Admin" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Admin">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->

@@ -1,0 +1,36 @@
+﻿@model IEnumerable<ExamManagementSystem.Models.DataAccess.GradeSheet>
+
+@{
+    ViewBag.Title = "Gradesheet";
+}
+
+<h2>Gradesheet</h2>
+
+<table class="table" border="1">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Exam.ExamName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalObtainedMarks)
+        </th>
+        <th>
+            Actions
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Exam.ExamName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalObtainedMarks)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

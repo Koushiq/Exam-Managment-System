@@ -156,6 +156,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="Models\DataAccess\ExamManagementSystemDataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -177,6 +178,10 @@
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Controllers\TeacherController.cs" />
     <Compile Include="App_Start\UnityRegistration.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\DefaultController.cs" />
+    <Compile Include="Controllers\ExamController.cs" />
+    <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -281,6 +286,14 @@
     <Content Include="Views\User\List.cshtml" />
     <Content Include="Views\User\Activity.cshtml" />
     <Content Include="Views\Course\CoursesAdded.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Student\Index.cshtml" />
+    <Content Include="Views\Student\CourseList.cshtml" />
+    <Content Include="Views\Student\Gradesheet.cshtml" />
+    <Content Include="Views\Student\NewExams.cshtml" />
+    <Content Include="Views\Student\PastExams.cshtml" />
+    <Content Include="Views\Exam\Answer.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -62,7 +62,7 @@ namespace ExamManagementSystem.Controllers
                     return ValidateUserStatus();
                 }
                 else
-                {
+        {
                     ViewBag.ErrorMessage = "Incorrect username or password!";
                 }
             }

@@ -36,6 +36,7 @@
         <AssociationConnector Association="ExamManagementSystemDBModel.FK_Students_Users1" ManuallyRouted="false" />
         <AssociationConnector Association="ExamManagementSystemDBModel.FK_SubmittedAnswers_Students" ManuallyRouted="false" />
         <AssociationConnector Association="ExamManagementSystemDBModel.FK_Teachers_Users1" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamManagementSystemDBModel.FK_Admins_Users" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
