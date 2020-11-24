@@ -208,6 +208,7 @@
     <Compile Include="Models\DataAccess\User.cs">
       <DependentUpon>ExamManagementSystemDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ImageModel.cs" />
     <Compile Include="Models\ServiceAccess\BitwiseServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AdminRepository.cs" />
