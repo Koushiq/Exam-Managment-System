@@ -15,12 +15,12 @@ namespace ExamManagementSystem.Repository
 
         public List<Exam> GetFutureExamsBySectionId(int sid)
         {
-            return this.GetAll().Where(x => x.SectionId == sid && x.StartTime > DateTime.Now).ToList();
+            return this.GetAll().Where(x => x.SectionId == sid && x.StartTime.AddMinutes(x.Duration) >= DateTime.Now).ToList();
         }
 
         public List<Exam> GetPastExamsBySectionId(int sid)
         {
-            return this.GetAll().Where(x => x.SectionId == sid && x.StartTime < DateTime.Now).ToList();
+            return this.GetAll().Where(x => x.SectionId == sid && x.StartTime.AddMinutes(x.Duration) <= DateTime.Now).ToList();
         }
     }
 }
