@@ -19,7 +19,7 @@ using System.Web.Mvc;
 
 namespace ExamManagementSystem.Controllers
 {
-    public class ExamController : Controller
+    public class ExamController : BaseController
     {
         private int uid;
        

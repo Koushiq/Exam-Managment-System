@@ -8,17 +8,22 @@ using System.Web.Mvc;
 
 namespace ExamManagementSystem.Controllers
 {
-    public class StudentController : Controller
+    public class StudentController : BaseController
     {
         private int id;
         
         StudentRepository student = new StudentRepository();
-
+        UserRepository userRepo = new UserRepository();
         // GET: Student
         [HttpGet]
         public ActionResult Index()
         {
             this.id = (int)Session["userId"];
+            User user = this.userRepo.Get(this.id);
+            if(user==null || user.Usertype!="student")
+            {
+                return RedirectToAction("Logout", "User");
+            }
             return View(student.Get(id));
         }
 

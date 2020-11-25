@@ -10,7 +10,7 @@ namespace ExamManagementSystem.Repository
     {
         public List<Enroll> GetAllByStudentId(int id)
         {
-            return this.GetAll().Where(x => x.StudentId == id).ToList();
+            return this.GetAll().Where(x => x.StudentId == id && x.Section.DeletedBy==null).ToList();
         }
     }
 }

@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace ExamManagementSystem.Controllers
 {
-    public class AdminController : Controller
+    public class AdminController : BaseController
     {
         // GET: Admin
         AdminRepository adminRepo = new AdminRepository();

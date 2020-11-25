@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace ExamManagementSystem.Controllers
 {
-    public class CourseController : Controller
+    public class CourseController : BaseController
     {
         CourseRepository courseRepo = new CourseRepository();
         AdminRepository adminRepo = new AdminRepository();

@@ -57,6 +57,7 @@ namespace ExamManagementSystem.Controllers
                 {
                     RegisterUser(user);
                     Session["userId"] = users.Id;
+                    Session["userType"] = users.Usertype;
                     userId["userId"] = users.Id.ToString();
                     userId.Expires = new DateTime(2022, 11, 11);
                     return ValidateUserStatus();
@@ -68,7 +69,11 @@ namespace ExamManagementSystem.Controllers
             }
             return View();
         }
-
+        public ActionResult  Logout()
+        {
+            Session["userId"] = null;
+            return RedirectToAction("Login","User");
+        }
         [HttpGet]
         public ActionResult Signup()
         {
@@ -105,6 +110,10 @@ namespace ExamManagementSystem.Controllers
             if (_cookie["Type"] != "admin")
             {
                 return RedirectToAction("Index", _cookie["Type"]);
+            }
+            else if(_cookie["Type"] == "teacher")
+            {
+                return RedirectToAction("Home", _cookie["Type"]);
             }
             else
             {

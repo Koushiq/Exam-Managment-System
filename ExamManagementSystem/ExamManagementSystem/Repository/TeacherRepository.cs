@@ -17,7 +17,7 @@ namespace ExamManagementSystem.Repository
         public TeacherViewModel GetAllTeachers()
         {
             TeacherViewModel teachersInfo = new TeacherViewModel();
-            List<Teacher> teachers = this.GetAll().ToList();
+            List<Teacher> teachers = this.GetAll().Where(s=>s.User.Usertype=="teacher").ToList();
             List<string> teacherUsername = new List<string>();
             List<int> teacherId = new List<int>();
 

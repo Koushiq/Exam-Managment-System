@@ -173,6 +173,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\SectionController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
@@ -258,6 +259,7 @@
     <Compile Include="Repository\StudentRepository.cs" />
     <Compile Include="Repository\SubmittedAnswerRepository.cs" />
     <Compile Include="Repository\TeacherRepository.cs" />
+    <Compile Include="Repository\TrashboxController.cs" />
     <Compile Include="Repository\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -296,6 +298,9 @@
     <Content Include="Views\Student\NewExams.cshtml" />
     <Content Include="Views\Student\PastExams.cshtml" />
     <Content Include="Views\Exam\Answer.cshtml" />
+    <Content Include="Views\Trashbox\Index.cshtml" />
+    <Content Include="Views\Trashbox\Course.cshtml" />
+    <Content Include="Views\Trashbox\Section.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -308,6 +313,7 @@
     <Folder Include="PDFs\" />
     <Folder Include="res\" />
     <Folder Include="Uploaded Files\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

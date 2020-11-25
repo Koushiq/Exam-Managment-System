@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace ExamManagementSystem.Controllers
 {
-    public class SectionController : Controller
+    public class SectionController : BaseController
     {
         SectionRepository sectionRepo = new SectionRepository();
         TeacherRepository teacherRepo = new TeacherRepository();
@@ -24,7 +24,7 @@ namespace ExamManagementSystem.Controllers
         {
             TeacherViewModel teacher = teacherRepo.GetAllTeachers();
            
-            CourseViewModel course = courseRepo.GetAllCourses();
+            CourseViewModel course = courseRepo.GetAllCourses("not deleted");
             ViewBag.teacherUsername = teacher.teacherUsername;
             ViewBag.teacherId = teacher.teacherId;
             ViewBag.courseNames = course.courseNames;

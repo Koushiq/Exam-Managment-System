@@ -1,0 +1,68 @@
+﻿@model IEnumerable<ExamManagementSystem.Models.DataAccess.Section>
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Section</title>
+</head>
+<body>
+    
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SectionName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedAt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeletedAt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeletedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cours.CourseName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Teacher.Faculty)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SectionName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeletedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Admin.User.Username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Admin1.User.Username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cours.CourseName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Teacher.Faculty)
+            </td>
+            
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>

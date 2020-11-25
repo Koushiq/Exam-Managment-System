@@ -9,9 +9,17 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                @Html.ActionLink("Home", "Index", "Student") |
-                @Html.ActionLink("My Courses", "CourseList", "Student") |
-                @Html.ActionLink("My Gradesheet", "Gradesheet", "Student")
+                @if ((string)Session["userType"] == "student")
+                {
+                    <a href="/Student/Index">Home</a>
+                    <a href="/Student/CourseList">My Courses</a>
+                    <a href="/Student/Gradesheet">My Gradesheet</a>
+                }
+               
+                @Html.ActionLink("Logout", "Logout", "User") |
+               
+
+
             </div>
         </div>
     </div>

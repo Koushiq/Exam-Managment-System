@@ -14,14 +14,21 @@ namespace ExamManagementSystem.Repository
             course.CreatedAt = DateTime.Now;
         }
 
-        public CourseViewModel GetAllCourses()
+        public CourseViewModel GetAllCourses(string term)
         {
             CourseViewModel course = new CourseViewModel();
             List<string> courseNames = new List<String>();
-
+            List<Cours> courses;
             List<int> couresIds = new List<int>();
-
-            List<Cours> courses = this.GetAll().ToList(); 
+            if(term=="not deleted")
+            {
+                courses = this.GetAll().Where(s=>s.DeletedBy==null).ToList();
+            }
+            else
+            {
+                courses = this.GetAll().Where(s => s.DeletedBy != null).ToList();
+            }
+            
             
             foreach(Cours c in courses)
             {

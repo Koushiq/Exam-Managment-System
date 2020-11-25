@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace ExamManagementSystem.Controllers
 {
-    public class TeacherController : Controller
+    public class TeacherController : BaseController
     {
         TeacherRepository teacherRepo = new TeacherRepository();
         UserRepository userRepo = new UserRepository();
@@ -16,7 +16,20 @@ namespace ExamManagementSystem.Controllers
         // GET: Teacher
         public ActionResult Index()
         {
-            return View(teacherRepo.GetAll().ToList());
+            if((string)Session["userType"]=="admin")
+            {
+                return View(teacherRepo.GetAll().ToList());
+            }
+            else if((string)Session["userType"] == "teacher")
+            {
+                return RedirectToAction("Home","Teacher");
+            }
+            else
+            {
+                return RedirectToAction("Login", "User");
+            }
+            
+           
         }
         [HttpGet]
         public ActionResult Edit(int id)
