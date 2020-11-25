@@ -8,9 +8,9 @@ namespace ExamManagementSystem.Models.UserServices
 {
     public static class UserTypes
     {
-        public static string Student { get { return "student"; } }
-        public static string Teacher { get { return "teacher"; } }
-        public static string Admin { get { return "admin"; } }
+        public const string Student = "student";
+        public const string Teacher = "teacher";
+        public const string Admin = "admin";
 
         public static Dictionary<string, Type> UserDataType = new Dictionary<string, Type>();
     }

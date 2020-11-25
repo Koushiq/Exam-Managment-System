@@ -133,10 +133,13 @@
     <Compile Include="App_Start\UserConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Filters\AuthorizeAdmin.cs" />
+    <Compile Include="Filters\AuthorizeUser.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ServiceAccess\AdminPermissions.cs" />
+    <Compile Include="Models\ServiceAccess\AdminServices.cs" />
     <Compile Include="Models\ServiceAccess\BitwiseServices.cs" />
     <Compile Include="Models\ServiceAccess\CryptographicServices.cs" />
     <Compile Include="Models\ServiceAccess\MailServices.cs" />

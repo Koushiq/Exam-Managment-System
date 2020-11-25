@@ -1,5 +1,7 @@
-﻿using ExamManagementSystem.Models.DataAccess;
+﻿using ExamManagementSystem.Filters;
+using ExamManagementSystem.Models.DataAccess;
 using ExamManagementSystem.Models.ServiceAccess;
+using ExamManagementSystem.Models.UserServices;
 using ExamManagementSystem.Repository;
 using System;
 using System.Collections.Generic;
@@ -9,6 +11,7 @@ using System.Web.Mvc;
 
 namespace ExamManagementSystem.Controllers
 {
+    [AuthorizeUser(UserTypes.Admin)]
     public class AdminController : Controller
     {
         readonly AdminRepository _adminRepo;
@@ -21,9 +24,10 @@ namespace ExamManagementSystem.Controllers
             _adminRepo = (AdminRepository)adminRepo;
 
             _cookie = cookie;
-            SessionAdmin = _adminRepo.Get(SessionUser.Id);
+            if(SessionUser != null) SessionAdmin = _adminRepo.Get(SessionUser.Id);
         }
         // GET: Admin
+
         public ActionResult Index()
         {
             return View(SessionAdmin);
