@@ -20,7 +20,11 @@ namespace ExamManagementSystem.Filters
 
         public void OnAuthentication(AuthenticationContext filterContext)
         {
-            if (!AdminServices.HasPermission(_adminPermissionValue, _requiredPermission))
+            if(HttpContext.Current.Session["User"] == null)
+            {
+                filterContext.Result = null;
+            }
+            else if (!AdminServices.HasPermission(_adminPermissionValue, _requiredPermission))
             {
                 filterContext.Result = new HttpUnauthorizedResult();
             }
@@ -28,7 +32,14 @@ namespace ExamManagementSystem.Filters
 
         public void OnAuthenticationChallenge(AuthenticationChallengeContext filterContext)
         {
-            if (filterContext.Result == null || filterContext.Result is HttpUnauthorizedResult)
+            if (filterContext.Result is HttpUnauthorizedResult)
+            {
+                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary{{ "controller", "Admin" },
+                                          { "action", "Index" }
+
+                                         });
+            }
+            if (filterContext.Result is null)
             {
                 filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary{{ "controller", "User" },
                                           { "action", "Login" }
