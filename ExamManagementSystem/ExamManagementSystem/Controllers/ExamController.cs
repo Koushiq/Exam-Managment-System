@@ -32,6 +32,15 @@ namespace ExamManagementSystem.Controllers
             }
 
             [HttpGet]
+            public ActionResult List()//exam list
+            {
+                ExamRepository examRepository = new ExamRepository();
+                List<Exam> examList = examRepository.GetAll().Where(e => e.Section.TeacherId == 12).ToList().OrderByDescending(e => e.StartTime).ToList(); //session
+
+                return View(examList);
+            }
+
+            [HttpGet]
             public ActionResult Index(int id)//exam id
             {
                 ExamRepository examRepository = new ExamRepository();
@@ -62,59 +71,59 @@ namespace ExamManagementSystem.Controllers
                 {
                     ExamRepository examRepository = new ExamRepository();
                     examRepository.Insert(exam);
-                    return RedirectToAction("Section", "Teacher", new { id = exam.SectionId });
+                    return RedirectToAction("Create", "Question", new { id = exam.Id });
                 }
                 return View("Create");
             }
-            //public ActionResult CreateQuestions(int id)
-            //{
-            //    //if section tecaher mismatch return
-            //    ExamRepository examRepository = new ExamRepository();
-            //    Exam exam = examRepository.Get(id);
-            //    return View(exam);
-            //}
-            //[HttpPost]
-            //public ActionResult CreateMQuestions(string Question, string Options, string CorrectAnswers)
-            //{
-            //    //if section tecaher mismatch return
 
-            //    QuestionJSONModel questionJSON = JsonConvert.DeserializeObject<QuestionJSONModel>(Question);
-            //    List<OptionJSON> optionJSONList = JsonConvert.DeserializeObject<List<OptionJSON>>(Options);
-            //    List<int> correctAnswerList = JsonConvert.DeserializeObject<List<int>>(CorrectAnswers);
+            [HttpGet]
+            public ActionResult Edit(int id)//exam id
+            {
+                ViewBag.SectionId = id;
+                Exam exam = new ExamRepository().Get(id);
+                //if section tecaher mismatch return
 
-            //    questionJSON.CorrectAnswers = correctAnswerList;
+                //ViewBag.CourseSection = section.Cours.CourseName + "[ " + section.SectionName + " ]";
+                return View(exam);
+            }
 
-            //    QuestionRepository questionRepository = new QuestionRepository();
-            //    int id = questionRepository.InsertFromJSON(questionJSON);
+            [HttpPost]
+            public ActionResult Edit(Exam exam)
+            {
+                //return Content(exam.StartTime.ToString());
+                //exam.StartTime = Convert.ToDateTime(exam.StartTime.ToString());
+                if (ModelState.IsValid)
+                {
+                    ExamRepository examRepository = new ExamRepository();
+                    Exam exam2 = examRepository.Get(exam.Id);
+                    exam2.ExamName = exam.ExamName;
+                    exam2.StartTime = exam.StartTime;
+                    exam2.Duration = exam.Duration;
+                    examRepository.Update(exam2);
+                    return RedirectToAction("Index", new { id = exam.Id });
+                }
 
-            //    OptionRepository optionRepository = new OptionRepository();
-            //    optionRepository.InsertOptionList(optionJSONList, id);
+                return View("Create");
+            }
+            [HttpGet]
+            public ActionResult Delete(int id)//exam id
+            {
+                Exam exam = new ExamRepository().Get(id);
 
-            //    dynamic obj = new
-            //    {
-            //        Question = questionJSON,
-            //        Options = optionJSONList
-            //    };
+                return View(exam);
+            }
 
-            //    return Json(questionJSON.CorrectAnswers, JsonRequestBehavior.AllowGet);
-            //}
-            //[HttpPost]
-            //public ActionResult CreateQuestions(string Question)
-            //{
-            //    //if section tecaher mismatch return
+            [HttpPost, ActionName("Delete")]
+            public ActionResult DeleteExam(int id)
+            {
+                //return Content(exam.StartTime.ToString());
+                //exam.StartTime = Convert.ToDateTime(exam.StartTime.ToString());
+                ExamRepository examRepository = new ExamRepository();
+                examRepository.DeleteExam(id);
 
-            //    QuestionJSONModel questionJSON = JsonConvert.DeserializeObject<QuestionJSONModel>(Question);
+                return RedirectToAction("List");
+            }
 
-            //    QuestionRepository questionRepository = new QuestionRepository();
-            //    int id = questionRepository.InsertFromJSON(questionJSON);
-
-            //    dynamic obj = new
-            //    {
-            //        Question = questionJSON,
-            //    };
-
-            //    return Json(questionJSON, JsonRequestBehavior.AllowGet);
-            //}
         }
     }
 }

@@ -17,7 +17,7 @@ namespace ExamManagementSystem.Models.MetaDataClasses
         [Required, Display(Name = "Exam Starting Time")]
         public System.DateTime StartTime { get; set; }
 
-        [Required, Range(1, int.MaxValue, ErrorMessage = "Please enter valid duration"), Display(Name = "Exam Duration (In Minutes)")]
+        [Required, Range(0, int.MaxValue, ErrorMessage = "Please enter valid duration"), Display(Name = "Exam Duration (In Minutes)")]
         public int Duration { get; set; }
 
         [Required, Range(1, double.MaxValue, ErrorMessage = "Please enter valid mark"), Display(Name = "Exam Marks (Can Be Fraction)")]

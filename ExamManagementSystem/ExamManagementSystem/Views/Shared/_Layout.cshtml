@@ -67,27 +67,32 @@
     </nav>
 
 
-    <ul class="nav nav-pills @ViewBag.COntainerClass border">
-        <li class="nav-item">
-            <a class="nav-link" href="/Teacher">Dashbord</a>
-        </li><li class="nav-item">
-            <a class="nav-link" href="/Exam/Index/1">Exam</a>
-        </li>
-    </ul>
-
-
-
-
-    <div class="@ViewBag.ContainerClass body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year</p>
-        </footer>
+    <div class="@ViewBag.ContainerClass">
+        <ul class="nav nav-pills border mb-3 bg-light">
+            <li class="nav-item">
+                <a class="nav-link" href="/Teacher">Sections</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/Exam/List">Exams</a>
+            </li>
+        </ul>
     </div>
 
-    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    @RenderSection("scripts", required: false)
+        
+
+
+
+
+        <div class="@ViewBag.ContainerClass body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year</p>
+            </footer>
+        </div>
+
+        <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+        <script src="~/Scripts/bootstrap.min.js"></script>
+        @RenderSection("scripts", required: false)
 </body>
 </html>

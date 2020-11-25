@@ -12,5 +12,10 @@ namespace ExamManagementSystem.Repository
         {
             return this.GetAll().Where(x => x.StudentId == id).ToList();
         }
+        public Enroll GetEnroll(int studentId, int sectionId)
+        {
+            return this.GetAll().FirstOrDefault(e => e.SectionId == sectionId && e.StudentId == studentId);
+        }
+
     }
 }

@@ -1,0 +1,70 @@
+﻿@model IEnumerable<ExamManagementSystem.Models.DataAccess.Exam>
+
+@{
+    ViewBag.Title = "ALl Exams";
+}
+
+<h2>IndexList</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ExamName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Duration)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalMarks)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Section.SectionName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExamName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Duration)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalMarks)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedAt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Section.SectionName)
+        </td>
+        <td>
+            <a href="/Exam/Index/@item.Id">View</a>
+            @if (item.StartTime > DateTime.Now)
+            {
+                <a href="/Exam/Edit/@item.Id">| Edit |</a>
+            }
+            @if (item.StartTime > DateTime.Now)
+            {
+                <a href="/Exam/Delete/@item.Id">Delete</a>
+            }
+        </td>
+    </tr>
+}
+
+</table>

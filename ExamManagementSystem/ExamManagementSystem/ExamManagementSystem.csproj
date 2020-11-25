@@ -148,6 +148,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
+    <Compile Include="Controllers\EnrollController.cs" />
     <Compile Include="Controllers\ExamController.cs" />
     <Compile Include="Controllers\QuestionController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
@@ -225,6 +226,7 @@
     <Compile Include="Repository\Repository.cs" />
     <Compile Include="Repository\SectionRepository.cs" />
     <Compile Include="Repository\StudentRepository.cs" />
+    <Compile Include="Repository\SubmittedAnswerRepository.cs" />
     <Compile Include="Repository\TeacherRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
   </ItemGroup>
@@ -241,6 +243,12 @@
     <Content Include="Views\Exam\Index.cshtml" />
     <Content Include="Views\Question\Create.cshtml" />
     <Content Include="Views\Question\Edit.cshtml" />
+    <Content Include="Views\Exam\List.cshtml" />
+    <Content Include="Views\Exam\Edit.cshtml" />
+    <Content Include="Views\Exam\Delete.cshtml" />
+    <Content Include="Views\Question\Delete.cshtml" />
+    <Content Include="Views\Enroll\AddStudent.cshtml" />
+    <Content Include="Views\Enroll\Delete.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

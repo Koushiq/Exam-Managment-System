@@ -14,6 +14,12 @@
 <h4>Total Marks: <span id="marks-span"></span></h4>
 <h4>Exam Start Date and Time: @Model.StartTime.ToString()</h4>
 
+<div class="form-group d-flex justify-content-end">
+    <button class="btn btn-secondary mr-2 reset" onclick="window.location.href='/Teacher/Section/@Model.SectionId'">Back to Section</button>
+    <a href="/Exam/Edit/@Model.Id" class="btn btn-info mr-2">Edit Exam</a>
+    <a href="/Exam/Delete/@Model.Id" class="btn btn-danger">Delete Exam</a>
+</div>
+
 <div class="row">
 
     @foreach (var question in Model.Questions)
@@ -73,7 +79,9 @@
 </div>
 
 
-<a href="/Question/Create/@Model.Id" class="btn btn-block btn-success">Add Question</a>
+
+<a href="/Question/Create/@Model.Id" class="btn btn-block btn-success my-3">Add Question</a>
+
 
 @section scripts{
     <script>

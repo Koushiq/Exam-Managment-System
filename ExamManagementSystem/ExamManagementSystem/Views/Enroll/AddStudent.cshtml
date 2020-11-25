@@ -1,0 +1,27 @@
+﻿@model IEnumerable<ExamManagementSystem.Models.DataAccess.Student>
+
+
+
+<form method="post">
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <label for="exampleFormControlSelect1">Example select</label>
+        <select class="form-control" name="StudentId">
+            <option>select student from dropdown</option>
+            @foreach (var student in Model)
+            {
+                    <option value="@student.UserId">@student.User.Firstname @student.User.Lastname (@student.User.Username)</option>
+            }
+        </select>
+        <small class="text-danger">@Html.ValidationMessage("StudentId")</small>
+    </div>
+    <input type="hidden" name="SectionId" value="@ViewBag.SecID" />
+    <input type="hidden" name="EnrolledAt" value="@DateTime.Now" />
+
+    <div class="col-md-12">
+        <div class="form-group d-flex justify-content-end">
+            <button class="btn btn-secondary mr-2 reset">Clear</button>
+            <button type="submit" class="btn btn-primary sub">Submit</button>
+        </div>
+    </div>
+</form>

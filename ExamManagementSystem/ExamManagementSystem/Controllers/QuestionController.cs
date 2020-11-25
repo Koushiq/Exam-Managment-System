@@ -119,5 +119,28 @@ namespace ExamManagementSystem.Controllers
 
             return Json(questionJSON, JsonRequestBehavior.AllowGet);
         }
+        [HttpGet]
+        public ActionResult Delete(int id)//question id
+        {
+            //Exam exam = new ExamRepository().Get(id);
+            Question question = new QuestionRepository().Get(id);
+            return View(question);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteExam(int id)
+        {
+            //return Content(exam.StartTime.ToString());
+            //exam.StartTime = Convert.ToDateTime(exam.StartTime.ToString());
+            ExamRepository examRepository = new ExamRepository();
+
+            QuestionRepository questionRepository = new QuestionRepository();
+
+            int examId = questionRepository.Get(id).ExamId;
+
+            questionRepository.Delete(id);
+
+            return RedirectToAction("Index","Exam",new { id = examId });
+        }
     }
 }

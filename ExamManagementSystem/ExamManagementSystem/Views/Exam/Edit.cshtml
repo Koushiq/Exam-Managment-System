@@ -1,4 +1,5 @@
-﻿@model ExamManagementSystem.Models.DataAccess.Exam
+﻿
+@model ExamManagementSystem.Models.DataAccess.Exam
 
 @{
     ViewBag.Title = "Create Exam";
@@ -8,7 +9,7 @@
 <!-- form start -->
 <div class="row mb-2">
     <div class="col-md-12">
-        <h4>Create Exam for @ViewBag.CourseSection</h4>
+        <h4>@Model.ExamName | @Model.Section.Cours.CourseName [ @Model.Section.SectionName ]</h4>
     </div>
     <div class="col-sm-12">
         <form method="post" enctype="multipart/form-data">
@@ -16,7 +17,8 @@
             @Html.AntiForgeryToken()
 
 
-            <input type="hidden" name="SectionId" value="@ViewBag.SectionId" />
+            <input type="hidden" name="SectionId" value="@Model.SectionId" />
+            <input type="hidden" name="Id" value="@Model.Id" />
 
             <div class="form-group">
                 @Html.LabelFor(model => model.ExamName)
@@ -26,46 +28,26 @@
 
             <div class="form-group">
                 @Html.LabelFor(model => model.StartTime)
-                <input type="datetime-local" id="StartTime" name="StartTime" class="form-control" />
+                <input type="datetime-local" id="StartTime" name="StartTime" class="form-control" value="@Model.StartTime.ToString("yyyy-MM-dd HH:mm:ss").Replace(' ','T')"/>
                 <small class="text-danger">@Html.ValidationMessageFor(model => model.StartTime)</small>
             </div>
 
             <div class="form-group">
                 @Html.LabelFor(model => model.Duration)
-                <input type="number" id="Duration" name="Duration" class="form-control" />
+                <input type="number" id="Duration" name="Duration" class="form-control" value="@Model.Duration"/>
                 <small class="text-danger">@Html.ValidationMessageFor(model => model.Duration)</small>
             </div>
 
             <input type="hidden" name="TotalMarks" value="0.0" />
-            
-            <input type="hidden" name="CreatedAt" value="@DateTime.Now" />
+
+            @*<input type="hidden" name="CreatedAt" value="@DateTime.Now" />*@
 
             <div class="form-group d-flex justify-content-end">
                 <button type="reset" class="btn btn-secondary mr-2 reset">Clear</button>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Update</button>
             </div>
         </form>
     </div>
 
- </div>
+</div>
 <!-- form end -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

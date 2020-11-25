@@ -326,7 +326,7 @@
         }
 
         function submitText(_statement, _marks) {
-            const _answerText = $('#AnswerText').val().trim();
+            let _answerText = $('#AnswerText').val().trim();
             if (_answerText.length < 1) {
                 _answerText = null;
             }

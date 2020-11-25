@@ -14,7 +14,7 @@
                     <div class="col-auto">
                         <div class="btn-group" role="group" aria-label="Basic example">
                             <a href="/Exam/Create/@Model.Id" type="button" class="btn btn-info">Create Exam</a>
-                            <a href="/Section/AddStudent/@Model.Id" type="button" class="btn btn-info">Add Student</a>
+                            <a href="/Enroll/AddStudent/@Model.Id" type="button" class="btn btn-info">Add Student</a>
                             <a href="/Section/ViewStat/@Model.Id" type="button" class="btn btn-info">View Stat</a>
                         </div>
                     </div>
@@ -46,7 +46,7 @@
                 </div>
                 @foreach (var examListItem in Model.OnGoingExams)
                 {
-                    <div class="col-sm-12 mb-1">
+                    <div class="col-sm-12 mb-1" onclick="window.location.href='/Exam/Index/@examListItem.Id'">
                         <div class="card bg-light text-black p-1 px-3">
                             <div class="card-body p-0">
                                 <div class="row no-gutters align-items-center">
@@ -70,7 +70,7 @@
             </div>
             @foreach (var examListItem in Model.UpcomingExams)
             {
-                <div class="col-sm-12 mb-1">
+                <div class="col-sm-12 mb-1" onclick="window.location.href='/Exam/Index/@examListItem.Id'">
                     <div class="card bg-light text-black p-1 px-3">
                         <div class="card-body p-0">
                             <div class="row no-gutters align-items-center">
@@ -110,7 +110,7 @@
                             <td>@studentListItem.Student.AverageMarks</td>
                             <td><input type="checkbox" />haha</td>
                             <td>
-                                <a href="/Section/RemoveStudent/@studentListItem.StudentId" class="btn btn-sm btn-block btn-danger">Remove</a>
+                                <a href="/Enroll/Delete/?id=@studentListItem.StudentId&secId=@Model.Id" class="btn btn-sm btn-block btn-danger">Remove</a>
                             </td>
                             <td>
                                 <a href="/Teacher/ViewSTudentStat/@studentListItem.StudentId" class="btn btn-sm btn-block btn-info">Stat</a>

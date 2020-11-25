@@ -13,9 +13,9 @@ namespace ExamManagementSystem.Controllers
         // GET: Teacher
         public ActionResult Index()
         {  
-            return View(new SectionRepository().GetSectionListForTeacher(12));
+            return View(new SectionRepository().GetSectionListForTeacher(12));//session
         }
-        public ActionResult Section(int id)
+        public ActionResult Section(int id)//section id
         {
             return View(new SectionRepository().GetSectionForTeacher(id));
         }
