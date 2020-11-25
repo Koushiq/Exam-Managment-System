@@ -301,6 +301,10 @@
     <Content Include="Views\Trashbox\Index.cshtml" />
     <Content Include="Views\Trashbox\Course.cshtml" />
     <Content Include="Views\Trashbox\Section.cshtml" />
+    <Content Include="Views\Teacher\Home.cshtml" />
+    <Content Include="Views\Course\Edit.cshtml" />
+    <Content Include="Views\Course\Details.cshtml" />
+    <Content Include="Views\Section\Details.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

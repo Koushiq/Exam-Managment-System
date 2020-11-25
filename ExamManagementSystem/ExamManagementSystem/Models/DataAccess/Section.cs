@@ -11,7 +11,8 @@ namespace ExamManagementSystem.Models.DataAccess
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Section
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,6 +25,7 @@ namespace ExamManagementSystem.Models.DataAccess
         public int Id { get; set; }
         public int CourseId { get; set; }
         public Nullable<int> TeacherId { get; set; }
+        [Required]
         public string SectionName { get; set; }
         public System.DateTime CreatedAt { get; set; }
         public int CreatedBy { get; set; }

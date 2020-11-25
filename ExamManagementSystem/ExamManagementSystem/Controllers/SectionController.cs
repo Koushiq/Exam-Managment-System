@@ -14,6 +14,7 @@ namespace ExamManagementSystem.Controllers
         SectionRepository sectionRepo = new SectionRepository();
         TeacherRepository teacherRepo = new TeacherRepository();
         CourseRepository courseRepo = new CourseRepository();
+        EnrollRepository enrollRepo = new EnrollRepository();
         // GET: Section
         public ActionResult Index()
         {
@@ -35,9 +36,18 @@ namespace ExamManagementSystem.Controllers
         [HttpPost]
         public ActionResult Create(Section section)
         {
-            sectionRepo.SetValues(section);
-            sectionRepo.Insert(section);
-            return RedirectToAction("Index");
+           if(section.SectionName!=null || section.SectionName=="")
+            {
+                sectionRepo.SetValues(section);
+                sectionRepo.Insert(section);
+                return RedirectToAction("Index");
+            }
+           else
+            {
+                Session["nosection"] = true;
+                return RedirectToAction("Index", "Section");
+            }
+            
         }
 
         [HttpGet]
@@ -67,6 +77,12 @@ namespace ExamManagementSystem.Controllers
             }
            
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Details(int id)
+        {
+            
+            return View(enrollRepo.GetAll().Where(s=>s.SectionId==id));
         }
     }
 }

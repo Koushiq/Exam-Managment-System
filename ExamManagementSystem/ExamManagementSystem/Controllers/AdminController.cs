@@ -24,7 +24,7 @@ namespace ExamManagementSystem.Controllers
             Admin admin = adminRepo.Get(id);
             if(admin.PermissionBin>=0) // validate permission bin too see admin list
             {
-                return View(adminRepo.GetAll().ToList());
+                return View(adminRepo.GetAll().Where(s=>s.User.Usertype=="admin").ToList());
             }
             else
             {

@@ -12,6 +12,7 @@ namespace ExamManagementSystem.Controllers
     {
         CourseRepository courseRepo = new CourseRepository();
         AdminRepository adminRepo = new AdminRepository();
+        SectionRepository sectionRepo = new SectionRepository();
         // GET: Course
         public ActionResult Index()
         {
@@ -25,10 +26,21 @@ namespace ExamManagementSystem.Controllers
         [HttpPost]
         public ActionResult Create(Cours course)
         {
-            course.CreatedBy = (int)Session["userId"]; //Convert.ToInt32(HttpContext.Request.Cookies.Get("Id"));
-            courseRepo.SetValues(course);
-            courseRepo.Insert(course);
-            return RedirectToAction("Create"); 
+            
+            if(course.CourseName!=null)
+            {
+                course.CreatedBy = (int)Session["userId"]; //Convert.ToInt32(HttpContext.Request.Cookies.Get("Id"));
+                courseRepo.SetValues(course);
+                courseRepo.Insert(course);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                Session["nocourse"] = true;
+                
+                return RedirectToAction("Create");
+            }
+            
         }
 
 
@@ -77,7 +89,20 @@ namespace ExamManagementSystem.Controllers
                 return RedirectToAction("Home");
             }
         }
-
+        [HttpGet]
+        public ActionResult Details(int id)
+        {
+            Admin admin = adminRepo.Get((int)Session["userId"]);
+            if (admin != null && admin.PermissionBin > 0)
+            {
+                return View(this.sectionRepo.GetAll().Where(s=>s.CourseId==id));
+            }
+            else
+            {
+                return RedirectToAction("Home");
+            }
+            
+        }
 
 
     }

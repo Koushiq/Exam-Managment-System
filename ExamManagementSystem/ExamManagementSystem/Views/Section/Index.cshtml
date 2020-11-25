@@ -10,6 +10,11 @@
     <title>Index</title>
 </head>
 <body>
+    @if(Session["nosection"]!=null)
+    {
+        <script>alert("Section name can't be empty of null !");</script>
+        Session["nosection"] = null;
+    }
     <p>
         @Html.ActionLink("Create New", "Create")
     </p>
@@ -39,10 +44,10 @@
                 @Html.DisplayNameFor(model => model.DeletedAt)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Admin.UserId)
+                @Html.DisplayNameFor(model => model.CreatedBy)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Admin1.UserId)
+                @Html.DisplayNameFor(model => model.DeletedBy)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Cours.CourseName)
@@ -66,10 +71,10 @@
                     @Html.DisplayFor(modelItem => item.DeletedAt)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Admin.UserId)
+                    @Html.DisplayFor(modelItem => item.Admin.User.Username)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Admin1.UserId)
+                    @Html.DisplayFor(modelItem => item.Admin1.User.Username)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Cours.CourseName)
@@ -78,7 +83,6 @@
                     @Html.DisplayFor(modelItem => item.Teacher.Faculty)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                     @Html.ActionLink("Details", "Details", new { id = item.Id }) |
                     @Html.ActionLink("Delete", "Delete", new { id = item.Id })
                 </td>

@@ -28,19 +28,37 @@ namespace ExamManagementSystem.Controllers
             {
                 return RedirectToAction("Login", "User");
             }
-            
-           
         }
+       
         [HttpGet]
         public ActionResult Edit(int id)
         {
+            if((string)Session["userType"]!="admin")
+            {
+                return RedirectToAction("Login", "User");
+            }
             return View(teacherRepo.Get(id));
         }
+
         [HttpPost]
         public ActionResult Edit(Teacher teacher)
         {
+            if ((string)Session["userType"] != "admin")
+            {
+                return RedirectToAction("Login", "User");
+            }
             teacherRepo.Update(teacher);
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Home()
+        {
+            if ((string)Session["userType"] != "teacher")
+            {
+                return RedirectToAction("Login", "User");
+            }
+            int id = (int) Session["userId"]; 
+            return View(teacherRepo.Get(id));
         }
     }
 }

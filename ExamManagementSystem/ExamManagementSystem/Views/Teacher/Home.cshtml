@@ -1,0 +1,40 @@
+﻿@model ExamManagementSystem.Models.DataAccess.Teacher
+
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Home</title>
+</head>
+<body>
+    <div>
+        <h4>Teacher</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Faculty)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Faculty)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.User.Username)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.User.Username)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+       
+        @Html.ActionLink("Back ", "Index")
+    </p>
+</body>
+</html>
